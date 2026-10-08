@@ -1,4 +1,11 @@
-"""Generowanie statycznych stron HTML."""
+"""Generowanie statycznych stron HTML.
+
+Struktura w każdym języku:
+  index.html            przegląd: kupony, najmocniejsze typy, mecze wg lig
+  league-<KOD>.html     liga: mecze dziś/jutro, tabela, trafność w lidze
+  match-<id>.html       analiza meczu (forma, H2H, statystyki, wyniki, kursy...)
+  results.html, archive-<rrrr-mm>.html, about/advertise/responsible.html
+"""
 
 from html import escape
 
@@ -7,19 +14,34 @@ from .texts import MARKETS, META, UI, num, pct
 PAGES = ("index", "results", "about", "advertise", "responsible")
 
 
-def layout(cfg, lang, page, title, body, updated, demo):
+def _file(page):
+    return "index.html" if page == "index" else f"{page}.html"
+
+
+# ------------------------------------------------------------------ layout
+
+def layout(cfg, lang, page, title, body, updated, demo, leagues=None, active=None):
     t = UI[lang]
     base = cfg["base_url"].rstrip("/")
     alt = "\n".join(f'<link rel="alternate" hreflang="{l}" href="{base}/{l}/{_file(page)}">' for l in cfg["languages"])
     nav = "".join(
         f'<a href="{_file(p)}"{" aria-current=page" if p == page else ""}>{escape(t[k])}</a>'
-        for p, k in (("index", "coupons"), ("results", "results"), ("about", "about"), ("advertise", "advertise")))
+        for p, k in (("index", "coupons"), ("results", "results"), ("about", "method_title"), ("advertise", "advertise")))
     options = "".join(
         f'<option value="../{l}/{_file(page)}" data-lang="{l}"{" selected" if l == lang else ""}>'
         f'{escape(META[l]["name"])}</option>' for l in cfg["languages"])
-    langs = (f'<label class="langs"><span class="sr">{escape(t["language"])}</span>'
-             f'<select id="lang-select" aria-label="{escape(t["language"])}">{options}</select></label>')
     banner = f'<div class="demo">{escape(t["demo"])}</div>' if demo else ""
+    side = ""
+    if leagues:
+        items = "".join(
+            f'<a href="league-{code}.html"{" aria-current=page" if code == active else ""}>'
+            f'<span class="lg-code">{escape(code)}</span><span class="lg-name">{escape(lg["name"])}</span>'
+            f'<span class="lg-count">{lg.get("count") or ""}</span></a>'
+            for code, lg in leagues.items())
+        side = f"""<aside class="sidebar" aria-label="{escape(t["leagues"])}">
+<p class="side-title">{escape(t["leagues"])}</p>
+<a href="index.html"{" aria-current=page" if page == "index" else ""}><span class="lg-code">★</span><span class="lg-name">{escape(t["overview"])}</span><span class="lg-count"></span></a>
+{items}</aside>"""
     return f"""<!doctype html>
 <html lang="{lang}" dir="{META[lang]["dir"]}">
 <head>
@@ -35,29 +57,35 @@ def layout(cfg, lang, page, title, body, updated, demo):
 </head>
 <body>
 {banner}
-<header class="top">
-  <a class="brand" href="index.html">{escape(cfg["site_name"])}<span>{escape(t["tagline"])}</span></a>
-  {langs}
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="index.html"><span class="mark">B</span>{escape(cfg["site_name"])}</a>
+    <nav class="mainnav">{nav}</nav>
+    <label class="langs"><span class="sr">{escape(t["language"])}</span>
+      <select id="lang-select" aria-label="{escape(t["language"])}">{options}</select></label>
+  </div>
 </header>
-<nav class="main">{nav}</nav>
+<div class="shell{' has-side' if side else ''}">
+{side}
 <main>
 {body}
 </main>
+</div>
 <footer>
+  <div class="foot-in">
   <p class="disclaimer"><strong>18+</strong> {escape(t["disclaimer"])}</p>
   <p>{escape(t["help_text"])} <a href="{t["help_url"]}" rel="noopener" target="_blank">{escape(t["help_name"])}</a> ·
-     <a href="responsible.html">{escape(t["responsible"])}</a></p>
+     <a href="responsible.html">{escape(t["responsible"])}</a> · <a href="about.html">{escape(t["about"])}</a></p>
   <p class="muted">{escape(t["data_credit"])}</p>
   <p class="muted">{escape(t["updated"])}: <time data-utc="{updated}">{updated}</time> · {escape(t["next_update"])}</p>
+  </div>
 </footer>
 </body>
 </html>
 """
 
 
-def _file(page):
-    return "index.html" if page == "index" else f"{page}.html"
-
+# ----------------------------------------------------------------- pieces
 
 def ad_slot(cfg, lang, slot):
     t = UI[lang]
@@ -66,111 +94,324 @@ def ad_slot(cfg, lang, slot):
             return (f'<aside class="ad"><span class="ad-label">{escape(t["ad_label"])} · 18+</span>'
                     f'<a href="{escape(ad["url"])}" rel="sponsored nofollow noopener" target="_blank">'
                     f'<img src="{escape(ad["image"])}" alt="{escape(ad.get("alt", ""))}" loading="lazy"></a></aside>')
-    return (f'<aside class="ad placeholder"><a href="advertise.html">{escape(t["ad_placeholder"])}</a></aside>')
+    return f'<aside class="ad placeholder"><a href="advertise.html">{escape(t["ad_placeholder"])}</a></aside>'
 
 
 def _form(form):
     return "".join(f'<i class="f{c}">{c}</i>' for c in form)
 
 
-def _pick_line(lang, market, p):
-    m = MARKETS[lang]
-    return (f'<span class="market">{escape(m[market])}</span>'
-            f'<span class="prob">{pct(p)}</span><span class="odds">@{num(1 / p, "en")}</span>')
-
-
-def coupon_card(lang, key, coupon):
-    t = UI[lang]
-    legs = "".join(
-        f'<li><span class="teams">{escape(leg["home"])} - {escape(leg["away"])}</span>'
-        f'<time data-utc="{leg["utc"]}" data-fmt="time"></time>{_pick_line(lang, leg["market"], leg["p"])}'
-        f'{_status_badge(leg.get("result"))}</li>'
-        for leg in coupon["legs"])
-    return f"""<article class="coupon {key}">
-<h3>{escape(t["coupon_" + key])}</h3>
-<ol>{legs}</ol>
-<p class="total">{escape(t["probability"])}: <b>{pct(coupon["p"])}</b> · {escape(t["fair_odds"])}: <b>{num(coupon["fair_odds"], "en")}</b>
-{_status_badge(coupon.get("result"))}</p>
-</article>"""
-
-
-def _status_badge(result):
+def _badge(result):
     if not result:
         return ""
     sym = {"won": "✔", "lost": "✘", "void": "–"}[result]
     return f'<span class="badge {result}">{sym}</span>'
 
 
-def match_card(lang, m):
+def _odds(p):
+    return num(1 / p, "en") if p > 0 else "-"
+
+
+def _pick_line(lang, market, p):
+    return (f'<span class="market">{escape(MARKETS[lang][market])}</span>'
+            f'<span class="prob">{pct(p)}</span><span class="odds">@{_odds(p)}</span>')
+
+
+def _pbar(probs):
+    return ('<div class="pbar" aria-hidden="true">'
+            f'<span class="p1" style="width:{probs["1"] * 100:.1f}%"></span>'
+            f'<span class="px" style="width:{probs["X"] * 100:.1f}%"></span>'
+            f'<span class="p2" style="width:{probs["2"] * 100:.1f}%"></span></div>')
+
+
+def _value_flag(m):
+    return any(r["is_value"] for r in m.get("odds") or [])
+
+
+def coupon_card(lang, key, coupon):
     t = UI[lang]
-    pick = m["pick"]
-    score = ""
-    if m.get("home_goals") is not None and m["status"] in ("IN_PLAY", "PAUSED", "FINISHED"):
-        score = f'<span class="score">{m["home_goals"]}:{m["away_goals"]}</span>'
-    alts = ""
-    if m.get("alternatives"):
-        alts = (f'<p class="alts">{escape(t["alternatives"])}: ' + " · ".join(
-            f'{escape(MARKETS[lang][a["market"]])} {pct(a["p"])}' for a in m["alternatives"]) + "</p>")
-    meta = ""
-    if m.get("xg_home") is not None:
-        hs, as_ = m["likely_score"]
-        meta = (f'<p class="meta">{escape(t["xg"])}: {num(m["xg_home"], lang)} - {num(m["xg_away"], lang)} · '
-                f'{escape(t["likely_score"])}: {hs}:{as_}</p>')
-    form = ""
-    if m.get("home_form") or m.get("away_form"):
-        form = (f'<p class="form"><span>{escape(t["form"])}:</span> {_form(m.get("home_form", ""))}'
-                f' <span class="vs">|</span> {_form(m.get("away_form", ""))}</p>')
-    low = f'<p class="low">{escape(t["low_data"])}</p>' if m.get("low_data") else ""
-    news = _news_block(lang, m)
-    text = f'<p class="analysis">{escape(m["analysis"][lang])}</p>' if m.get("analysis") else ""
-    return f"""<article class="match" id="m{m["id"]}">
-<header><span class="comp">{escape(m["competition_name"])}</span><time data-utc="{m["utc"]}" data-fmt="time"></time></header>
-<h4>{escape(m["home"])} <span class="vs">vs</span> {escape(m["away"])} {score}</h4>
-<p class="pick">{escape(t["pick"])}: {_pick_line(lang, pick["market"], pick["p"])}{_status_badge(pick.get("result"))}</p>
-{alts}{meta}{form}{news}{text}{low}
+    legs = "".join(
+        f'<li><span class="teams">{escape(leg["home"])} – {escape(leg["away"])}</span>'
+        f'<span class="leg-meta"><time data-utc="{leg["utc"]}" data-fmt="time"></time>'
+        f'{_pick_line(lang, leg["market"], leg["p"])}{_badge(leg.get("result"))}</span></li>'
+        for leg in coupon["legs"])
+    return f"""<article class="coupon {key}">
+<header><h3>{escape(t["coupon_" + key])}</h3>{_badge(coupon.get("result"))}</header>
+<ol>{legs}</ol>
+<footer class="total"><span>{escape(t["probability"])} <b>{pct(coupon["p"])}</b></span>
+<span>{escape(t["fair_odds"])} <b>{num(coupon["fair_odds"], "en")}</b></span></footer>
 </article>"""
 
 
-def _news_block(lang, m):
+def match_row(lang, m):
+    """Wiersz tabeli meczów: godzina, mecz, 1/X/2 w %, przewidywany wynik, typ."""
     t = UI[lang]
-    rows = []
-    for side in ("home", "away"):
-        n = (m.get("news") or {}).get(side) or {}
-        parts = []
-        if n.get("out"):
-            parts.append(f'{escape(t["out"])}: {escape(", ".join(n["out"]))}')
-        if n.get("doubtful"):
-            parts.append(f'{escape(t["doubtful"])}: {escape(", ".join(n["doubtful"]))}')
-        if parts:
-            rows.append(f'<li><b>{escape(m[side])}</b> - {"; ".join(parts)}</li>')
-    lineups = (m.get("news") or {}).get("lineups")
-    if lineups:
-        rows.append(f'<li>{escape(t["lineups"])}: {escape(lineups[0])} / {escape(lineups[1])}</li>')
-    if not rows and not m.get("adjusted"):
-        return ""
-    flag = f'<p class="adjusted">{escape(t["adjusted"])}</p>' if m.get("adjusted") else ""
-    items = f'<ul>{"".join(rows)}</ul>' if rows else ""
-    return f'<div class="news"><p class="news-title">{escape(t["team_news"])}</p>{items}{flag}</div>'
+    pick = m["pick"]
+    has_pred = "prediction" in m
+    score = ""
+    if m.get("home_goals") is not None and m["status"] in ("IN_PLAY", "PAUSED", "FINISHED"):
+        score = f'<span class="live-score">{m["home_goals"]}:{m["away_goals"]}</span>'
+    if has_pred:
+        p = m["prediction"]["probs"]
+        best = max(("1", "X", "2"), key=lambda k: p[k])
+        cells = "".join(f'<span class="pc{" hi" if k == best else ""}">{round(p[k] * 100)}</span>' for k in ("1", "X", "2"))
+        hs, as_ = m["likely_score"]
+        exp = f'<span class="cs">{hs}:{as_}</span>'
+    else:
+        cells, exp = '<span class="pc">–</span>' * 3, '<span class="cs">–</span>'
+    teams = f'{escape(m["home"])} <span class="vs">–</span> {escape(m["away"])}'
+    link = f'<a class="mt" href="match-{m["id"]}.html">{teams}</a>' if has_pred else f'<span class="mt">{teams}</span>'
+    flags = ""
+    if m.get("adjusted"):
+        flags += f'<span class="chip news" title="{escape(t["adjusted"])}">i</span>'
+    if _value_flag(m):
+        flags += f'<span class="chip value">{escape(t["value_bet"])}</span>'
+    if m.get("low_data"):
+        flags += f'<span class="chip low" title="{escape(t["low_data"])}">?</span>'
+    return f"""<div class="row">
+<time class="ko" data-utc="{m["utc"]}" data-fmt="time"></time>
+<div class="teams-cell">{link}{score}{flags}</div>
+<div class="p3">{cells}</div>{exp}
+<div class="tip"><span class="market">{escape(MARKETS[lang][pick["market"]])}</span>
+<span class="prob">{pct(pick["p"])}</span>{_badge(pick.get("result"))}</div>
+</div>"""
 
 
-def index_page(cfg, lang, days, updated, demo):
+def match_table(lang, matches):
+    t = UI[lang]
+    head = (f'<div class="row head"><span>{escape(t["kickoff"])}</span><span>{escape(t["match"])}</span>'
+            f'<div class="p3"><span>1</span><span>X</span><span>2</span></div>'
+            f'<span class="cs">{escape(t["predicted_score"])}</span><span class="tip">{escape(t["pick"])}</span></div>')
+    return f'<div class="mtable">{head}{"".join(match_row(lang, m) for m in matches)}</div>'
+
+
+def _by_league(matches):
+    groups = {}
+    for m in matches:
+        groups.setdefault((m["competition"], m["competition_name"]), []).append(m)
+    return groups
+
+
+def _day_tabs(t):
+    return (f'<nav class="tabs"><a href="#today">{escape(t["today"])}</a>'
+            f'<a href="#tomorrow">{escape(t["tomorrow"])}</a></nav>')
+
+
+# ----------------------------------------------------------------- pages
+
+def index_page(cfg, lang, days, updated, demo, leagues=None):
     t = UI[lang]
     sections = []
     for i, day in enumerate(days):
         label = t["today"] if i == 0 else t["tomorrow"]
         coupons = "".join(coupon_card(lang, k, c) for k, c in day["coupons"].items())
-        matches = "".join(match_card(lang, m) for m in day["matches"]) or f'<p class="empty">{escape(t["no_matches"])}</p>'
+        candidates = [m for m in day["matches"] if "prediction" in m and not m.get("low_data")]
+        top = sorted(candidates, key=lambda m: m["pick"]["p"], reverse=True)[:6]
+        top_html = "".join(
+            f'<a class="top-pick" href="match-{m["id"]}.html"><span class="tp-comp">{escape(m["competition_name"])}</span>'
+            f'<span class="tp-teams">{escape(m["home"])} – {escape(m["away"])}</span>'
+            f'<span class="tp-pick">{escape(MARKETS[lang][m["pick"]["market"]])}</span>'
+            f'<span class="tp-p">{pct(m["pick"]["p"])}</span></a>' for m in top)
+        groups = "".join(
+            f'<section class="league-block"><h4><a href="league-{code}.html">{escape(name)}</a></h4>{match_table(lang, ms)}</section>'
+            for (code, name), ms in _by_league(day["matches"]).items())
         sections.append(f"""<section class="day" id="{'today' if i == 0 else 'tomorrow'}">
 <h2>{escape(label)} <small>{day["date"]}</small></h2>
 {f'<div class="coupons">{coupons}</div><p class="hint">{escape(t["fair_odds_hint"])}</p>' if coupons else ''}
+{f'<h3 class="sec">{escape(t["top_picks"])}</h3><div class="top-picks">{top_html}</div>' if top_html else ''}
 {ad_slot(cfg, lang, "day" + str(i))}
-<h3>{escape(t["all_matches"])}</h3>
-<div class="matches">{matches}</div>
+<h3 class="sec">{escape(t["all_matches"])}</h3>
+{groups or f'<p class="empty">{escape(t["no_matches"])}</p>'}
 </section>""")
-    tabs = (f'<nav class="tabs"><a href="#today">{escape(t["today"])}</a>'
-            f'<a href="#tomorrow">{escape(t["tomorrow"])}</a></nav>')
-    return layout(cfg, lang, "index", t["coupons"], tabs + "\n".join(sections), updated, demo)
+    return layout(cfg, lang, "index", t["coupons"], _day_tabs(t) + "\n".join(sections), updated, demo, leagues)
 
+
+def _standings(lang, table, highlight=()):
+    t = UI[lang]
+    if not table:
+        return ""
+    rows = "".join(
+        f'<tr{" class=hl" if r["id"] in highlight else ""}><td>{r["rank"]}</td><td class="tn">{escape(str(r["team"]))}</td>'
+        f'<td>{r["p"]}</td><td>{r["w"]}</td><td>{r["d"]}</td><td>{r["l"]}</td>'
+        f'<td>{r["gf"]}:{r["ga"]}</td><td><b>{r["pts"]}</b></td></tr>' for r in table)
+    return f"""<div class="table-wrap"><table class="standings">
+<thead><tr><th>{escape(t["pos"])}</th><th>{escape(t["team"])}</th><th>{escape(t["played"])}</th><th>{escape(t["w"])}</th>
+<th>{escape(t["d"])}</th><th>{escape(t["l"])}</th><th>{escape(t["goals"])}</th><th>{escape(t["pts"])}</th></tr></thead>
+<tbody>{rows}</tbody></table></div>"""
+
+
+def league_page(cfg, lang, code, league, days, record, updated, demo, leagues):
+    t = UI[lang]
+    parts = [f'<h1>{escape(league["name"])}</h1>']
+    if record and record["settled"]:
+        parts.append(f'<p class="league-rec">{escape(t["league_record"])}: <b>{pct(record["won"] / record["settled"])}</b> '
+                     f'({record["won"]}/{record["settled"]})</p>')
+    any_match = False
+    for i, day in enumerate(days):
+        ms = [m for m in day["matches"] if m["competition"] == code]
+        if ms:
+            any_match = True
+            parts.append(f'<h2>{escape(t["today"] if i == 0 else t["tomorrow"])} <small>{day["date"]}</small></h2>'
+                         + match_table(lang, ms))
+    if not any_match:
+        parts.append(f'<p class="empty">{escape(t["no_league_matches"])}</p>')
+    parts.append(ad_slot(cfg, lang, "league"))
+    if league.get("table"):
+        parts.append(f'<h2>{escape(t["standings"])}</h2>' + _standings(lang, league["table"]))
+    return layout(cfg, lang, f"league-{code}", league["name"], "\n".join(parts), updated, demo, leagues, code)
+
+
+def _recent_list(team_name, games):
+    if not games:
+        return ""
+    rows = "".join(
+        f'<li><time data-utc="{g["utc"]}" data-fmt="date"></time><span class="rl-teams">{escape(g["home"])} – {escape(g["away"])}</span>'
+        f'<b>{g["score"]}</b><i class="f{g["res"]}">{g["res"]}</i></li>' for g in games)
+    return f'<div class="recent"><h4>{escape(team_name)}</h4><ol>{rows}</ol></div>'
+
+
+def _stat_compare(label, hv, av, fmt):
+    total = (hv or 0) + (av or 0)
+    hw = 50 if not total else hv / total * 100
+    return (f'<div class="cmp"><span class="cv">{fmt(hv)}</span><span class="cl">{escape(label)}</span>'
+            f'<span class="cv r">{fmt(av)}</span><div class="cbar"><span class="ch" style="width:{hw:.0f}%"></span>'
+            f'<span class="ca" style="width:{100 - hw:.0f}%"></span></div></div>')
+
+
+def _absences(lang, side_data):
+    t = UI[lang]
+    items = (side_data or {}).get("absences", [])
+    if not items:
+        return f'<p class="muted">{escape(t["no_injuries"])}</p>'
+    return '<ul class="abs">' + "".join(
+        f'<li><span class="pos">{escape(a.get("position", ""))}</span><span class="pn">{escape(a["player"])}</span>'
+        f'{"<span class=key>★</span>" if a.get("importance") == "key" else ""}'
+        f'<span class="st {escape(a.get("status", ""))}">{escape(t["out"] if a.get("status") == "out" else t["doubtful"])}</span></li>'
+        for a in items) + "</ul>"
+
+
+def _book_link(lang, r, big=False):
+    t = UI[lang]
+    if r["url"] and (not r["book_langs"] or lang in r["book_langs"]):
+        return (f'<a class="bet{" big" if big else ""}" href="{escape(r["url"])}" rel="sponsored nofollow noopener" target="_blank">'
+                f'{escape(t["bet_now"].format(bookmaker=r["book_name"]))}</a>')
+    return escape(r["book_name"]) if r["book_name"] else ""
+
+
+def _odds_block(lang, m):
+    t = UI[lang]
+    rows = m.get("odds")
+    if not rows:
+        return f'<p class="muted">{escape(t["no_odds"])}</p>'
+    body = ""
+    for r in rows:
+        move = r["move"]
+        arrow = f'<span class="mv {"up" if move > 0 else "down"}">{"▲" if move > 0 else "▼"}</span>' if move else ""
+        value = f'{num(r["value"], lang)}' + (f' <span class="chip value">{escape(t["value_bet"])}</span>' if r["is_value"] else "")
+        body += (f'<tr><td><b>{r["outcome"]}</b></td><td>{num(r["open"], lang)}</td><td>{num(r["now"], lang)} {arrow}</td>'
+                 f'<td><b>{num(r["best"], lang)}</b></td><td>{value}</td><td>{_book_link(lang, r)}</td></tr>')
+    return f"""<div class="table-wrap"><table class="odds-t">
+<thead><tr><th></th><th>{escape(t["opening"])}</th><th>{escape(t["current"])}</th><th>{escape(t["best_odds"])}</th>
+<th>{escape(t["value_bet"])}</th><th>{escape(t["bookmaker"])}</th></tr></thead><tbody>{body}</tbody></table></div>
+<p class="hint">{escape(t["value_hint"])} <span class="ad-label">18+</span></p>"""
+
+
+def match_page(cfg, lang, m, updated, demo, leagues):
+    t = UI[lang]
+    pred = m["prediction"]
+    p = pred["probs"]
+    rh, ra = m.get("ranks") or (None, None)
+    pick = m["pick"]
+
+    cta = ""
+    for r in m.get("odds") or []:
+        if r["outcome"] == pick["market"]:
+            link = _book_link(lang, r, big=True) if r["url"] else ""
+            cta = (f'<div class="best"><span class="label">{escape(t["best_odds"])}</span><b>{num(r["best"], lang)}</b>'
+                   f'{" <span class=chip value>" + escape(t["value_bet"]) + "</span>" if r["is_value"] else ""}</div>{link}'
+                   + (f'<span class="ad-label">{escape(t["ad_label"])} · 18+</span>' if link else ""))
+
+    markets = "".join(
+        f'<tr><td>{escape(MARKETS[lang][k])}</td><td><b>{pct(p[k])}</b></td><td>{_odds(p[k])}</td></tr>'
+        for k in ("1", "X", "2", "1X", "X2", "12", "O15", "O25", "O35", "U25", "U35", "BTTS", "NOBTTS"))
+    scores = "".join(f'<div class="sc"><b>{x}:{y}</b><span>{pct(pp)}</span></div>' for x, y, pp in pred["top_scores"])
+
+    flags_html = ""
+    for side in ("home", "away"):
+        fl = (m.get("flags") or {}).get(side, [])
+        if fl:
+            flags_html += f'<p><b>{escape(m[side])}</b> ' + " ".join(
+                f'<span class="chip f-{f}">{escape(t["f_" + f])}</span>' for f in fl) + "</p>"
+
+    res = m.get("research") or {}
+    lineups = ""
+    if any((res.get(s) or {}).get("probable_lineup") for s in ("home", "away")):
+        cols = "".join(
+            f'<div><h4>{escape(m[s])}</h4><ol class="xi">'
+            + "".join(f"<li>{escape(n)}</li>" for n in (res.get(s) or {}).get("probable_lineup", [])) + "</ol></div>"
+            for s in ("home", "away"))
+        lineups = (f'<section class="card"><h3>{escape(t["probable_lineups"])}</h3><div class="two">{cols}</div>'
+                   f'<p class="hint">{escape(t["lineups_unconfirmed"])}</p></section>')
+
+    sh, sa = m.get("stats_home"), m.get("stats_away")
+    stats_html = ""
+    if sh and sa:
+        f1 = lambda v: num(v, lang)
+        stats_html = f"""<section class="card"><h3>{escape(t["season_stats"])}</h3>
+<div class="cmp-head"><span>{escape(m["home"])}</span><span>{escape(m["away"])}</span></div>
+{_stat_compare(t["model_xg"], pred["xg_home"], pred["xg_away"], f1)}
+{_stat_compare(t["goals_per_game"], sh["gf"], sa["gf"], f1)}
+{_stat_compare(t["conceded_per_game"], sh["ga"], sa["ga"], f1)}
+{_stat_compare(t["btts_rate"], sh["btts"], sa["btts"], pct)}
+{_stat_compare(t["over25_rate"], sh["over25"], sa["over25"], pct)}
+{_stat_compare(t["clean_sheets"], sh["clean"], sa["clean"], pct)}
+</section>"""
+
+    h2h_html = "".join(
+        f'<li><time data-utc="{g["utc"]}" data-fmt="date"></time><span class="rl-teams">{escape(g["home"])} – {escape(g["away"])}</span><b>{g["score"]}</b></li>'
+        for g in m.get("h2h") or []) or f'<li class="muted">{escape(t["no_h2h"])}</li>'
+
+    def hero_team(side, rank, elo):
+        return (f'<div class="hero-team"><span class="tn">{escape(m[side])}</span>'
+                f'<span class="meta">{f"#{rank} · " if rank else ""}Elo {elo}</span>'
+                f'<span class="form">{_form(m.get(side + "_form", ""))}</span></div>')
+
+    body = f"""<nav class="crumbs"><a href="index.html">{escape(t["overview"])}</a> › <a href="league-{m["competition"]}.html">{escape(m["competition_name"])}</a></nav>
+<section class="hero">
+  {hero_team("home", rh, pred["elo_home"])}
+  <div class="hero-mid"><time data-utc="{m["utc"]}"></time>
+    <div class="hero-xg"><b>{num(pred["xg_home"], lang)}</b><small>{escape(t["model_xg"])}</small><b>{num(pred["xg_away"], lang)}</b></div>
+    {_pbar(p)}
+    <div class="p3 big"><span>1 <b>{pct(p["1"])}</b></span><span>X <b>{pct(p["X"])}</b></span><span>2 <b>{pct(p["2"])}</b></span></div></div>
+  {hero_team("away", ra, pred["elo_away"])}
+</section>
+<section class="pick-card">
+  <div class="pc-main"><span class="label">{escape(t["pick"])}</span><span class="pick-main">{escape(MARKETS[lang][pick["market"]])}</span>
+  <span><span class="prob">{pct(pick["p"])}</span> <span class="odds">{escape(t["fair_odds"])} {_odds(pick["p"])}</span></span></div>
+  <div class="cta">{cta}</div>
+</section>
+{f'<section class="card"><h3>{escape(t["key_factors"])}</h3>{flags_html}<p class="hint">{escape(t["ai_note"])}</p></section>' if flags_html else ''}
+<section class="card"><h3>{escape(t["analysis_title"])}</h3><p class="analysis">{escape(m["analysis"][lang])}</p></section>
+<div class="grid2">
+<section class="card"><h3>{escape(t["markets_title"])}</h3><div class="table-wrap"><table class="mk">
+<thead><tr><th></th><th>{escape(t["probability"])}</th><th>{escape(t["fair_odds"])}</th></tr></thead><tbody>{markets}</tbody></table></div></section>
+<section class="card"><h3>{escape(t["score_probs"])}</h3><div class="scores">{scores}</div></section>
+</div>
+<section class="card"><h3>{escape(t["odds_title"])} · {escape(t["odds_movement"])}</h3>{_odds_block(lang, m)}</section>
+{ad_slot(cfg, lang, "match")}
+{stats_html}
+<section class="card"><h3>{escape(t["last_matches"])}</h3><div class="two">
+{_recent_list(m["home"], m.get("recent_home"))}{_recent_list(m["away"], m.get("recent_away"))}</div></section>
+<section class="card"><h3>{escape(t["h2h"])}</h3><ol class="h2h">{h2h_html}</ol></section>
+<section class="card"><h3>{escape(t["injuries_title"])}</h3><div class="two">
+<div><h4>{escape(m["home"])}</h4>{_absences(lang, res.get("home"))}</div>
+<div><h4>{escape(m["away"])}</h4>{_absences(lang, res.get("away"))}</div></div></section>
+{lineups}"""
+    title = f'{m["home"]} – {m["away"]}: {t["match_analysis"]}'
+    return layout(cfg, lang, f"match-{m['id']}", title, body, updated, demo, leagues, m["competition"])
+
+
+# ---------------------------------------------------------- track record
 
 def _rate(s):
     return pct(s["won"] / s["settled"]) if s["settled"] else "-"
@@ -184,12 +425,12 @@ def _stat_box(t, label, s):
 def _day_details(lang, day, open_=False):
     t = UI[lang]
     rows = "".join(
-        f'<tr><td>{escape(r["home"])} - {escape(r["away"])}</td>'
+        f'<tr><td>{escape(r["home"])} – {escape(r["away"])}</td>'
         f'<td>{escape(MARKETS[lang][r["market"]])} ({pct(r["p"])})</td><td>{r.get("score") or ""}</td>'
-        f'<td>{_status_badge(r.get("result")) or escape(t["pending"])}</td></tr>' for r in day["picks"])
+        f'<td>{_badge(r.get("result")) or escape(t["pending"])}</td></tr>' for r in day["picks"])
     coupons = "".join(
         f'<li>{escape(t["coupon_" + k])}: {pct(c["p"])} · @{num(c["fair_odds"], "en")} '
-        f'{_status_badge(c.get("result")) or escape(t["pending"])}</li>'
+        f'{_badge(c.get("result")) or escape(t["pending"])}</li>'
         for k, c in day["coupons"].items())
     summary = (f'{day["date"]} · {escape(t["hit_rate"])}: <b>{_rate(day)}</b> '
                f'({day["won"]}/{day["settled"]}, {len(day["picks"])} {escape(t["picks_count"])})')
@@ -207,11 +448,11 @@ def _archive_links(lang, months, current=None):
     return f'<h2>{escape(t["archive"])}</h2><p class="archive">{links}</p>' if links else ""
 
 
-def results_page(cfg, lang, summary, updated, demo):
+def results_page(cfg, lang, summary, updated, demo, leagues=None):
     t = UI[lang]
     if not summary["recent_days"]:
         body = f'<h1>{escape(t["results_title"])}</h1><p class="empty">{escape(t["no_history"])}</p>'
-        return layout(cfg, lang, "results", t["results"], body, updated, demo)
+        return layout(cfg, lang, "results", t["results"], body, updated, demo, leagues)
 
     coupons = "".join(_stat_box(t, t["coupon_" + k], s) for k, s in summary["coupons"].items())
     markets = "".join(
@@ -229,27 +470,31 @@ def results_page(cfg, lang, summary, updated, demo):
 <h2>{escape(t["history_by_day"])}</h2>
 {days}
 {_archive_links(lang, summary["months"])}"""
-    return layout(cfg, lang, "results", t["results"], body, updated, demo)
+    return layout(cfg, lang, "results", t["results"], body, updated, demo, leagues)
 
 
-def archive_page(cfg, lang, month, days, months, updated, demo):
+def archive_page(cfg, lang, month, days, months, updated, demo, leagues=None):
     t = UI[lang]
     total = {"won": sum(d["won"] for d in days), "settled": sum(d["settled"] for d in days)}
     body = f"""<h1>{escape(t["archive"])} {month}</h1>
 <div class="stats">{_stat_box(t, month, total)}</div>
 {"".join(_day_details(lang, d) for d in days)}
 {_archive_links(lang, months, month)}"""
-    return layout(cfg, lang, f"archive-{month}", f'{t["archive"]} {month}', body, updated, demo)
+    return layout(cfg, lang, f"archive-{month}", f'{t["archive"]} {month}', body, updated, demo, leagues)
 
 
-def static_page(cfg, lang, page, updated, demo):
+def static_page(cfg, lang, page, updated, demo, leagues=None):
     t = UI[lang]
-    title = t[page]
-    body = f"<h1>{escape(title)}</h1>{t[page + '_html']}"
+    title = t["method_title"] if page == "about" else t[page]
+    body = f"<h1>{escape(title)}</h1>"
+    if page == "about":
+        body += t["method_html"] + f"<p>{escape(t['ai_note'])}</p><h2>{escape(t['about'])}</h2>" + t["about_html"]
+    else:
+        body += t[page + "_html"]
     if page == "advertise":
         email = escape(cfg["contact_email"])
         body += f'<p>{escape(t["contact"])}: <a href="mailto:{email}">{email}</a></p>'
-    return layout(cfg, lang, page, title, f'<div class="prose">{body}</div>', updated, demo)
+    return layout(cfg, lang, page, title, f'<div class="prose">{body}</div>', updated, demo, leagues)
 
 
 def root_redirect(cfg):

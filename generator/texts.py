@@ -40,7 +40,7 @@ def num(x, lang):
     return s.replace(".", ",") if META.get(lang, {}).get("decimal") == "," else s
 
 
-def analysis(lang, match, pred, home_info, away_info, news=None):
+def analysis(lang, match, pred, home_info, away_info, news=None, extra=None):
     t = ANALYSIS[lang]
     home, away = match["home"], match["away"]
     probs = pred["probs"]
@@ -62,7 +62,32 @@ def analysis(lang, match, pred, home_info, away_info, news=None):
             elif losses >= 3:
                 out.append(t["form_bad"].format(team=team, form=info["form"]))
 
+    extra = extra or {}
+    ranks = extra.get("ranks") or (None, None)
+    if all(ranks):
+        out.append(t["table"].format(home=home, away=away, rh=ranks[0], ra=ranks[1]))
+    if extra.get("elo"):
+        out.append(t["elo"].format(home=home, away=away, eh=extra["elo"][0], ea=extra["elo"][1]))
+    research = match.get("research")
     for team, side in ((home, "home"), (away, "away")):
+        r = (research or {}).get(side) or {}
+        out_players = [a["player"] for a in r.get("absences", []) if a.get("status") == "out"]
+        if out_players:
+            out.append(t["injuries"].format(team=team, n=len(out_players), names=", ".join(out_players[:4])))
+        flags = (extra.get("flags") or {}).get(side, [])
+        if "motivation_up" in flags:
+            out.append(t["motivation_high"].format(team=team))
+        if "motivation_down" in flags:
+            out.append(t["motivation_low"].format(team=team))
+        if "rotation" in flags:
+            out.append(t["rotation"].format(team=team))
+        if "coach" in flags:
+            out.append(t["news_coach"].format(team=team))
+        if side in (extra.get("fatigue") or {}):
+            out.append(t["fatigue"].format(team=team, d=extra["fatigue"][side]))
+    for team, side in ((home, "home"), (away, "away")):
+        if research:
+            break  # research zastępuje słabsze źródła (RSS / API-Football)
         n = (news or {}).get(side) or {}
         if n.get("out"):
             out.append(t["injuries"].format(team=team, n=len(n["out"]), names=", ".join(n["out"][:4])))

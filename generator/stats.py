@@ -47,6 +47,8 @@ def summarize(history, today):
         "d30": _agg([r for r in picks if r["date"] >= since(30)]),
         "d7": _agg([r for r in picks if r["date"] >= since(7)]),
         "markets": {m: _agg(rows) for m, rows in sorted(by_market.items())},
+        "by_comp": {c: _agg([r for r in picks if r.get("competition") == c])
+                    for c in {r.get("competition") for r in picks if r.get("competition")}},
         "coupons": {k: _agg(v) for k, v in coupons.items()},
         "recent_days": day_list[:14],
         "months": months,

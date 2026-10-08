@@ -92,6 +92,19 @@ def fetch_by_ids(token, ids):
     return out
 
 
+def fetch_h2h(token, match_ids, cache, limit, log=print):
+    """Bezpośrednie mecze (także z poprzednich sezonów) - raz na mecz, wynik w cache."""
+    client = Client(token)
+    for mid in [i for i in match_ids if str(i) not in cache][:limit]:
+        try:
+            data = client.get(f"/matches/{mid}/head2head", {"limit": 10})
+        except Exception as e:
+            log(f"[h2h] {mid}: {e}")
+            continue
+        cache[str(mid)] = [_match(m) for m in data.get("matches", []) if m.get("homeTeam", {}).get("id")]
+    return cache
+
+
 # --------------------------------------------------------------------------
 # Tryb DEMO - deterministyczne dane syntetyczne do podglądu i testów.
 
