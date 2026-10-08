@@ -66,11 +66,14 @@ class LeagueModel:
         defence = (t["gc"] + SHRINK_GOALS) / (t["exp_c"] + SHRINK_GOALS)
         return attack, defence, t["games"]
 
-    def predict(self, home_id, away_id):
+    def predict(self, home_id, away_id, adjust=(1.0, 1.0, 1.0, 1.0)):
+        """adjust: mnożniki (atak, obrona) gospodarzy i gości z wiadomości o drużynach;
+        obrona > 1 oznacza więcej traconych goli."""
         ah, dh, gh = self.strength(home_id)
         aa, da, ga = self.strength(away_id)
-        lh = self.avg_home * ah * da
-        la = self.avg_away * aa * dh
+        att_h, def_h, att_a, def_a = adjust
+        lh = self.avg_home * ah * att_h * da * def_a
+        la = self.avg_away * aa * att_a * dh * def_h
         probs = markets(score_matrix(lh, la))
         return {"xg_home": lh, "xg_away": la, "games": min(gh, ga), "probs": probs}
 

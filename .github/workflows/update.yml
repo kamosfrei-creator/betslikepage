@@ -50,6 +50,7 @@ jobs:
         if: steps.gate.outputs.run == 'true'
         env:
           FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python -m generator.build
 
       - name: Zapis historii typów

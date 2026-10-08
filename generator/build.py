@@ -13,14 +13,13 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 from . import coupons as cp
-from . import fetch, render
+from . import fetch, news, render, stats
 from .model import LeagueModel
-from .texts import UI, analysis
+from .texts import LANGS, analysis
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NOT_STARTED = ("SCHEDULED", "TIMED")
 VOID = ("POSTPONED", "CANCELLED", "SUSPENDED", "AWARDED")
-HISTORY_DAYS = 180
 
 
 def load_json(path, default):
@@ -41,8 +40,9 @@ def local_date(utc, tz):
     return datetime.strptime(utc, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc).astimezone(tz).date()
 
 
-def predict_match(m, model, cfg):
-    pred = model.predict(m["home_id"], m["away_id"])
+def predict_match(m, model, cfg, team_news):
+    *factors, adjusted = news.adjustments(team_news)
+    pred = model.predict(m["home_id"], m["away_id"], tuple(factors))
     probs = pred["probs"]
     pick = cp.main_pick(probs)
     home_info, away_info = model.team_info(m["home_id"]), model.team_info(m["away_id"])
@@ -55,7 +55,9 @@ def predict_match(m, model, cfg):
         "home_form": home_info["form"] if home_info else "",
         "away_form": away_info["form"] if away_info else "",
         "low_data": pred["games"] < cfg["min_team_games"],
-        "analysis": {lang: analysis(lang, m, pred, home_info, away_info) for lang in cfg["languages"]},
+        "news": team_news or {},
+        "adjusted": adjusted,
+        "analysis": {lang: analysis(lang, m, pred, home_info, away_info, team_news) for lang in cfg["languages"]},
     })
 
 
@@ -86,17 +88,21 @@ def settle_history(history, window):
                 coupon["result"] = "won"
 
 
-def build(demo=False):
+def build(demo=False, now=None):
     cfg = load_json(os.path.join(ROOT, "config.json"), {})
+    missing = [l for l in cfg["languages"] if l not in LANGS]
+    if missing:
+        print(f"Brak tłumaczeń dla: {', '.join(missing)} - pomijam")
+    cfg["languages"] = [l for l in cfg["languages"] if l in LANGS]
     tz = ZoneInfo(cfg["timezone"])
-    now = datetime.now(timezone.utc)
+    now = now or datetime.now(timezone.utc)
     today = now.astimezone(tz).date()
     days = [today, today + timedelta(days=1)]
 
     token = os.environ.get("FOOTBALL_DATA_TOKEN", "").strip()
     demo = demo or not token
     if demo:
-        window, seasons = fetch.fetch_demo(today)
+        window, seasons = fetch.fetch_demo(today, now)
     else:
         window, seasons = fetch.fetch_live(token, cfg["competitions"], today)
 
@@ -104,10 +110,23 @@ def build(demo=False):
     history = load_json(hist_path, {"picks": {}, "coupons": {}})
     history.setdefault("coupons", {})
 
-    settle_history(history, window)
+    # Typy starsze niż okno pobierania (np. po przerwie w aktualizacjach) dociągamy po id.
+    extra = []
+    oldest = (today - timedelta(days=3)).isoformat()
+    stale = [int(k) for k, v in history["picks"].items() if not v.get("result") and v["date"] < oldest]
+    if stale and not demo:
+        window_ids = {m["id"] for m in window}
+        extra = [m for m in fetch.fetch_by_ids(token, stale[:200]) if m["id"] not in window_ids]
+    settle_history(history, window + extra)
     now_s = now.strftime("%Y-%m-%dT%H:%M:%SZ")
     naive_now = now.replace(tzinfo=None)
     models = {code: LeagueModel(matches, naive_now) for code, matches in seasons.items()}
+
+    # Status w API bywa opóźniony, więc "nierozpoczęty" = status i godzina w przyszłości.
+    for m in window:
+        m["open"] = m["status"] in NOT_STARTED and m["utc"] > now_s
+    upcoming = [m for m in window if m["open"] and local_date(m["utc"], tz) in days]
+    team_news = news.collect(cfg, upcoming, days, now, os.environ.get("API_FOOTBALL_KEY", "").strip(), demo)
 
     out_days = []
     for d in days:
@@ -116,14 +135,15 @@ def build(demo=False):
         shown = []
         for m in day_matches:
             key = str(m["id"])
-            if m["status"] in NOT_STARTED and m["competition"] in models:
-                predict_match(m, models[m["competition"]], cfg)
+            if m["open"] and m["competition"] in models:
+                predict_match(m, models[m["competition"]], cfg, team_news.get(m["id"]))
                 # Typ zamrażamy dopiero w momencie rozpoczęcia meczu - do tego czasu
                 # każda aktualizacja nadpisuje go świeższą wersją.
                 history["picks"][key] = {
                     "date": ds, "utc": m["utc"], "competition": m["competition"],
                     "home": m["home"], "away": m["away"],
                     "market": m["pick"]["market"], "p": round(m["pick"]["p"], 4), "result": None,
+                    "adjusted": m["adjusted"],
                 }
                 shown.append(m)
             elif key in history["picks"]:
@@ -132,7 +152,7 @@ def build(demo=False):
                 shown.append(m)
 
         stored = history["coupons"].get(ds, {})
-        fresh = cp.build_coupons([m for m in shown if m["status"] in NOT_STARTED and not m.get("low_data")])
+        fresh = cp.build_coupons([m for m in shown if m["open"] and not m.get("low_data")])
         day_coupons = {}
         for key in ("safe", "standard", "bold"):
             old = stored.get(key)
@@ -151,25 +171,11 @@ def build(demo=False):
             history["coupons"][ds] = day_coupons
         out_days.append({"date": ds, "matches": shown, "coupons": day_coupons})
 
-    cutoff = (today - timedelta(days=HISTORY_DAYS)).isoformat()
-    history["picks"] = {k: v for k, v in history["picks"].items() if v["date"] >= cutoff}
-    history["coupons"] = {k: v for k, v in history["coupons"].items() if k >= cutoff}
+    # Historia jest trzymana w całości - jest podstawą publicznej skuteczności.
     write(hist_path, json.dumps(history, ensure_ascii=False, indent=1, sort_keys=True))
 
     render_site(cfg, out_days, history, today, now, demo)
     return out_days
-
-
-def stats_of(history, today):
-    settled = [r for r in history["picks"].values() if r.get("result") in ("won", "lost")]
-    recent_from = (today - timedelta(days=30)).isoformat()
-
-    def agg(rows):
-        return {"settled": len(rows), "won": sum(r["result"] == "won" for r in rows)}
-
-    rows = sorted((r for r in history["picks"].values() if r.get("result")),
-                  key=lambda r: r["utc"], reverse=True)[:200]
-    return {"all": agg(settled), "recent": agg([r for r in settled if r["date"] >= recent_from])}, rows
 
 
 def render_site(cfg, out_days, history, today, now, demo):
@@ -177,19 +183,23 @@ def render_site(cfg, out_days, history, today, now, demo):
     shutil.rmtree(out, ignore_errors=True)
     shutil.copytree(os.path.join(ROOT, "static"), os.path.join(out, "assets"))
     updated = now.strftime("%Y-%m-%dT%H:%M:%SZ")
-    stats, rows = stats_of(history, today)
+    summary = stats.summarize(history, today)
 
     for lang in cfg["languages"]:
         d = os.path.join(out, lang)
         write(os.path.join(d, "index.html"), render.index_page(cfg, lang, out_days, updated, demo))
-        write(os.path.join(d, "results.html"), render.results_page(cfg, lang, stats, rows, updated, demo))
+        write(os.path.join(d, "results.html"), render.results_page(cfg, lang, summary, updated, demo))
+        for month, month_days in summary["months"].items():
+            write(os.path.join(d, f"archive-{month}.html"),
+                  render.archive_page(cfg, lang, month, month_days, summary["months"], updated, demo))
         for page in ("about", "advertise", "responsible"):
             write(os.path.join(d, f"{page}.html"), render.static_page(cfg, lang, page, updated, demo))
 
     write(os.path.join(out, "index.html"), render.root_redirect(cfg))
     base = cfg["base_url"].rstrip("/")
-    urls = "".join(f"<url><loc>{base}/{l}/{render._file(p)}</loc><lastmod>{today.isoformat()}</lastmod></url>"
-                   for l in cfg["languages"] for p in render.PAGES)
+    pages = [render._file(p) for p in render.PAGES] + [f"archive-{m}.html" for m in summary["months"]]
+    urls = "".join(f"<url><loc>{base}/{l}/{p}</loc><lastmod>{today.isoformat()}</lastmod></url>"
+                   for l in cfg["languages"] for p in pages)
     write(os.path.join(out, "sitemap.xml"),
           f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>')
     write(os.path.join(out, "robots.txt"), f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")
@@ -199,8 +209,10 @@ def render_site(cfg, out_days, history, today, now, demo):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--demo", action="store_true", help="dane syntetyczne zamiast API")
+    ap.add_argument("--now", help="symulowany czas UTC, np. 2026-10-01T06:00:00 (testy)")
     args = ap.parse_args()
-    days = build(demo=args.demo)
+    now = datetime.fromisoformat(args.now).replace(tzinfo=timezone.utc) if args.now else None
+    days = build(demo=args.demo, now=now)
     for d in days:
         print(f'{d["date"]}: {len(d["matches"])} meczów, kupony: {", ".join(d["coupons"]) or "brak"}')
 

@@ -15,13 +15,52 @@ zużycia tokenów i za darmo**.
    świeższych meczów.
 3. `generator/coupons.py` wybiera typ dla każdego meczu i składa 3 kupony
    (bezpieczny, standard, odważny) z prawdopodobieństwem i kursem fair.
-4. `generator/texts.py` składa analizy z szablonów w 4 językach (PL, EN, DE, ES).
-5. `generator/build.py` rozlicza wcześniejsze typy (publiczna historia
-   skuteczności w `data/history.json`) i generuje stronę do `_site/`.
+4. `generator/news.py` zbiera wiadomości o drużynach grających dziś i jutro
+   i koryguje nimi model (szczegóły niżej).
+5. `generator/texts.py` składa analizy z szablonów w ~40 językach (`i18n/*.json`).
+6. `generator/build.py` przy każdej aktualizacji automatycznie rozlicza
+   wcześniejsze typy i kupony, zapisuje je w `data/history.json` (cała historia,
+   bez kasowania) i generuje stronę do `_site/`. `generator/stats.py` liczy
+   skuteczność: 7 dni / 30 dni / od początku, osobno kupony, osobno każdy rodzaj
+   typu, historię dzień po dniu i archiwum miesięczne.
+
+Typ meczu jest aktualizowany przy każdej aktualizacji aż do rozpoczęcia meczu,
+a potem zamrażany - rozliczany jest dokładnie ten typ, który był na stronie
+przed gwizdkiem.
+
+## Kontuzje, składy i newsy
+
+| Źródło | Co daje | Koszt |
+|---|---|---|
+| API-Football (`API_FOOTBALL_KEY`) | listy zawodników, którzy nie zagrają / są niepewni, potwierdzone składy (ok. 1 h przed meczem) | darmowy plan 100 zapytań/dzień - sprawdź, czy obejmuje bieżący sezon; jeśli nie, plan płatny od ok. 19 USD/mies. |
+| Kanały RSS portali (`news_feeds` w `config.json`) | sygnały z nagłówków: kontuzja/zawieszenie, powrót do gry, zmiana trenera | darmowe |
+
+Jak to wpływa na typy: każdy nieobecny zawodnik obniża oczekiwane gole
+drużyny o 1,5% i zwiększa straty o 1,2% (niepewny liczy się w 40%), łącznie
+maksymalnie 10%. Gdy nie ma twardych danych, sygnał „problemy kadrowe" z
+nagłówków daje -3%. Korekty są celowo ostrożne: listy kontuzji obejmują też
+zawodników, których brak od dawna widać już w wynikach, a bez danych o
+znaczeniu zawodnika (gwiazda czy rezerwowy) większa korekta częściej szkodzi
+niż pomaga. Historia skuteczności pokaże, czy warto je zwiększyć - parametry
+są na górze `generator/news.py`.
+
+Nagłówki RSS są analizowane słowami kluczowymi (EN, PL, DE, ES, PT, IT, FR,
+NL). Na stronie nie publikujemy żadnego cudzego tekstu - tylko nasze wnioski
+w naszych słowach. Przed dodaniem kanału sprawdź jego regulamin (niektóre
+portale zastrzegają użycie RSS do celów niekomercyjnych).
+
+## Języki
+
+~40 języków: wszystkie języki urzędowe UE, norweski, islandzki, ukraiński,
+rosyjski, turecki, serbski, bośniacki, macedoński, albański, kataloński oraz
+chiński, hindi, arabski, bengalski, urdu, indonezyjski i japoński (arabski
+i urdu z układem od prawej do lewej). Lista w `config.json` -> `languages`.
 
 Język wybierany jest automatycznie z ustawień przeglądarki odwiedzającego
 (dokładniejsze niż IP i nie wymaga przetwarzania danych osobowych), można go
-zmienić ręcznie - wybór jest zapamiętywany.
+zmienić ręcznie z listy - wybór jest zapamiętywany. Tłumaczenia zostały
+przygotowane maszynowo - przed promocją strony w danym kraju warto dać je do
+przejrzenia native speakerowi.
 
 ## Uruchomienie
 
@@ -29,6 +68,7 @@ zmienić ręcznie - wybór jest zapamiętywany.
 
 ```bash
 python -m generator.build --demo     # dane syntetyczne
+python -m generator.build --demo --now 2026-10-01T06:00:00   # symulacja innego dnia
 FOOTBALL_DATA_TOKEN=xxx python -m generator.build
 python -m http.server -d _site 8000  # podgląd: http://localhost:8000
 python -m unittest discover -s tests -t .
@@ -40,7 +80,8 @@ Wymaga tylko Pythona 3.9+, bez dodatkowych bibliotek.
 
 1. Zarejestruj się na <https://www.football-data.org/client/register> i skopiuj klucz API.
 2. W repozytorium: **Settings → Secrets and variables → Actions → New repository secret**,
-   nazwa `FOOTBALL_DATA_TOKEN`.
+   nazwa `FOOTBALL_DATA_TOKEN`. Opcjonalnie drugi sekret `API_FOOTBALL_KEY`
+   (klucz z <https://www.api-football.com/>) - kontuzje i składy.
 3. **Settings → Pages → Source: GitHub Actions**. (Pages w prywatnym repo wymaga
    płatnego planu GitHub - repo publiczne działa za darmo.)
 4. Zmerguj kod do `main` lub uruchom workflow ręcznie (**Actions → Aktualizacja typów → Run workflow**).
@@ -88,6 +129,7 @@ Linki dostają automatycznie `rel="sponsored nofollow"` i oznaczenie "Reklama ·
 ```
 config.json              ustawienia (ligi, języki, godziny, reklamy)
 generator/               kod generatora
+i18n/                    tłumaczenia (jeden plik JSON na język)
 static/                  CSS, JS, favicon
 data/history.json        historia typów (aktualizowana przez workflow)
 .github/workflows/       automatyczne aktualizacje i publikacja

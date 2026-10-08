@@ -2,6 +2,7 @@ import unittest
 from datetime import datetime
 
 from generator import coupons as cp
+from generator import news
 from generator.model import LeagueModel, markets, score_matrix
 
 
@@ -41,6 +42,48 @@ class CouponTest(unittest.TestCase):
         for c in coupons.values():
             ids = [leg["match"]["id"] for leg in c["legs"]]
             self.assertEqual(len(ids), len(set(ids)))
+
+
+class NewsTest(unittest.TestCase):
+    def test_signals_need_team_and_keyword_in_same_sentence(self):
+        items = [news.norm("Arsenal striker ruled out for three weeks. Chelsea win again"),
+                 news.norm("Chelsea name new head coach after Sunday defeat")]
+        arsenal = news.headline_signals(items, news.team_aliases(["Arsenal FC", "Arsenal"]))
+        chelsea = news.headline_signals(items, news.team_aliases(["Chelsea FC", "Chelsea"]))
+        self.assertEqual(arsenal["absence"], 1)
+        self.assertEqual(chelsea["absence"], 0)
+        self.assertEqual(chelsea["coach"], 1)
+
+    def test_polish_keywords_without_diacritics(self):
+        items = [news.norm("Kontuzja lidera! Legia Warszawa bez kapitana w niedzielę")]
+        s = news.headline_signals(items, news.team_aliases(["Legia Warszawa"]))
+        self.assertEqual(s["absence"], 1)
+
+    def test_injuries_lower_expected_goals(self):
+        ah, dh, aa, da, adjusted = news.adjustments({"home": {"out": ["A", "B", "C"], "doubtful": []}})
+        self.assertTrue(adjusted)
+        self.assertLess(ah, 1)
+        self.assertGreater(dh, 1)
+        self.assertEqual((aa, da), (1, 1))
+        self.assertGreaterEqual(news.adjustments({"home": {"out": list("ABCDEFGHIJKLMNOPQRST")}})[0], 1 - news.CAP)
+
+    def test_no_news_no_adjustment(self):
+        self.assertFalse(news.adjustments(None)[-1])
+
+
+class TranslationsTest(unittest.TestCase):
+    def test_all_languages_have_same_keys_and_placeholders(self):
+        import json, os, re
+        d = os.path.join(os.path.dirname(os.path.dirname(__file__)), "i18n")
+        en = json.load(open(os.path.join(d, "en.json"), encoding="utf-8"))
+        ph = lambda v: sorted(re.findall(r"{\w+}", json.dumps(v, ensure_ascii=False)))
+        for name in os.listdir(d):
+            data = json.load(open(os.path.join(d, name), encoding="utf-8"))
+            for section in ("meta", "ui", "markets", "analysis"):
+                self.assertEqual(set(data[section]), set(en[section]), f"{name}:{section}")
+                for key, value in en[section].items():
+                    if section != "meta":
+                        self.assertEqual(ph(data[section][key]), ph(value), f"{name}:{section}.{key}")
 
 
 if __name__ == "__main__":

@@ -9,9 +9,12 @@
       : { dateStyle: "medium", timeStyle: "short" };
     el.textContent = d.toLocaleString(lang, opts);
   });
-  document.querySelectorAll("a[data-lang]").forEach(function (a) {
-    a.addEventListener("click", function () {
-      try { localStorage.setItem("lang", a.getAttribute("data-lang")); } catch (e) {}
+  var select = document.getElementById("lang-select");
+  if (select) {
+    select.addEventListener("change", function () {
+      var opt = select.options[select.selectedIndex];
+      try { localStorage.setItem("lang", opt.getAttribute("data-lang")); } catch (e) {}
+      location.href = opt.value;
     });
-  });
+  }
 })();
