@@ -2,118 +2,118 @@
  "coupons": {
   "2026-10-09": {
    "bold": {
-    "fair_odds": 13.25,
+    "fair_odds": 12.11,
     "legs": [
-     {
-      "away": "Espanyol",
-      "home": "Málaga",
-      "id": 564706,
-      "market": "U25",
-      "p": 0.6186,
-      "utc": "2026-10-09T19:00:00Z"
-     },
      {
       "away": "Coritiba",
       "home": "Fluminense",
       "id": 555024,
-      "market": "1",
-      "p": 0.6176,
-      "utc": "2026-10-09T00:30:00Z"
-     },
-     {
-      "away": "Gil Vicente",
-      "home": "Moreirense",
-      "id": 567327,
-      "market": "U25",
-      "p": 0.5918,
-      "utc": "2026-10-09T17:45:00Z"
-     },
-     {
-      "away": "QPR",
-      "home": "West Ham",
-      "id": 561862,
       "market": "O25",
-      "p": 0.5895,
-      "utc": "2026-10-09T19:00:00Z"
-     },
-     {
-      "away": "Bahia",
-      "home": "Palmeiras",
-      "id": 555026,
-      "market": "1",
-      "p": 0.5665,
+      "p": 0.618,
       "utc": "2026-10-09T00:30:00Z"
-     }
-    ],
-    "p": 0.0755
-   },
-   "safe": {
-    "fair_odds": 1.88,
-    "legs": [
-     {
-      "away": "QPR",
-      "home": "West Ham",
-      "id": 561862,
-      "market": "O15",
-      "p": 0.8172,
-      "utc": "2026-10-09T19:00:00Z"
      },
      {
       "away": "Espanyol",
       "home": "Málaga",
       "id": 564706,
-      "market": "U35",
-      "p": 0.8164,
-      "utc": "2026-10-09T19:00:00Z"
-     },
-     {
-      "away": "Gil Vicente",
-      "home": "Moreirense",
-      "id": 567327,
-      "market": "U35",
-      "p": 0.796,
-      "utc": "2026-10-09T17:45:00Z"
-     }
-    ],
-    "p": 0.5311
-   },
-   "standard": {
-    "fair_odds": 3.46,
-    "legs": [
-     {
-      "away": "Mineiro",
-      "home": "Paranaense",
-      "id": 555020,
       "market": "O15",
-      "p": 0.7477,
-      "utc": "2026-10-08T23:00:00Z"
+      "p": 0.6152,
+      "utc": "2026-10-09T19:00:00Z"
      },
      {
       "away": "Sporting CP",
       "home": "Braga",
       "id": 567326,
-      "market": "U35",
-      "p": 0.7397,
+      "market": "NOBTTS",
+      "p": 0.606,
       "utc": "2026-10-09T19:15:00Z"
      },
+     {
+      "away": "Bremen",
+      "home": "Dortmund",
+      "id": 565820,
+      "market": "O25",
+      "p": 0.5996,
+      "utc": "2026-10-09T18:30:00Z"
+     },
+     {
+      "away": "Olympique Lyon",
+      "home": "RC Lens",
+      "id": 559669,
+      "market": "U25",
+      "p": 0.5979,
+      "utc": "2026-10-09T18:45:00Z"
+     }
+    ],
+    "p": 0.0826
+   },
+   "safe": {
+    "fair_odds": 1.94,
+    "legs": [
      {
       "away": "Bahia",
       "home": "Palmeiras",
       "id": 555026,
-      "market": "O15",
-      "p": 0.7245,
+      "market": "1X",
+      "p": 0.8039,
       "utc": "2026-10-09T00:30:00Z"
      },
      {
       "away": "Flamengo",
       "home": "Santos",
       "id": 555028,
-      "market": "X2",
-      "p": 0.722,
+      "market": "O15",
+      "p": 0.8019,
       "utc": "2026-10-08T22:30:00Z"
+     },
+     {
+      "away": "Olympique Lyon",
+      "home": "RC Lens",
+      "id": 559669,
+      "market": "U35",
+      "p": 0.8008,
+      "utc": "2026-10-09T18:45:00Z"
      }
     ],
-    "p": 0.2893
+    "p": 0.5162
+   },
+   "standard": {
+    "fair_odds": 3.5,
+    "legs": [
+     {
+      "away": "Heerenveen",
+      "home": "PSV",
+      "id": 558881,
+      "market": "BTTS",
+      "p": 0.7454,
+      "utc": "2026-10-09T18:00:00Z"
+     },
+     {
+      "away": "Gil Vicente",
+      "home": "Moreirense",
+      "id": 567327,
+      "market": "U35",
+      "p": 0.7448,
+      "utc": "2026-10-09T17:45:00Z"
+     },
+     {
+      "away": "Bahia",
+      "home": "Palmeiras",
+      "id": 555026,
+      "market": "O15",
+      "p": 0.7414,
+      "utc": "2026-10-09T00:30:00Z"
+     },
+     {
+      "away": "Sporting CP",
+      "home": "Braga",
+      "id": 567326,
+      "market": "U25",
+      "p": 0.6934,
+      "utc": "2026-10-09T19:15:00Z"
+     }
+    ],
+    "p": 0.2854
    }
   }
  },
@@ -124,8 +124,8 @@
    "competition": "BSA",
    "date": "2026-10-09",
    "home": "Paranaense",
-   "market": "O15",
-   "p": 0.7477,
+   "market": "U35",
+   "p": 0.7958,
    "result": null,
    "utc": "2026-10-08T23:00:00Z"
   },
@@ -136,7 +136,7 @@
    "date": "2026-10-09",
    "home": "Fluminense",
    "market": "O25",
-   "p": 0.664,
+   "p": 0.618,
    "result": null,
    "utc": "2026-10-09T00:30:00Z"
   },
@@ -146,8 +146,8 @@
    "competition": "BSA",
    "date": "2026-10-09",
    "home": "Palmeiras",
-   "market": "U35",
-   "p": 0.7547,
+   "market": "1X",
+   "p": 0.8039,
    "result": null,
    "utc": "2026-10-09T00:30:00Z"
   },
@@ -158,7 +158,7 @@
    "date": "2026-10-09",
    "home": "Santos",
    "market": "O15",
-   "p": 0.7732,
+   "p": 0.8019,
    "result": null,
    "utc": "2026-10-08T22:30:00Z"
   },
@@ -168,8 +168,8 @@
    "competition": "DED",
    "date": "2026-10-09",
    "home": "PSV",
-   "market": "BTTS",
-   "p": 0.6945,
+   "market": "O25",
+   "p": 0.7645,
    "result": null,
    "utc": "2026-10-09T18:00:00Z"
   },
@@ -179,8 +179,8 @@
    "competition": "FL1",
    "date": "2026-10-09",
    "home": "RC Lens",
-   "market": "X2",
-   "p": 0.7893,
+   "market": "U35",
+   "p": 0.8008,
    "result": null,
    "utc": "2026-10-09T18:45:00Z"
   },
@@ -191,7 +191,7 @@
    "date": "2026-10-09",
    "home": "West Ham",
    "market": "O15",
-   "p": 0.8172,
+   "p": 0.7968,
    "result": null,
    "utc": "2026-10-09T19:00:00Z"
   },
@@ -201,8 +201,8 @@
    "competition": "PD",
    "date": "2026-10-09",
    "home": "Málaga",
-   "market": "U35",
-   "p": 0.8164,
+   "market": "X2",
+   "p": 0.7632,
    "result": null,
    "utc": "2026-10-09T19:00:00Z"
   },
@@ -213,7 +213,7 @@
    "date": "2026-10-09",
    "home": "Dortmund",
    "market": "1",
-   "p": 0.7686,
+   "p": 0.7571,
    "result": null,
    "utc": "2026-10-09T18:30:00Z"
   },
@@ -223,8 +223,8 @@
    "competition": "PPL",
    "date": "2026-10-09",
    "home": "Braga",
-   "market": "X2",
-   "p": 0.7635,
+   "market": "U25",
+   "p": 0.6934,
    "result": null,
    "utc": "2026-10-09T19:15:00Z"
   },
@@ -235,7 +235,7 @@
    "date": "2026-10-09",
    "home": "Moreirense",
    "market": "U35",
-   "p": 0.796,
+   "p": 0.7448,
    "result": null,
    "utc": "2026-10-09T17:45:00Z"
   }
