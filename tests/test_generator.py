@@ -118,6 +118,14 @@ class OddsTest(unittest.TestCase):
         self.assertFalse(rows[1]["is_value"])
 
 
+class TeamStatsTest(unittest.TestCase):
+    def test_h2h_from_api_matches_is_formatted(self):
+        from generator import teamstats
+        raw = [{"id": 1, "utc": "2025-03-01T18:00:00Z", "status": "FINISHED", "home": "A", "away": "B",
+                "home_id": 1, "away_id": 2, "home_goals": 2, "away_goals": 1}]
+        self.assertEqual(teamstats.h2h(2, 1, raw)[0]["score"], "2:1")
+
+
 class TranslationsTest(unittest.TestCase):
     def test_all_languages_have_same_keys_and_placeholders(self):
         import json, os, re

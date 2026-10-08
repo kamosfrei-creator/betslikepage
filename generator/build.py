@@ -80,7 +80,9 @@ def predict_match(m, model, cfg, ctx):
     home_info, away_info = model.team_info(m["home_id"]), model.team_info(m["away_id"])
     ranks = (model.rank(m["home_id"]), model.rank(m["away_id"]))
     lm = ctx["league_matches"]
-    h2h = ctx.get("h2h") or teamstats.h2h(m["home_id"], m["away_id"], lm)
+    # H2H: mecze z API (także poprzednie sezony) + bieżący sezon, bez duplikatów.
+    pool = {g["id"]: g for g in (ctx.get("h2h") or []) + lm}
+    h2h = teamstats.h2h(m["home_id"], m["away_id"], list(pool.values()))
     extra = {"flags": flags, "fatigue": fatigue, "ranks": ranks, "elo": (pred["elo_home"], pred["elo_away"])}
     m["research"] = rec
     m.update({
@@ -308,7 +310,12 @@ def render_site(cfg, out_days, history, today, now, demo, leagues):
             page(f"league-{code}.html", render.league_page(cfg, lang, code, lg, out_days,
                                                            summary["by_comp"].get(code), updated, demo, menu))
         for m in match_pages:
-            page(f"match-{m['id']}.html", render.match_page(cfg, lang, m, updated, demo, menu))
+            try:
+                html = render.match_page(cfg, lang, m, updated, demo, menu)
+            except Exception as e:  # jeden wadliwy mecz nie może zatrzymać całej strony
+                print(f"[render] mecz {m['id']} ({lang}): {e!r}")
+                continue
+            page(f"match-{m['id']}.html", html)
 
     write(os.path.join(out, "index.html"), render.root_redirect(cfg))
     base = cfg["base_url"].rstrip("/")
