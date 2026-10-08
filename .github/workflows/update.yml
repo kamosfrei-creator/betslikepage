@@ -21,9 +21,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+    outputs:
+      run: ${{ steps.gate.outputs.run }}
     steps:
       - uses: actions/checkout@v5
 
@@ -76,6 +75,14 @@ jobs:
         with:
           path: _site
 
+  # Publikacja w osobnym zadaniu - tak zaleca GitHub; artefakt jest wtedy na pewno gotowy.
+  deploy:
+    needs: build
+    if: needs.build.outputs.run == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
       - id: deploy
-        if: steps.gate.outputs.run == 'true'
         uses: actions/deploy-pages@v4
