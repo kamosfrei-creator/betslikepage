@@ -1,1 +1,243 @@
-{"picks": {}}
+{
+ "coupons": {
+  "2026-10-09": {
+   "bold": {
+    "fair_odds": 13.25,
+    "legs": [
+     {
+      "away": "Espanyol",
+      "home": "Málaga",
+      "id": 564706,
+      "market": "U25",
+      "p": 0.6187,
+      "utc": "2026-10-09T19:00:00Z"
+     },
+     {
+      "away": "Coritiba",
+      "home": "Fluminense",
+      "id": 555024,
+      "market": "1",
+      "p": 0.6176,
+      "utc": "2026-10-09T00:30:00Z"
+     },
+     {
+      "away": "Gil Vicente",
+      "home": "Moreirense",
+      "id": 567327,
+      "market": "U25",
+      "p": 0.5918,
+      "utc": "2026-10-09T17:45:00Z"
+     },
+     {
+      "away": "QPR",
+      "home": "West Ham",
+      "id": 561862,
+      "market": "O25",
+      "p": 0.5895,
+      "utc": "2026-10-09T19:00:00Z"
+     },
+     {
+      "away": "Bahia",
+      "home": "Palmeiras",
+      "id": 555026,
+      "market": "1",
+      "p": 0.5665,
+      "utc": "2026-10-09T00:30:00Z"
+     }
+    ],
+    "p": 0.0755
+   },
+   "safe": {
+    "fair_odds": 1.88,
+    "legs": [
+     {
+      "away": "QPR",
+      "home": "West Ham",
+      "id": 561862,
+      "market": "O15",
+      "p": 0.8172,
+      "utc": "2026-10-09T19:00:00Z"
+     },
+     {
+      "away": "Espanyol",
+      "home": "Málaga",
+      "id": 564706,
+      "market": "U35",
+      "p": 0.8164,
+      "utc": "2026-10-09T19:00:00Z"
+     },
+     {
+      "away": "Gil Vicente",
+      "home": "Moreirense",
+      "id": 567327,
+      "market": "U35",
+      "p": 0.7961,
+      "utc": "2026-10-09T17:45:00Z"
+     }
+    ],
+    "p": 0.5311
+   },
+   "standard": {
+    "fair_odds": 3.46,
+    "legs": [
+     {
+      "away": "Mineiro",
+      "home": "Paranaense",
+      "id": 555020,
+      "market": "O15",
+      "p": 0.7477,
+      "utc": "2026-10-08T23:00:00Z"
+     },
+     {
+      "away": "Sporting CP",
+      "home": "Braga",
+      "id": 567326,
+      "market": "U35",
+      "p": 0.7397,
+      "utc": "2026-10-09T19:15:00Z"
+     },
+     {
+      "away": "Bahia",
+      "home": "Palmeiras",
+      "id": 555026,
+      "market": "O15",
+      "p": 0.7245,
+      "utc": "2026-10-09T00:30:00Z"
+     },
+     {
+      "away": "Flamengo",
+      "home": "Santos",
+      "id": 555028,
+      "market": "X2",
+      "p": 0.722,
+      "utc": "2026-10-08T22:30:00Z"
+     }
+    ],
+    "p": 0.2893
+   }
+  }
+ },
+ "picks": {
+  "555020": {
+   "adjusted": false,
+   "away": "Mineiro",
+   "competition": "BSA",
+   "date": "2026-10-09",
+   "home": "Paranaense",
+   "market": "O15",
+   "p": 0.7477,
+   "result": null,
+   "utc": "2026-10-08T23:00:00Z"
+  },
+  "555024": {
+   "adjusted": false,
+   "away": "Coritiba",
+   "competition": "BSA",
+   "date": "2026-10-09",
+   "home": "Fluminense",
+   "market": "O25",
+   "p": 0.664,
+   "result": null,
+   "utc": "2026-10-09T00:30:00Z"
+  },
+  "555026": {
+   "adjusted": false,
+   "away": "Bahia",
+   "competition": "BSA",
+   "date": "2026-10-09",
+   "home": "Palmeiras",
+   "market": "U35",
+   "p": 0.7547,
+   "result": null,
+   "utc": "2026-10-09T00:30:00Z"
+  },
+  "555028": {
+   "adjusted": false,
+   "away": "Flamengo",
+   "competition": "BSA",
+   "date": "2026-10-09",
+   "home": "Santos",
+   "market": "O15",
+   "p": 0.7732,
+   "result": null,
+   "utc": "2026-10-08T22:30:00Z"
+  },
+  "558881": {
+   "adjusted": true,
+   "away": "Heerenveen",
+   "competition": "DED",
+   "date": "2026-10-09",
+   "home": "PSV",
+   "market": "BTTS",
+   "p": 0.6945,
+   "result": null,
+   "utc": "2026-10-09T18:00:00Z"
+  },
+  "559669": {
+   "adjusted": false,
+   "away": "Olympique Lyon",
+   "competition": "FL1",
+   "date": "2026-10-09",
+   "home": "RC Lens",
+   "market": "X2",
+   "p": 0.7893,
+   "result": null,
+   "utc": "2026-10-09T18:45:00Z"
+  },
+  "561862": {
+   "adjusted": false,
+   "away": "QPR",
+   "competition": "ELC",
+   "date": "2026-10-09",
+   "home": "West Ham",
+   "market": "O15",
+   "p": 0.8172,
+   "result": null,
+   "utc": "2026-10-09T19:00:00Z"
+  },
+  "564706": {
+   "adjusted": false,
+   "away": "Espanyol",
+   "competition": "PD",
+   "date": "2026-10-09",
+   "home": "Málaga",
+   "market": "U35",
+   "p": 0.8164,
+   "result": null,
+   "utc": "2026-10-09T19:00:00Z"
+  },
+  "565820": {
+   "adjusted": false,
+   "away": "Bremen",
+   "competition": "BL1",
+   "date": "2026-10-09",
+   "home": "Dortmund",
+   "market": "1",
+   "p": 0.7686,
+   "result": null,
+   "utc": "2026-10-09T18:30:00Z"
+  },
+  "567326": {
+   "adjusted": false,
+   "away": "Sporting CP",
+   "competition": "PPL",
+   "date": "2026-10-09",
+   "home": "Braga",
+   "market": "X2",
+   "p": 0.7635,
+   "result": null,
+   "utc": "2026-10-09T19:15:00Z"
+  },
+  "567327": {
+   "adjusted": false,
+   "away": "Gil Vicente",
+   "competition": "PPL",
+   "date": "2026-10-09",
+   "home": "Moreirense",
+   "market": "U35",
+   "p": 0.7961,
+   "result": null,
+   "utc": "2026-10-09T17:45:00Z"
+  }
+ }
+}
