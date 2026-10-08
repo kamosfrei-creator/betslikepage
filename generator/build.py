@@ -88,8 +88,10 @@ def settle_history(history, window):
                 coupon["result"] = "won"
 
 
-def build(demo=False, now=None):
+def build(demo=False, now=None, langs=None):
     cfg = load_json(os.path.join(ROOT, "config.json"), {})
+    if langs:
+        cfg["languages"] = [l for l in cfg["languages"] if l in langs]
     missing = [l for l in cfg["languages"] if l not in LANGS]
     if missing:
         print(f"Brak tłumaczeń dla: {', '.join(missing)} - pomijam")
@@ -209,10 +211,11 @@ def render_site(cfg, out_days, history, today, now, demo):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--demo", action="store_true", help="dane syntetyczne zamiast API")
+    ap.add_argument("--langs", help="tylko wybrane języki, np. pl,en (szybki podgląd)")
     ap.add_argument("--now", help="symulowany czas UTC, np. 2026-10-01T06:00:00 (testy)")
     args = ap.parse_args()
     now = datetime.fromisoformat(args.now).replace(tzinfo=timezone.utc) if args.now else None
-    days = build(demo=args.demo, now=now)
+    days = build(demo=args.demo, now=now, langs=args.langs.split(",") if args.langs else None)
     for d in days:
         print(f'{d["date"]}: {len(d["matches"])} meczów, kupony: {", ".join(d["coupons"]) or "brak"}')
 

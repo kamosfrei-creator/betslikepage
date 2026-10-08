@@ -69,6 +69,7 @@ przejrzenia native speakerowi.
 ```bash
 python -m generator.build --demo     # dane syntetyczne
 python -m generator.build --demo --now 2026-10-01T06:00:00   # symulacja innego dnia
+python -m generator.build --demo --langs pl,en   # tylko wybrane języki (szybciej)
 FOOTBALL_DATA_TOKEN=xxx python -m generator.build
 python -m http.server -d _site 8000  # podgląd: http://localhost:8000
 python -m unittest discover -s tests -t .
