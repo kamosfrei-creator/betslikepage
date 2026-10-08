@@ -41,6 +41,10 @@ jobs:
           print("run=" + ("true" if hour in cfg["update_hours"] else "false"))
           PY
 
+      - name: Instalacja zależności
+        if: steps.gate.outputs.run == 'true'
+        run: pip install -q -r requirements.txt
+
       - name: Testy
         if: steps.gate.outputs.run == 'true'
         run: python -m unittest discover -s tests -t .
@@ -50,6 +54,8 @@ jobs:
         env:
           FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python -m generator.build
 
       - name: Zapis historii typów
@@ -57,7 +63,7 @@ jobs:
         run: |
           git config user.name "betslike-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/history.json
+          git add data/history.json data/research.json data/odds.json data/h2h.json 2>/dev/null || git add data/history.json
           git diff --cached --quiet && exit 0
           git commit -m "Aktualizacja historii typów"
           # Gałąź mogła się w międzyczasie zmienić (nowy kod) - dociągamy ją i próbujemy ponownie.

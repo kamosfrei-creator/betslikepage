@@ -71,6 +71,53 @@ class NewsTest(unittest.TestCase):
         self.assertFalse(news.adjustments(None)[-1])
 
 
+class ResearchTest(unittest.TestCase):
+    def test_key_striker_out_lowers_attack(self):
+        from generator import research
+        team = {"absences": [{"player": "X", "position": "FWD", "importance": "key", "status": "out"}],
+                "motivation": 0, "rotation_risk": 0, "new_coach": False}
+        att, dfn, flags = research.team_factors(team, 1.0)
+        self.assertAlmostEqual(att, 0.93)
+        self.assertEqual(dfn, 1.0)
+        self.assertEqual(flags, ["absence"])
+
+    def test_research_call_parses_structured_output(self):
+        import json
+        from types import SimpleNamespace as NS
+        from generator import research
+        payload = {"matches": [{"id": 7, "confidence": 0.9,
+                                "home": {"absences": [], "probable_lineup": [], "motivation": 2, "rotation_risk": 0, "new_coach": False},
+                                "away": {"absences": [], "probable_lineup": [], "motivation": 0, "rotation_risk": 2, "new_coach": True}}]}
+        calls = []
+
+        def create(**kw):
+            calls.append(kw)
+            text = json.dumps(payload) if "format" in kw.get("output_config", {}) else "notes"
+            return NS(content=[NS(type="text", text=text)], stop_reason="end_turn",
+                      usage=NS(server_tool_use=NS(web_search_requests=2)))
+
+        client = NS(messages=NS(create=create))
+        match = {"id": 7, "home": "A", "away": "B", "home_id": 1, "away_id": 2, "utc": "2026-10-10T18:00:00Z"}
+        found, searches = research._research_league(client, research.DEFAULTS, "League", [match], {}, print)
+        self.assertEqual(searches, 2)
+        self.assertEqual(found[7]["home"]["motivation"], 2)
+        self.assertEqual(calls[0]["model"], "claude-haiku-5-5")
+        self.assertEqual(calls[0]["tools"][0]["type"], "web_search_20250305")
+
+
+class OddsTest(unittest.TestCase):
+    def test_value_and_allowed_bookmaker(self):
+        from generator import odds
+        snap = {"avg": {"1": 2.0, "X": 3.4, "2": 3.8},
+                "books": {"a": {"title": "A", "1": 2.2, "X": 3.3, "2": 3.6}, "b": {"title": "B", "1": 2.1, "X": 3.5, "2": 3.9}}}
+        rows = odds.view({"opening": snap, "current": snap}, {"1": 0.5, "X": 0.25, "2": 0.25},
+                         {"bookmakers": {"b": {"name": "Bookie B", "url": "https://example.com/aff"}}})
+        home = rows[0]
+        self.assertEqual((home["best"], home["book"]), (2.1, "b"))  # "a" nie jest na liście - pomijamy
+        self.assertTrue(home["is_value"])
+        self.assertFalse(rows[1]["is_value"])
+
+
 class TranslationsTest(unittest.TestCase):
     def test_all_languages_have_same_keys_and_placeholders(self):
         import json, os, re

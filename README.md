@@ -28,26 +28,76 @@ Typ meczu jest aktualizowany przy każdej aktualizacji aż do rozpoczęcia meczu
 a potem zamrażany - rozliczany jest dokładnie ten typ, który był na stronie
 przed gwizdkiem.
 
-## Kontuzje, składy i newsy
+## Strony
+
+- **Przegląd** (`index.html`): kupony dnia, najmocniejsze typy, tabele meczów
+  wg lig z prawdopodobieństwami 1/X/2, przewidywanym wynikiem i typem.
+- **Liga** (`league-<KOD>.html`): mecze dziś/jutro, tabela, trafność typów w lidze.
+- **Analiza meczu** (`match-<id>.html`): xG modelu, szanse 1X2, wszystkie rynki
+  (1X2, podwójna szansa, over/under, BTTS), prawdopodobieństwa dokładnych wyników,
+  kursy i ich ruch, value bet z linkiem do bukmachera (afiliacja), statystyki
+  sezonu (gole, stracone, BTTS, over 2,5, czyste konta), ostatnie 10 meczów,
+  H2H, kontuzje i zawieszenia, przewidywane składy, kluczowe czynniki i analiza.
+
+## Model - jakie czynniki bierzemy pod uwagę
+
+| Czynnik | Skąd | Koszt |
+|---|---|---|
+| Siła ataku i obrony, osobno u siebie i na wyjeździe, świeższe mecze ważniejsze | wyniki z football-data.org | darmowe |
+| Model Poissona z korektą Dixona-Colesa (rozkład wyników) | własny | darmowe |
+| Ranking Elo (30% udziału w 1X2) | własny, z wyników | darmowe |
+| Tabela ligowa, forma, H2H | football-data.org | darmowe |
+| Zmęczenie (mecz w ostatnich 3,5 dniach) | wyniki | darmowe |
+| Absencje wg pozycji i znaczenia zawodnika, motywacja, rotacja, zmiana trenera, przewidywane składy | **research AI** (Claude Haiku 5.5 + wyszukiwarka) | ok. $5-15/mies. |
+| Kursy, ruch kursów, value bet | The Odds API (opcjonalnie) | darmowy plan 500 zapytań/mies. wystarcza na 2 odczyty dziennie |
+
+Korekty z researchu (parametry w `generator/research.py`): kluczowy napastnik
+-7% oczekiwanych goli, kluczowy bramkarz +7% traconych, zawodnik podstawowy
+ok. 45% tego, rezerwowy 10%, niepewny 40%; maks. 20%. Motywacja ±3% ataku,
+ryzyko rotacji -3% ataku na poziom. Wszystko przemnożone przez pewność
+informacji (0,3-1). Historia skuteczności pokaże, czy parametry trzeba zmienić.
+
+**Research AI** robi jedno zapytanie na ligę (do 12 meczów) najwyżej raz na
+20 h: najpierw model szuka faktów w internecie (maks. 4 wyszukiwania), potem
+drugie, tanie zapytanie zamienia notatki na dane. Model ma ignorować typy i
+kursy innych serwisów. Na stronę trafiają tylko dane (nazwiska, pozycje), a
+teksty piszą nasze szablony. Szacunek kosztu: ~10 lig × 4 wyszukiwania × $0,01
+= ~$0,40 dziennie przy pełnym terminarzu, w praktyce mniej (wyszukiwanie
+$10/1000, tokeny Haiku $0,10/$0,50 za milion). Limit wydatków ustaw w
+Anthropic Console → Billing.
+
+Bez klucza `ANTHROPIC_API_KEY` strona działa dalej - korzysta wtedy z
+API-Football (`API_FOOTBALL_KEY`) i nagłówków RSS (`news_feeds`).
+
+## Kursy i afiliacja
+
+Kursy pobiera `generator/odds.py` z The Odds API (`ODDS_API_KEY`, rejestracja
+na the-odds-api.com) o godzinach z `config.json` → `odds.hours`.
+Nazwy bukmacherów i linki pokazujemy **tylko** dla bukmacherów wpisanych do
+`config.json` → `bookmakers` - wpisuj tam wyłącznie operatorów licencjonowanych
+na danym rynku, a `languages` ogranicz do krajów, gdzie mają licencję:
+
+```json
+"bookmakers": {
+  "betclic": {"name": "Betclic", "url": "https://twój-link-afiliacyjny", "languages": ["pl"]}
+}
+```
+
+Klucz (np. `betclic`) to identyfikator bukmachera w The Odds API. Bez wpisów
+strona pokazuje tylko średni kurs rynku, bez nazw i linków.
+
+## Społeczność (etap 2)
+
+Typy społeczności i ranking typerów wymagają kont użytkowników i bazy danych
+(np. Supabase), moderacji treści, weryfikacji wieku 18+ i polityki prywatności
+(RODO) - to osobny etap, strona statyczna tego nie obsłuży.
+
+## Kontuzje z innych źródeł (gdy nie ma klucza Anthropic)
 
 | Źródło | Co daje | Koszt |
 |---|---|---|
-| API-Football (`API_FOOTBALL_KEY`) | listy zawodników, którzy nie zagrają / są niepewni, potwierdzone składy (ok. 1 h przed meczem) | darmowy plan 100 zapytań/dzień - sprawdź, czy obejmuje bieżący sezon; jeśli nie, plan płatny od ok. 19 USD/mies. |
+| API-Football (`API_FOOTBALL_KEY`) | listy zawodników, którzy nie zagrają / są niepewni, potwierdzone składy (ok. 1 h przed meczem) | darmowy plan 100 zapytań/dzień |
 | Kanały RSS portali (`news_feeds` w `config.json`) | sygnały z nagłówków: kontuzja/zawieszenie, powrót do gry, zmiana trenera | darmowe |
-
-Jak to wpływa na typy: każdy nieobecny zawodnik obniża oczekiwane gole
-drużyny o 1,5% i zwiększa straty o 1,2% (niepewny liczy się w 40%), łącznie
-maksymalnie 10%. Gdy nie ma twardych danych, sygnał „problemy kadrowe" z
-nagłówków daje -3%. Korekty są celowo ostrożne: listy kontuzji obejmują też
-zawodników, których brak od dawna widać już w wynikach, a bez danych o
-znaczeniu zawodnika (gwiazda czy rezerwowy) większa korekta częściej szkodzi
-niż pomaga. Historia skuteczności pokaże, czy warto je zwiększyć - parametry
-są na górze `generator/news.py`.
-
-Nagłówki RSS są analizowane słowami kluczowymi (EN, PL, DE, ES, PT, IT, FR,
-NL). Na stronie nie publikujemy żadnego cudzego tekstu - tylko nasze wnioski
-w naszych słowach. Przed dodaniem kanału sprawdź jego regulamin (niektóre
-portale zastrzegają użycie RSS do celów niekomercyjnych).
 
 ## Języki
 
@@ -83,6 +133,8 @@ Wymaga tylko Pythona 3.9+, bez dodatkowych bibliotek.
 2. W repozytorium: **Settings → Secrets and variables → Actions → New repository secret**,
    nazwa `FOOTBALL_DATA_TOKEN`. Opcjonalnie drugi sekret `API_FOOTBALL_KEY`
    (klucz z <https://www.api-football.com/>) - kontuzje i składy.
+   Do researchu AI: `ANTHROPIC_API_KEY` (console.anthropic.com → API Keys).
+   Do kursów: `ODDS_API_KEY` (the-odds-api.com).
 3. **Settings → Pages → Source: GitHub Actions**. (Pages w prywatnym repo wymaga
    płatnego planu GitHub - repo publiczne działa za darmo.)
 4. Zmerguj kod do `main` lub uruchom workflow ręcznie (**Actions → Aktualizacja typów → Run workflow**).

@@ -1,5 +1,6 @@
-_site/
-__pycache__/
 *.pyc
 .cache/
+__pycache__/
+_site/
+data/demo-*.json
 data/demo-history.json

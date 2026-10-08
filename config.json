@@ -72,5 +72,21 @@
     "https://www.theguardian.com/football/rss",
     "https://www.skysports.com/rss/12040"
   ],
-  "api_football_budget": 12
+  "api_football_budget": 12,
+  "research": {
+    "enabled": true,
+    "model": "claude-haiku-5-5",
+    "max_searches_per_league": 4,
+    "refresh_hours": 20,
+    "max_leagues_per_run": 12,
+    "max_matches_per_call": 12
+  },
+  "odds": {
+    "hours": [
+      8,
+      16
+    ]
+  },
+  "h2h_per_run": 20,
+  "bookmakers": {}
 }
