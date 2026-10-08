@@ -1,0 +1,71 @@
+:root {
+  --bg: #f5f7fa; --card: #ffffff; --text: #17202a; --muted: #5d6b7a; --line: #e2e8f0;
+  --accent: #0b8457; --accent-2: #e8f6ef; --won: #0b8457; --lost: #c0392b; --warn: #b9770e;
+  --safe: #0b8457; --standard: #1f6feb; --bold: #d35400;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0f141a; --card: #18212b; --text: #e6edf3; --muted: #93a1b0; --line: #2a3644;
+          --accent: #3fb984; --accent-2: #1b3a2d; --won: #3fb984; --lost: #ff6b5b; --warn: #f0b429; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+       font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+a { color: var(--accent); }
+main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+.demo { background: var(--warn); color: #000; text-align: center; padding: 6px 16px; font-weight: 600; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+       max-width: 1100px; margin: 0 auto; padding: 16px; }
+.brand { font-size: 1.6rem; font-weight: 800; text-decoration: none; color: var(--text); }
+.brand span { display: block; font-size: .85rem; font-weight: 400; color: var(--muted); }
+.langs a { margin-left: 8px; text-decoration: none; color: var(--muted); font-weight: 600; }
+.langs a[aria-current] { color: var(--accent); }
+nav.main { display: flex; gap: 4px; overflow-x: auto; max-width: 1100px; margin: 0 auto; padding: 0 16px;
+           border-bottom: 1px solid var(--line); }
+nav.main a { padding: 10px 14px; text-decoration: none; color: var(--muted); white-space: nowrap; }
+nav.main a[aria-current] { color: var(--text); border-bottom: 3px solid var(--accent); font-weight: 600; }
+.tabs { display: flex; gap: 8px; margin: 8px 0 16px; }
+.tabs a { padding: 6px 16px; border-radius: 999px; background: var(--accent-2); text-decoration: none; font-weight: 600; }
+h2 small { color: var(--muted); font-weight: 400; font-size: .9rem; }
+.coupons { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.coupon, .match, .stat, .prose, .ad { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.coupon { border-top: 4px solid var(--standard); }
+.coupon.safe { border-top-color: var(--safe); }
+.coupon.bold { border-top-color: var(--bold); }
+.coupon h3 { margin: 0 0 8px; }
+.coupon ol { padding-left: 20px; margin: 0; }
+.coupon li { padding: 6px 0; border-bottom: 1px dashed var(--line); }
+.coupon .teams { display: block; font-weight: 600; }
+.coupon time { color: var(--muted); font-size: .85rem; margin-right: 8px; }
+.total { margin: 12px 0 0; }
+.hint { color: var(--muted); font-size: .85rem; }
+.market { margin-right: 8px; }
+.prob { font-weight: 700; margin-right: 6px; }
+.odds { color: var(--muted); }
+.matches { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+.match header { display: flex; justify-content: space-between; color: var(--muted); font-size: .85rem; }
+.match h4 { margin: 6px 0; font-size: 1.1rem; }
+.vs { color: var(--muted); font-weight: 400; }
+.score { float: right; font-weight: 800; }
+.pick { background: var(--accent-2); padding: 6px 10px; border-radius: 8px; margin: 8px 0; }
+.alts, .meta, .form { font-size: .9rem; color: var(--muted); margin: 4px 0; }
+.analysis { margin: 8px 0 0; }
+.low { color: var(--warn); font-size: .85rem; margin: 6px 0 0; }
+.form i { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; border-radius: 4px;
+          font-style: normal; font-size: .7rem; font-weight: 700; color: #fff; margin-right: 2px; }
+.fW { background: var(--won); } .fD { background: #7f8c8d; } .fL { background: var(--lost); }
+.badge { margin-left: 8px; font-weight: 800; }
+.badge.won { color: var(--won); } .badge.lost { color: var(--lost); } .badge.void { color: var(--muted); }
+.ad { margin: 16px 0; text-align: center; }
+.ad.placeholder { border-style: dashed; background: transparent; }
+.ad img { max-width: 100%; height: auto; }
+.ad-label { display: block; font-size: .75rem; color: var(--muted); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 16px; }
+.stat b { display: block; font-size: 2.2rem; color: var(--accent); }
+.stat span, .stat small { display: block; color: var(--muted); }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; background: var(--card); }
+th, td { padding: 8px; border-bottom: 1px solid var(--line); text-align: left; font-size: .9rem; }
+.empty, .muted { color: var(--muted); }
+footer { max-width: 1100px; margin: 32px auto 0; padding: 16px; border-top: 1px solid var(--line); font-size: .85rem; }
+.disclaimer strong { background: var(--lost); color: #fff; padding: 0 6px; border-radius: 4px; }
+@media (max-width: 480px) { .coupons, .matches { grid-template-columns: 1fr; } }

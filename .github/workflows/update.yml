@@ -1,0 +1,73 @@
+name: Aktualizacja typów
+
+on:
+  schedule:
+    # Cron w GitHub działa w UTC. Odpalamy dla obu przesunięć (CET/CEST),
+    # a krok "gate" przepuszcza tylko godziny z config.json (czas polski).
+    - cron: "5 6,7,10,11,14,15,18,19 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: update-site
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: gate
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, datetime, zoneinfo
+          cfg = json.load(open("config.json"))
+          hour = datetime.datetime.now(zoneinfo.ZoneInfo(cfg["timezone"])).hour
+          print("run=" + ("true" if hour in cfg["update_hours"] else "false"))
+          PY
+
+      - name: Testy
+        if: steps.gate.outputs.run == 'true'
+        run: python -m unittest discover -s tests -t .
+
+      - name: Budowa strony
+        if: steps.gate.outputs.run == 'true'
+        env:
+          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+        run: python -m generator.build
+
+      - name: Zapis historii typów
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name "betslike-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/history.json
+          git diff --cached --quiet || (git commit -m "Aktualizacja historii typów" && git push)
+
+      - uses: actions/configure-pages@v5
+        if: steps.gate.outputs.run == 'true'
+
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.gate.outputs.run == 'true'
+        with:
+          path: _site
+
+      - id: deploy
+        if: steps.gate.outputs.run == 'true'
+        uses: actions/deploy-pages@v4

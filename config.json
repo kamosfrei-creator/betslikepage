@@ -1,0 +1,12 @@
+{
+  "site_name": "BetsLike",
+  "base_url": "https://kamosfrei-creator.github.io/betslikepage",
+  "timezone": "Europe/Warsaw",
+  "languages": ["pl", "en", "de", "es"],
+  "default_language": "en",
+  "competitions": ["PL", "BL1", "SA", "PD", "FL1", "DED", "PPL", "ELC", "CL", "BSA"],
+  "update_hours": [8, 12, 16, 20],
+  "contact_email": "kontakt@example.com",
+  "min_team_games": 4,
+  "ads": []
+}
