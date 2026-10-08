@@ -84,3 +84,4 @@ h2 { margin-top: 28px; }
 .archive a[aria-current] { font-weight: 700; }
 [dir="rtl"] .score { float: left; }
 [dir="rtl"] th, [dir="rtl"] td { text-align: right; }
+.prob, .odds, .score, time { unicode-bidi: isolate; direction: ltr; display: inline-block; }
