@@ -130,7 +130,7 @@
       "home": "Sittard",
       "id": 558877,
       "market": "2",
-      "p": 0.6185,
+      "p": 0.6184,
       "utc": "2026-10-10T18:00:00Z"
      },
      {
@@ -138,7 +138,7 @@
       "home": "Mainz",
       "id": 565812,
       "market": "1X",
-      "p": 0.6179,
+      "p": 0.618,
       "utc": "2026-10-10T13:30:00Z"
      },
      {
@@ -146,7 +146,7 @@
       "home": "Lille",
       "id": 559674,
       "market": "1",
-      "p": 0.6175,
+      "p": 0.6174,
       "utc": "2026-10-10T15:15:00Z"
      },
      {
@@ -162,7 +162,7 @@
       "home": "Charlton",
       "id": 561863,
       "market": "NOBTTS",
-      "p": 0.6172,
+      "p": 0.6171,
       "utc": "2026-10-10T11:30:00Z"
      }
     ],
@@ -176,7 +176,7 @@
       "home": "Middlesbrough",
       "id": 561868,
       "market": "BTTS",
-      "p": 0.8197,
+      "p": 0.8196,
       "utc": "2026-10-10T14:00:00Z"
      },
      {
@@ -199,14 +199,14 @@
     "p": 0.548
    },
    "standard": {
-    "fair_odds": 3.22,
+    "fair_odds": 3.2,
     "legs": [
      {
       "away": "Bayern",
       "home": "Augsburg",
       "id": 565819,
       "market": "U35",
-      "p": 0.7496,
+      "p": 0.7494,
       "utc": "2026-10-10T13:30:00Z"
      },
      {
@@ -218,23 +218,23 @@
       "utc": "2026-10-10T16:30:00Z"
      },
      {
+      "away": "Leeds United",
+      "home": "Arsenal",
+      "id": 560593,
+      "market": "1X",
+      "p": 0.7468,
+      "utc": "2026-10-10T11:30:00Z"
+     },
+     {
       "away": "Brentford",
       "home": "Aston Villa",
       "id": 560601,
       "market": "O15",
       "p": 0.7459,
       "utc": "2026-10-10T14:00:00Z"
-     },
-     {
-      "away": "Paris FC",
-      "home": "Lorient",
-      "id": 559668,
-      "market": "X2",
-      "p": 0.7431,
-      "utc": "2026-10-10T18:45:00Z"
      }
     ],
-    "p": 0.3109
+    "p": 0.3124
    }
   }
  },
@@ -305,7 +305,7 @@
    "date": "2026-10-10",
    "home": "Inter",
    "market": "1",
-   "p": 0.7662,
+   "p": 0.766,
    "result": null,
    "utc": "2026-10-10T16:00:00Z"
   },
@@ -316,7 +316,7 @@
    "date": "2026-10-10",
    "home": "Napoli",
    "market": "X2",
-   "p": 0.7503,
+   "p": 0.7502,
    "result": null,
    "utc": "2026-10-10T18:45:00Z"
   },
@@ -327,7 +327,7 @@
    "date": "2026-10-10",
    "home": "Genoa",
    "market": "X2",
-   "p": 0.7182,
+   "p": 0.7181,
    "result": null,
    "utc": "2026-10-10T13:00:00Z"
   },
@@ -338,7 +338,7 @@
    "date": "2026-10-10",
    "home": "Sittard",
    "market": "X2",
-   "p": 0.7865,
+   "p": 0.7864,
    "result": null,
    "utc": "2026-10-10T18:00:00Z"
   },
@@ -360,7 +360,7 @@
    "date": "2026-10-10",
    "home": "Feyenoord",
    "market": "BTTS",
-   "p": 0.6933,
+   "p": 0.6934,
    "result": null,
    "utc": "2026-10-10T16:45:00Z"
   },
@@ -382,7 +382,7 @@
    "date": "2026-10-09",
    "home": "PSV",
    "market": "O25",
-   "p": 0.7645,
+   "p": 0.7644,
    "result": null,
    "utc": "2026-10-09T18:00:00Z"
   },
@@ -393,7 +393,7 @@
    "date": "2026-10-10",
    "home": "Brest",
    "market": "X2",
-   "p": 0.7295,
+   "p": 0.7294,
    "result": null,
    "utc": "2026-10-10T18:45:00Z"
   },
@@ -404,7 +404,7 @@
    "date": "2026-10-10",
    "home": "Lorient",
    "market": "X2",
-   "p": 0.7431,
+   "p": 0.743,
    "result": null,
    "utc": "2026-10-10T18:45:00Z"
   },
@@ -415,7 +415,7 @@
    "date": "2026-10-09",
    "home": "RC Lens",
    "market": "U35",
-   "p": 0.8005,
+   "p": 0.8004,
    "result": null,
    "utc": "2026-10-09T18:45:00Z"
   },
@@ -426,7 +426,7 @@
    "date": "2026-10-10",
    "home": "PSG",
    "market": "1X",
-   "p": 0.6947,
+   "p": 0.6948,
    "result": null,
    "utc": "2026-10-10T18:45:00Z"
   },
@@ -437,7 +437,7 @@
    "date": "2026-10-10",
    "home": "Monaco",
    "market": "1",
-   "p": 0.6368,
+   "p": 0.6367,
    "result": null,
    "utc": "2026-10-10T18:45:00Z"
   },
@@ -448,7 +448,7 @@
    "date": "2026-10-10",
    "home": "Lille",
    "market": "O15",
-   "p": 0.7947,
+   "p": 0.7946,
    "result": null,
    "utc": "2026-10-10T15:15:00Z"
   },
@@ -459,18 +459,18 @@
    "date": "2026-10-10",
    "home": "Sunderland",
    "market": "O25",
-   "p": 0.796,
+   "p": 0.7959,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
   "560593": {
-   "adjusted": true,
+   "adjusted": false,
    "away": "Leeds United",
    "competition": "PL",
    "date": "2026-10-10",
    "home": "Arsenal",
    "market": "1X",
-   "p": 0.7405,
+   "p": 0.7468,
    "result": null,
    "utc": "2026-10-10T11:30:00Z"
   },
@@ -481,18 +481,18 @@
    "date": "2026-10-10",
    "home": "Chelsea",
    "market": "BTTS",
-   "p": 0.8078,
+   "p": 0.8077,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
   "560599": {
-   "adjusted": false,
+   "adjusted": true,
    "away": "Fulham",
    "competition": "PL",
    "date": "2026-10-10",
    "home": "Ipswich Town",
    "market": "1X",
-   "p": 0.7203,
+   "p": 0.7283,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
@@ -536,7 +536,7 @@
    "date": "2026-10-10",
    "home": "Sheffield Utd",
    "market": "U25",
-   "p": 0.777,
+   "p": 0.7769,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
@@ -569,7 +569,7 @@
    "date": "2026-10-09",
    "home": "West Ham",
    "market": "O15",
-   "p": 0.7969,
+   "p": 0.797,
    "result": null,
    "utc": "2026-10-09T19:00:00Z"
   },
@@ -591,7 +591,7 @@
    "date": "2026-10-10",
    "home": "Derby County",
    "market": "U35",
-   "p": 0.7846,
+   "p": 0.7845,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
@@ -624,7 +624,7 @@
    "date": "2026-10-10",
    "home": "Preston NE",
    "market": "O25",
-   "p": 0.7011,
+   "p": 0.701,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
@@ -635,7 +635,7 @@
    "date": "2026-10-10",
    "home": "Middlesbrough",
    "market": "BTTS",
-   "p": 0.8197,
+   "p": 0.8196,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
@@ -756,7 +756,7 @@
    "date": "2026-10-10",
    "home": "Augsburg",
    "market": "U35",
-   "p": 0.7496,
+   "p": 0.7494,
    "result": null,
    "utc": "2026-10-10T13:30:00Z"
   },
@@ -767,7 +767,7 @@
    "date": "2026-10-09",
    "home": "Dortmund",
    "market": "1",
-   "p": 0.7569,
+   "p": 0.7568,
    "result": null,
    "utc": "2026-10-09T18:30:00Z"
   },
@@ -778,7 +778,7 @@
    "date": "2026-10-10",
    "home": "Casa Pia",
    "market": "2",
-   "p": 0.7887,
+   "p": 0.7886,
    "result": null,
    "utc": "2026-10-10T14:30:00Z"
   },
@@ -800,7 +800,7 @@
    "date": "2026-10-10",
    "home": "Marítimo",
    "market": "2",
-   "p": 0.793,
+   "p": 0.7929,
    "result": null,
    "utc": "2026-10-10T17:00:00Z"
   },
@@ -811,7 +811,7 @@
    "date": "2026-10-09",
    "home": "Braga",
    "market": "U25",
-   "p": 0.6928,
+   "p": 0.6926,
    "result": null,
    "utc": "2026-10-09T19:15:00Z"
   },
@@ -822,7 +822,7 @@
    "date": "2026-10-09",
    "home": "Moreirense",
    "market": "U35",
-   "p": 0.7448,
+   "p": 0.7447,
    "result": null,
    "utc": "2026-10-09T17:45:00Z"
   }
