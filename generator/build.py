@@ -13,7 +13,7 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 from . import coupons as cp
-from . import export, fdcouk, fetch, news, odds, render, research, stats, teamstats
+from . import community, export, fdcouk, fetch, news, odds, render, research, stats, teamstats
 from .model import LeagueModel
 from .texts import LANGS, analysis
 
@@ -321,6 +321,9 @@ def build(demo=False, now=None, langs=None):
     for m in window:
         leagues.setdefault(m["competition"], {"name": m["competition_name"], "table": []})
     render_site(cfg, out_days, history, today, now, demo, leagues)
+    if not demo:
+        community.sync((cfg.get("supabase") or {}).get("url"), os.environ.get("SUPABASE_SERVICE_KEY"),
+                       [m for d in out_days for m in d["matches"]])
     return out_days
 
 
@@ -357,6 +360,7 @@ def render_site(cfg, out_days, history, today, now, demo, leagues):
         for month, month_days in summary["months"].items():
             page(f"archive-{month}.html",
                  render.archive_page(cfg, lang, month, month_days, summary["months"], updated, demo, menu))
+        page("community.html", render.community_page(cfg, lang, updated, demo, menu))
         for name in ("about", "advertise", "responsible", "privacy"):
             page(f"{name}.html", render.static_page(cfg, lang, name, updated, demo, menu))
         for code, lg in menu.items():

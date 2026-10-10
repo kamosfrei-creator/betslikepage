@@ -190,5 +190,18 @@ class TranslationsTest(unittest.TestCase):
                         self.assertEqual(ph(data[section][key]), ph(value), f"{name}:{section}.{key}")
 
 
+
+class CommunityTest(unittest.TestCase):
+    def test_rows(self):
+        from generator import community
+        m = {"id": 5, "utc": "2026-10-10T18:00:00Z", "competition": "PL", "home": "A", "away": "B", "status": "TIMED",
+             "home_goals": None, "away_goals": None, "prediction": {"probs": {"1": 0.5, "X": 0.3, "2": 0.2}},
+             "pick": {"market": "1X"}, "pick_range": {"market": "1"}}
+        r = community.rows([m, {**m, "id": "x"}])
+        self.assertEqual(len(r), 1)
+        self.assertEqual((r[0]["p1"], r[0]["pick"], r[0]["pickr"]), (0.5, "1X", "1"))
+        self.assertEqual(community.sync("", "", [m]), 0)
+
+
 if __name__ == "__main__":
     unittest.main()

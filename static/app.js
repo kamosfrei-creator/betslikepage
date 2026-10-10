@@ -156,7 +156,7 @@
     sb: null, user: null, nick: null, timer: null,
     enabled: function () { return !!(CFG.supabase && CFG.supabase.url && CFG.supabase.key); },
     load: function () {
-      if (!this.enabled()) { Comments.render(); return; }
+      if (!this.enabled()) { refreshAll(); return; }
       var s = document.createElement("script");
       s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js";
       s.onload = function () {
@@ -164,13 +164,13 @@
         Cloud.sb.auth.onAuthStateChange(function (_ev, session) { Cloud.setUser(session ? session.user : null); });
         Cloud.sb.auth.getSession().then(function (r) { Cloud.setUser(r.data.session ? r.data.session.user : null); });
       };
-      s.onerror = function () { Comments.render(); };
+      s.onerror = function () { refreshAll(); };
       document.head.appendChild(s);
     },
     setUser: function (user) {
       var changed = (this.user && this.user.id) !== (user && user.id);
       this.user = user;
-      if (!user) { this.nick = null; updateLoginBtn(); Comments.render(); return; }
+      if (!user) { this.nick = null; updateLoginBtn(); refreshAll(); return; }
       if (!changed) return;
       Promise.all([
         this.sb.from("profiles").select("nick").eq("id", user.id).maybeSingle(),
@@ -185,7 +185,7 @@
           (p.slip || []).forEach(function (s) { if (ids.indexOf(s.id) < 0) Prefs.slip.push(s); });
         }
         Prefs.save();
-        updateLoginBtn(); Comments.render();
+        updateLoginBtn(); refreshAll();
       });
     },
     push: function () {
@@ -245,7 +245,7 @@
           var rows = r.data || [];
           var list = rows.length ? '<ol class="c-list">' + rows.map(function (c) {
             var mine = Cloud.user && c.user_id === Cloud.user.id;
-            return '<li><div class="c-meta"><b>' + esc(c.nick) + "</b><time>" + new Date(c.created_at).toLocaleString(I.lang, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) +
+            return '<li><div class="c-meta"><b>' + nickLink(c.nick) + "</b><time>" + new Date(c.created_at).toLocaleString(I.lang, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) +
               "</time>" + (Cloud.user ? '<button type="button" class="link" data-c-act="' + (mine ? "del" : "rep") + '" data-id="' + c.id + '">' +
               esc(T(mine ? "comment_delete" : "comment_report")) + "</button>" : "") + '</div><p>' + esc(c.body) + "</p></li>";
           }).join("") + "</ol>" : '<p class="muted">' + esc(T("comments_empty")) + "</p>";
@@ -285,6 +285,154 @@
       }
     });
   }
+
+  // ------------------------------------------- typowanie, łapki, ranking typerów
+  function refreshAll() { Comments.render(); Social.render(); }
+  function needLogin() { if (loginBtn) loginBtn.click(); }
+  function askNick(done) {
+    var d = modal('<h3>' + esc(T("nick_prompt")) + '</h3><form class="login-form"><input name="nick" required minlength="3" maxlength="24" pattern="[A-Za-z0-9_.\\-]+">' +
+      '<button class="btn">' + esc(T("nick_save")) + '</button><p class="msg" role="status"></p></form>');
+    d.querySelector("form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var nick = e.target.nick.value.trim();
+      Cloud.sb.from("profiles").insert({ id: Cloud.user.id, nick: nick }).then(function (r) {
+        if (r.error) { d.querySelector(".msg").textContent = T("nick_taken"); return; }
+        Cloud.nick = nick; updateLoginBtn(); d.remove(); refreshAll(); if (done) done();
+      });
+    });
+  }
+  function nickLink(n) { return '<a class="nick" href="community.html#u=' + encodeURIComponent(n) + '">' + esc(n) + "</a>"; }
+
+  var Social = {
+    render: function () {
+      this.thumbs(document);
+      this.predict();
+      this.community();
+    },
+
+    // Łapki: jedna paczka zapytań dla wszystkich typów widocznych na stronie.
+    thumbs: function (root) {
+      var els = [].slice.call(root.querySelectorAll(".thumbs[data-mid]"));
+      if (!els.length || !Cloud.sb) return;
+      var ids = els.map(function (e) { return +e.getAttribute("data-mid"); }).filter(function (v, i, a) { return a.indexOf(v) === i; });
+      var q = [Cloud.sb.from("vote_counts").select("match_id,kind,up,down").in("match_id", ids)];
+      if (Cloud.user) q.push(Cloud.sb.from("pick_votes").select("match_id,kind,v").in("match_id", ids));
+      Promise.all(q).then(function (res) {
+        var cnt = {}, mine = {};
+        (res[0].data || []).forEach(function (r) { cnt[r.match_id + r.kind] = r; });
+        ((res[1] && res[1].data) || []).forEach(function (r) { mine[r.match_id + r.kind] = r.v; });
+        els.forEach(function (el) {
+          var key = el.getAttribute("data-mid") + el.getAttribute("data-kind"), c = cnt[key] || { up: 0, down: 0 };
+          el.querySelector(".up b").textContent = c.up;
+          el.querySelector(".down b").textContent = c.down;
+          el.querySelector(".up").classList.toggle("on", mine[key] === 1);
+          el.querySelector(".down").classList.toggle("on", mine[key] === -1);
+        });
+      });
+    },
+    vote: function (el, v) {
+      if (!Cloud.sb) { modal("<p>" + esc(T("login_unavailable")) + "</p>"); return; }
+      if (!Cloud.user) { needLogin(); return; }
+      var row = { user_id: Cloud.user.id, match_id: +el.getAttribute("data-mid"), kind: el.getAttribute("data-kind"), v: v };
+      var undo = el.querySelector(v === 1 ? ".up" : ".down").classList.contains("on");
+      var req = undo
+        ? Cloud.sb.from("pick_votes").delete().match({ user_id: row.user_id, match_id: row.match_id, kind: row.kind })
+        : Cloud.sb.from("pick_votes").upsert(row);
+      req.then(function (r) { if (r.error) modal("<p>" + esc(T("login_error")) + "</p>"); Social.thumbs(el.parentNode); });
+    },
+
+    // Kto wygra? - typ użytkownika 1/X/2 i rozkład głosów społeczności.
+    predict: function () {
+      var el = document.getElementById("predict");
+      if (!el) return;
+      var body = el.querySelector(".pr-body");
+      if (!Cloud.sb) { body.innerHTML = '<p class="muted">' + esc(T(Cloud.enabled() ? "loading" : "login_unavailable")) + "</p>"; return; }
+      var mid = +el.getAttribute("data-match"), locked = new Date(el.getAttribute("data-utc")) <= new Date();
+      var q = [Cloud.sb.from("prediction_counts").select("n1,nx,n2").eq("match_id", mid).maybeSingle()];
+      if (Cloud.user) q.push(Cloud.sb.from("predictions").select("outcome").eq("match_id", mid).eq("user_id", Cloud.user.id).maybeSingle());
+      Promise.all(q).then(function (res) {
+        var c = res[0].data || { n1: 0, nx: 0, n2: 0 }, mine = res[1] && res[1].data ? res[1].data.outcome : null;
+        var n = { "1": c.n1, X: c.nx, "2": c.n2 }, total = c.n1 + c.nx + c.n2;
+        var label = { "1": el.getAttribute("data-home"), X: M("X"), "2": el.getAttribute("data-away") };
+        body.innerHTML = '<div class="pr-opts">' + ["1", "X", "2"].map(function (k) {
+          var share = total ? n[k] / total : 0;
+          return '<button type="button" class="pr-opt o' + k + (mine === k ? " on" : "") + '" data-pr="' + k + '"' + (locked ? " disabled" : "") + ">" +
+            "<i>" + k + "</i><span>" + esc(label[k]) + "</span><b>" + (total ? pct(share) : "–") + "</b>" +
+            '<em style="width:' + share * 100 + '%"></em></button>';
+        }).join("") + "</div>" +
+          '<p class="hint">' + esc(fmt(T("votes_total"), { n: total })) + (mine ? " · " + esc(T("your_pick")) + ": <b>" + mine + "</b>" : "") +
+          (locked ? " · " + esc(T("predict_closed")) : "") + "</p>";
+      });
+    },
+    choose: function (k) {
+      if (!Cloud.sb) { modal("<p>" + esc(T("login_unavailable")) + "</p>"); return; }
+      if (!Cloud.user) { needLogin(); return; }
+      if (!Cloud.nick) { askNick(function () { Social.choose(k); }); return; }
+      var el = document.getElementById("predict");
+      Cloud.sb.from("predictions").upsert({ user_id: Cloud.user.id, match_id: +el.getAttribute("data-match"), outcome: k })
+        .then(function (r) { if (r.error) modal("<p>" + esc(T("predict_closed")) + "</p>"); Social.predict(); });
+    },
+
+    // Strona społeczności: ranking typerów, najlepiej oceniane typy, profile.
+    tab: "rank30",
+    community: function () {
+      var el = document.getElementById("community");
+      if (!el) return;
+      if (!Cloud.sb) { el.innerHTML = '<p class="muted">' + esc(T(Cloud.enabled() ? "loading" : "login_unavailable")) + "</p>"; return; }
+      var m = /^#u=(.+)$/.exec(location.hash);
+      if (m) { this.profile(el, decodeURIComponent(m[1])); return; }
+      var tabs = '<div class="seg">' + [["rank30", "ranking_30"], ["rank", "ranking_all"], ["top", "top_voted"]].map(function (x) {
+        return '<button type="button" data-ctab="' + x[0] + '" aria-pressed="' + (Social.tab === x[0]) + '">' + esc(T(x[1])) + "</button>";
+      }).join("") + (Cloud.nick ? '<a class="btn ghost" href="#u=' + encodeURIComponent(Cloud.nick) + '">' + esc(T("my_profile")) + "</a>" : "") + "</div>";
+      if (this.tab === "top") {
+        Cloud.sb.from("top_voted").select("*").order("up", { ascending: false }).limit(50).then(function (r) {
+          var rows = r.data || [];
+          el.innerHTML = tabs + (rows.length ? '<div class="table-wrap"><table class="cm"><thead><tr><th>' + esc(T("match")) + "</th><th>" +
+            esc(T("pick")) + "</th><th>👍</th><th>👎</th></tr></thead><tbody>" + rows.map(function (x) {
+              return '<tr><td><a href="match-' + x.match_id + '.html">' + esc(x.home) + " – " + esc(x.away) + "</a><small> " + dayLabel(x.utc.slice(0, 10)) +
+                (x.hg != null ? " · " + x.hg + ":" + x.ag : "") + "</small></td><td>" + esc(x.market ? M(x.market) : "–") +
+                (x.kind === "range" ? ' <span class="chip">1,5–2,0</span>' : "") + "</td><td><b>" + x.up + "</b></td><td>" + x.down + "</td></tr>";
+            }).join("") + "</tbody></table></div>" : '<p class="muted">' + esc(T("community_empty")) + "</p>");
+        });
+        return;
+      }
+      var col = this.tab === "rank30" ? "points30" : "points";
+      Cloud.sb.from("leaderboard").select("*").gt(this.tab === "rank30" ? "n30" : "n", 0).order(col, { ascending: false }).limit(100).then(function (r) {
+        var rows = r.data || [];
+        el.innerHTML = tabs + (rows.length ? '<div class="table-wrap"><table class="cm"><thead><tr><th>#</th><th>' + esc(T("tipster")) + "</th><th>" +
+          esc(T("points")) + "</th><th>" + esc(T("tips_count")) + "</th><th>" + esc(T("hit_rate")) + "</th></tr></thead><tbody>" +
+          rows.map(function (x, i) {
+            return "<tr" + (x.nick === Cloud.nick ? ' class="me"' : "") + "><td>" + (i + 1) + "</td><td>" + nickLink(x.nick) + "</td><td><b>" + dec(+x[col]) +
+              "</b></td><td>" + (Social.tab === "rank30" ? x.n30 : x.n) + "</td><td>" + (x.n ? pct(x.hits / x.n) : "–") + "</td></tr>";
+          }).join("") + "</tbody></table></div>" : '<p class="muted">' + esc(T("community_empty")) + "</p>");
+      });
+    },
+    profile: function (el, nick) {
+      Cloud.sb.from("tipster_history").select("*").eq("nick", nick).order("utc", { ascending: false }).limit(300).then(function (r) {
+        var rows = r.data || [], done = rows.filter(function (x) { return x.points != null; });
+        var pts = done.reduce(function (a, x) { return a + +x.points; }, 0), hits = done.filter(function (x) { return x.points > 0; }).length;
+        el.innerHTML = '<p><a href="#">← ' + esc(T("community")) + "</a></p><h2>" + esc(nick) + "</h2>" +
+          '<div class="stats"><div class="stat"><b>' + dec(pts) + "</b><span>" + esc(T("points")) + '</span></div><div class="stat"><b>' +
+          (done.length ? pct(hits / done.length) : "–") + "</b><span>" + esc(T("hit_rate")) + "</span><small>" + hits + " / " + done.length +
+          "</small></div></div>" + (rows.length ? '<div class="table-wrap"><table class="cm"><thead><tr><th>' + esc(T("match")) + "</th><th>" +
+          esc(T("pick")) + "</th><th>" + esc(T("score")) + "</th><th>" + esc(T("points")) + "</th></tr></thead><tbody>" +
+          rows.map(function (x) {
+            var res = x.points == null ? "" : x.points > 0 ? "won" : "lost";
+            return "<tr><td>" + esc(x.home) + " – " + esc(x.away) + "<small> " + dayLabel(x.utc.slice(0, 10)) + "</small></td><td><b>" + x.outcome +
+              "</b></td><td>" + (x.hg != null ? x.hg + ":" + x.ag : "–") + "</td><td>" + (res ? badge(res) + " " + dec(+x.points) : "…") + "</td></tr>";
+          }).join("") + "</tbody></table></div>" : '<p class="muted">' + esc(T("community_empty")) + "</p>");
+      });
+    }
+  };
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest(".thumbs .th");
+    if (t) { Social.vote(t.closest(".thumbs"), +t.getAttribute("data-v")); return; }
+    var p = e.target.closest("[data-pr]");
+    if (p) { Social.choose(p.getAttribute("data-pr")); return; }
+    var c = e.target.closest("[data-ctab]");
+    if (c) { Social.tab = c.getAttribute("data-ctab"); Social.community(); }
+  });
+  window.addEventListener("hashchange", function () { Social.community(); });
 
   Prefs.onChange(renderSlip);
   Prefs.onChange(renderSidebar);
@@ -456,6 +604,12 @@
         '</span><span data-tip="' + esc(T("index_hint")) + '">' + esc(T("index")) + " ⓘ</span><span>" + esc(T("pick")) +
         (state.pmode === "range" ? " · " + esc(T("pick_range")) : "") + "</span><span></span></div>";
     }
+    function thumbsHtml(m) {
+      if (!pickOf(m) || !CFG.supabase || !CFG.supabase.url) return "";
+      return '<div class="thumbs" data-kind="' + (state.pmode === "range" ? "range" : "safe") + '" data-mid="' + m.id + '"><span class="th-q">' +
+        esc(T("rate_pick")) + '</span><button type="button" class="th up" data-v="1" aria-label="' + esc(T("thumb_up")) + '">👍 <b>0</b></button>' +
+        '<button type="button" class="th down" data-v="-1" aria-label="' + esc(T("thumb_down")) + '">👎 <b>0</b></button></div>';
+    }
     function more(m) {
       var p = m.p;
       var markets = ["1", "X", "2", "1X", "X2", "O15", "O25", "U25", "O35", "BTTS", "NOBTTS"].map(function (k) {
@@ -484,7 +638,7 @@
         (m.fi && m.fi[0] != null ? '<div class="mm-fi"><span>' + esc(T("form_index")) + "</span><b>" + m.fi[0] + " – " + m.fi[1] + "</b></div>" : "") +
         '<div class="mm-sc"><span>' + esc(T("score_probs")) + "</span><div>" + scores + "</div></div></div>" +
         '<div class="mks">' + markets + "</div>" + flags + mvm +
-        '<p class="mm-text">' + esc(m.text) + "</p>" +
+        '<p class="mm-text">' + esc(m.text) + "</p>" + thumbsHtml(m) +
         (m.page ? '<a class="more-link" href="match-' + m.id + '.html">' + esc(T("full_analysis")) + " →</a>" : "") + "</div>";
     }
 
@@ -577,6 +731,7 @@
       }
       app.innerHTML = html;
       app.classList.add("ready");
+      Social.thumbs(app);
     }
 
     function leagueOrder() {

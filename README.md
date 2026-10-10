@@ -105,7 +105,7 @@ na danym rynku, a `languages` ogranicz do krajów, gdzie mają licencję:
 Klucz (np. `betclic`) to identyfikator bukmachera w The Odds API. Bez wpisów
 strona pokazuje tylko średni kurs rynku, bez nazw i linków.
 
-## Konta i komentarze (Supabase, darmowy plan)
+## Konta, komentarze, typowanie i ranking typerów (Supabase, darmowy plan)
 
 Logowanie linkiem z e-maila, komentarze pod meczami, zgłaszanie komentarzy,
 synchronizacja ulubionych lig, obserwowanych meczów i kuponu między urządzeniami.
@@ -120,8 +120,27 @@ a ulubione i kupon działają lokalnie w przeglądarce.
 4. **Project Settings → API**: skopiuj `Project URL` i klucz `anon public` do
    `config.json` → `supabase.url` i `supabase.anon_key` (klucz anon jest
    publiczny z założenia - dostęp chronią reguły RLS ze schematu).
-5. Darmowy plan Supabase wysyła tylko kilka e-maili na godzinę - przy większym
+5. Typowanie i łapki: w **Project Settings → API** skopiuj klucz `service_role`
+   (tajny!) i dodaj go w GitHub jako sekret `SUPABASE_SERVICE_KEY`
+   (Settings → Secrets and variables → Actions). Automat przy każdej
+   aktualizacji wysyła do tabeli `matches` terminy, wyniki i prawdopodobieństwa
+   modelu - baza sama zamyka typowanie o godzinie meczu i liczy punkty.
+   Bez tego sekretu przyciski 1/X/2 i łapki zwrócą błąd.
+6. Darmowy plan Supabase wysyła tylko kilka e-maili na godzinę - przy większym
    ruchu podłącz własny serwer SMTP (Authentication → SMTP Settings).
+
+Społeczność (strona `community.html` - „Typerzy”):
+
+- **Kto wygra?** - na stronie meczu zalogowany użytkownik (z nickiem) typuje
+  1/X/2 do rozpoczęcia meczu; widać rozkład głosów. Cudze typy są widoczne
+  dopiero po rozpoczęciu meczu (nie da się ich kopiować).
+- **Punkty** - trafienie = kurs sprawiedliwy modelu dla wybranego wyniku
+  (1 / prawdopodobieństwo, maks. 10), pudło = 0. Trafiony remis jest więc
+  wart więcej niż trafiony faworyt - ranking nagradza trafną odwagę.
+- **Ranking typerów** - 30 dni i od początku; **profil typera**
+  (`community.html#u=nick`) z publiczną historią typów.
+- **Łapki 👍/👎** pod typem strony (główny i z kursem 1,5-2,0) na stronie meczu
+  i po rozwinięciu meczu na liście; zakładka „Najwyżej oceniane typy”.
 
 Moderacja: komentarz ukrywasz w **Table Editor → comments → hidden = true**;
 zgłoszenia są w tabeli `reports`. Polityka prywatności jest na stronie

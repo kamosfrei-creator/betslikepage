@@ -12,7 +12,7 @@ from html import escape
 
 from .texts import MARKETS, META, UI, num, pct
 
-PAGES = ("index", "results", "about", "advertise", "responsible", "privacy")
+PAGES = ("index", "results", "community", "about", "advertise", "responsible", "privacy")
 
 
 def _file(page):
@@ -27,7 +27,8 @@ def layout(cfg, lang, page, title, body, updated, demo, leagues=None, active=Non
     alt = "\n".join(f'<link rel="alternate" hreflang="{l}" href="{base}/{l}/{_file(page)}">' for l in cfg["languages"])
     nav = "".join(
         f'<a href="{_file(p)}"{" aria-current=page" if p == page else ""}>{escape(t[k])}</a>'
-        for p, k in (("index", "coupons"), ("results", "results"), ("about", "method_title"), ("advertise", "advertise")))
+        for p, k in (("index", "coupons"), ("results", "results"), ("community", "community"), ("about", "method_title"),
+                     ("advertise", "advertise")))
     options = "".join(
         f'<option value="../{l}/{_file(page)}" data-lang="{l}"{" selected" if l == lang else ""}>'
         f'{escape(META[l]["name"])}</option>' for l in cfg["languages"])
@@ -420,6 +421,22 @@ def _breakdown(lang, m):
 <p class="hint">{escape(t["breakdown_hint"])}</p></div></div></section>"""
 
 
+def _thumbs(t, kind, mid):
+    """Łapki pod typem strony - liczniki i stan uzupełnia app.js z Supabase."""
+    return (f'<div class="thumbs" data-kind="{kind}" data-mid="{mid}"><span class="th-q">{escape(t["rate_pick"])}</span>'
+            f'<button type="button" class="th up" data-v="1" aria-label="{escape(t["thumb_up"])}">👍 <b>0</b></button>'
+            f'<button type="button" class="th down" data-v="-1" aria-label="{escape(t["thumb_down"])}">👎 <b>0</b></button></div>')
+
+
+def community_page(cfg, lang, updated, demo, leagues=None):
+    t = UI[lang]
+    body = f"""<h1>{escape(t["community"])}</h1>
+<p class="lead">{escape(t["community_lead"])}</p>
+<div id="community" class="community"><p class="muted">{escape(t["loading"])}</p></div>
+<p class="hint">{escape(t["points_rule"])}</p>"""
+    return layout(cfg, lang, "community", t["community"], body, updated, demo, leagues)
+
+
 def match_page(cfg, lang, m, updated, demo, leagues):
     t = UI[lang]
     pred = m["prediction"]
@@ -475,6 +492,15 @@ def match_page(cfg, lang, m, updated, demo, leagues):
         f'<li><time data-utc="{g["utc"]}" data-fmt="date"></time><span class="rl-teams">{escape(g["home"])} – {escape(g["away"])}</span><b>{g["score"]}</b></li>'
         for g in m.get("h2h") or []) or f'<li class="muted">{escape(t["no_h2h"])}</li>'
 
+    pr = m.get("pick_range")
+    range_html = ""
+    if pr:
+        range_html = (f'<section class="pick-card alt"><div class="pc-main"><span class="label">{escape(t["pick_range"])}</span>'
+                      f'<span class="pick-main">{escape(MARKETS[lang][pr["market"]])}</span>'
+                      f'<span><span class="prob">{pct(pr["p"])}</span> <span class="odds">{escape(t["fair_odds"])} {_odds(pr["p"])}</span></span></div>'
+                      f'<div class="cta">{_slip_btn(m, pr["market"], pr["p"], "+ " + escape(t["add_slip"]), "slip-add")}</div>'
+                      f'{_thumbs(t, "range", m["id"])}</section>')
+
     def hero_team(side, rank, elo):
         return (f'<div class="hero-team"><span class="tn">{escape(m[side])}</span>'
                 f'<span class="meta">{f"#{rank} · " if rank else ""}Elo {elo}</span>'
@@ -493,7 +519,11 @@ def match_page(cfg, lang, m, updated, demo, leagues):
   <div class="pc-main"><span class="label">{escape(t["pick"])}</span><span class="pick-main">{escape(MARKETS[lang][pick["market"]])}</span>
   <span><span class="prob">{pct(pick["p"])}</span> <span class="odds">{escape(t["fair_odds"])} {_odds(pick["p"])}</span></span></div>
   <div class="cta">{_slip_btn(m, pick["market"], pick["p"], "+ " + escape(t["add_slip"]), "slip-add big")}{cta}</div>
+  {_thumbs(t, "safe", m["id"])}
 </section>
+{range_html}
+<section class="card predict" id="predict" data-match="{m["id"]}" data-utc="{m["utc"]}" data-home="{escape(m["home"])}" data-away="{escape(m["away"])}">
+<h3>{escape(t["who_wins"])}</h3><p class="hint">{escape(t["predict_hint"])}</p><div class="pr-body"></div></section>
 {f'<section class="card"><h3>{escape(t["key_factors"])}</h3>{flags_html}<p class="hint">{escape(t["ai_note"])}</p></section>' if flags_html else ''}
 <section class="card"><h3>{escape(t["analysis_title"])}</h3><p class="analysis">{escape(m["analysis"][lang])}</p></section>
 {_breakdown(lang, m)}

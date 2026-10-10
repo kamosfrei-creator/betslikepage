@@ -613,3 +613,29 @@ body > footer { background: var(--foot); }
 .cbody .teams a { color: var(--ink); font-weight: 600; }
 .cbody .btn { align-self: flex-start; }
 .kindseg { margin-bottom: 12px; }
+
+/* ---------- społeczność: łapki, typowanie, ranking ---------- */
+.thumbs { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.th-q { font-size: .82rem; color: var(--muted); margin-inline-end: 4px; }
+.th { font: inherit; font-size: .88rem; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
+      background: var(--surface); color: var(--ink); cursor: pointer; }
+.th b { font-weight: 700; margin-inline-start: 2px; }
+.th.up.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.th.down.on { background: #fdecec; border-color: #d33b3b; color: #b42323; }
+.pick-card .thumbs { flex-basis: 100%; }
+.pick-card.alt { border-inline-start-color: var(--highlight); }
+.pr-opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.pr-opt { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 12px 8px;
+          font: inherit; border: 2px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); cursor: pointer; }
+.pr-opt i { font-style: normal; font-weight: 800; font-size: 1.1rem; }
+.pr-opt span { font-size: .8rem; color: var(--muted); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pr-opt b { font-size: 1.05rem; }
+.pr-opt em { position: absolute; inset-inline-start: 0; bottom: 0; height: 4px; background: var(--accent); }
+.pr-opt.on { border-color: var(--accent); background: var(--accent-soft); }
+.pr-opt:disabled { cursor: default; opacity: .85; }
+.community .seg { flex-wrap: wrap; gap: 6px; margin-bottom: 14px; align-items: center; }
+table.cm td small { color: var(--muted); margin-inline-start: 4px; }
+table.cm tr.me td { background: var(--accent-soft); }
+a.nick { color: inherit; font-weight: 700; }
+.lead { font-size: 1.02rem; color: var(--muted); max-width: 70ch; }
+.pr-opt.o1 em { background: var(--home); } .pr-opt.oX em { background: var(--draw); } .pr-opt.o2 em { background: var(--away); }
