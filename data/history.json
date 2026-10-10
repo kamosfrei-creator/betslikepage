@@ -5829,7 +5829,7 @@
    "home": "SL Benfica",
    "ix": 6.6,
    "market": "1",
-   "p": 0.7681,
+   "p": 0.768,
    "result": null,
    "utc": "2026-10-11T17:00:00Z"
   },
@@ -5895,7 +5895,7 @@
    "kind": "range",
    "market": "NOBTTS",
    "mid": 567322,
-   "p": 0.6801,
+   "p": 0.68,
    "result": null,
    "utc": "2026-10-10T19:30:00Z"
   },
