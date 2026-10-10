@@ -25,6 +25,25 @@ class ModelTest(unittest.TestCase):
         self.assertEqual(model.team_info("A")["form"], "WWWWW")
 
 
+class BreakdownTest(unittest.TestCase):
+    def test_steps_end_with_final_probabilities(self):
+        finished = [{"utc": f"2026-09-{i + 1:02d}T18:00:00Z", "home_id": "A", "away_id": "B",
+                     "home_goals": 2, "away_goals": 1} for i in range(8)]
+        model = LeagueModel(finished, datetime(2026, 10, 1))
+        pred = model.predict("A", "B", [("form", (1.1, 0.95, 0.9, 1.05)), ("load", (1, 1, 1, 1)), ("news", (1, 1, 1, 1))])
+        self.assertEqual([s[0] for s in pred["steps"]], ["base", "form", "load", "news", "elo"])
+        self.assertGreater(pred["steps"][1][1][0], pred["steps"][0][1][0])  # lepsza forma gospodarzy = większa szansa na 1
+        self.assertAlmostEqual(pred["steps"][-1][1][0], pred["probs"]["1"])
+
+    def test_form_index_rewards_wins_against_strong_teams(self):
+        from generator import teamstats
+        games = [{"utc": "2026-09-01T18:00:00Z", "status": "FINISHED", "home": "A", "away": "B", "home_id": 1, "away_id": 2,
+                  "home_goals": 1, "away_goals": 0}]
+        strong = teamstats.form_index(1, games, {2: 1700}, "2026-10-01T00:00:00Z")
+        weak = teamstats.form_index(1, games, {2: 1300}, "2026-10-01T00:00:00Z")
+        self.assertGreater(strong, weak)
+
+
 class CouponTest(unittest.TestCase):
     def test_settle(self):
         self.assertTrue(cp.settle("1X", 1, 1))

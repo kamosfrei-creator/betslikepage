@@ -35,6 +35,8 @@ def match(m, lang):
             "adj": bool(m.get("adjusted")),
             "low": bool(m.get("low_data")),
             "text": m["analysis"][lang],
+            "fi": [m["form_index"]["home"]["combo"], m["form_index"]["away"]["combo"]],
+            "load": [m["load"]["home"]["m14"], m["load"]["away"]["m14"]],
         })
         if m.get("odds"):
             out["odds"] = {r["outcome"]: {"now": r["now"], "best": r["best"], "v": r["value"], "isv": r["is_value"]}

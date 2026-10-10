@@ -328,6 +328,58 @@ def _odds_block(lang, m):
 <p class="hint">{escape(t["value_hint"])} <span class="ad-label">18+</span></p>"""
 
 
+def _breakdown(lang, m):
+    """Dane wejściowe modelu i szanse 1X2 po każdym kroku obliczeń."""
+    t = UI[lang]
+    pred = m["prediction"]
+    r = pred["ratings"]
+    fi, ld = m.get("form_index") or {}, m.get("load") or {}
+
+    def val(v, suffix=""):
+        if v is None:
+            return "–"
+        return (num(v, lang) if isinstance(v, float) else str(v)) + suffix
+
+    def ratio(x):
+        return f"{'+' if x >= 1 else ''}{round((x - 1) * 100)}%"
+
+    def bar_row(label, hv, av, hraw=None, araw=None):
+        hv_n, av_n = hraw if hraw is not None else hv, araw if araw is not None else av
+        tot = (hv_n or 0) + (av_n or 0)
+        hw = 50 if not tot else hv_n / tot * 100
+        return (f'<div class="cmp"><span class="cv">{hv}</span><span class="cl">{escape(label)}</span>'
+                f'<span class="cv r">{av}</span><div class="cbar"><span class="ch" style="width:{hw:.0f}%"></span>'
+                f'<span class="ca" style="width:{100 - hw:.0f}%"></span></div></div>')
+
+    fh, fa = fi.get("home", {}), fi.get("away", {})
+    lh, la = ld.get("home", {}), ld.get("away", {})
+    w, d, l = m.get("h2h_balance") or (0, 0, 0)
+    inputs = (
+        bar_row(t["form_index"], val(fh.get("all")), val(fa.get("all")), fh.get("all"), fa.get("all"))
+        + bar_row(t["form_venue"], val(fh.get("venue")), val(fa.get("venue")), fh.get("venue"), fa.get("venue"))
+        + bar_row(f'{t["attack_rating"]} ({t["vs_avg"]})', ratio(r["home_att"]), ratio(r["away_att"]), r["home_att"], r["away_att"])
+        + bar_row(f'{t["defence_rating"]} ({t["vs_avg"]})', ratio(r["home_def"]), ratio(r["away_def"]), r["home_def"], r["away_def"])
+        + bar_row("Elo", pred["elo_home"], pred["elo_away"])
+        + bar_row(t["load_14"], val(lh.get("m14")), val(la.get("m14")), lh.get("m14"), la.get("m14"))
+        + bar_row(t["rest_days"], val(lh.get("rest")), val(la.get("rest")), lh.get("rest"), la.get("rest"))
+        + (f'<p class="h2h-bal">{escape(t["h2h_balance"])}: <b>{w}-{d}-{l}</b></p>' if w + d + l else ""))
+
+    rows, prev = "", None
+    for name, (p1, px, p2) in pred["steps"]:
+        cells = ""
+        for i, v in enumerate((p1, px, p2)):
+            delta = "" if prev is None else round((v - prev[i]) * 100)
+            arrow = "" if not delta else f'<small class="{"up" if delta > 0 else "down"}">{"+" if delta > 0 else ""}{delta}</small>'
+            cells += f"<td><b>{pct(v)}</b> {arrow}</td>"
+        rows += f'<tr{" class=final" if name == "elo" else ""}><td>{escape(t["step_" + name])}</td>{cells}</tr>'
+        prev = (p1, px, p2)
+    return f"""<section class="card"><h3>{escape(t["model_breakdown"])}</h3>
+<div class="two"><div><h4>{escape(t["inputs"])}</h4>
+<div class="cmp-head"><span>{escape(m["home"])}</span><span>{escape(m["away"])}</span></div>{inputs}</div>
+<div><div class="table-wrap"><table class="steps"><thead><tr><th></th><th>1</th><th>X</th><th>2</th></tr></thead><tbody>{rows}</tbody></table></div>
+<p class="hint">{escape(t["breakdown_hint"])}</p></div></div></section>"""
+
+
 def match_page(cfg, lang, m, updated, demo, leagues):
     t = UI[lang]
     pred = m["prediction"]
@@ -404,6 +456,7 @@ def match_page(cfg, lang, m, updated, demo, leagues):
 </section>
 {f'<section class="card"><h3>{escape(t["key_factors"])}</h3>{flags_html}<p class="hint">{escape(t["ai_note"])}</p></section>' if flags_html else ''}
 <section class="card"><h3>{escape(t["analysis_title"])}</h3><p class="analysis">{escape(m["analysis"][lang])}</p></section>
+{_breakdown(lang, m)}
 <div class="grid2">
 <section class="card"><h3>{escape(t["markets_title"])}</h3><div class="table-wrap"><table class="mk">
 <thead><tr><th></th><th>{escape(t["probability"])}</th><th>{escape(t["fair_odds"])}</th></tr></thead><tbody>{markets}</tbody></table></div></section>

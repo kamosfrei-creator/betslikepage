@@ -66,6 +66,9 @@ def analysis(lang, match, pred, home_info, away_info, news=None, extra=None):
     ranks = extra.get("ranks") or (None, None)
     if all(ranks):
         out.append(t["table"].format(home=home, away=away, rh=ranks[0], ra=ranks[1]))
+    fi = extra.get("form") or {}
+    if fi.get("home") is not None and fi.get("away") is not None:
+        out.append(t["form_compare"].format(home=home, away=away, fh=fi["home"], fa=fi["away"]))
     if extra.get("elo"):
         out.append(t["elo"].format(home=home, away=away, eh=extra["elo"][0], ea=extra["elo"][1]))
     research = match.get("research")

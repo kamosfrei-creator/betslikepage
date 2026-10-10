@@ -441,3 +441,9 @@ td.pos { color: var(--won); font-weight: 700; } td.neg { color: var(--lost); fon
                   scroll-snap-type: x mandatory; padding-bottom: 6px; }
   #app .coupon { scroll-snap-align: start; }
 }
+.steps td:first-child { font-size: .85rem; }
+.steps td small { font-size: .72rem; font-weight: 700; }
+.steps small.up { color: var(--won); } .steps small.down { color: var(--lost); }
+.steps tr.final td { background: var(--accent-soft); font-weight: 700; }
+.h2h-bal { margin: 10px 0 0; font-size: .88rem; }
+.mm-fi b { font-size: 1.3rem; }

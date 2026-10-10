@@ -93,7 +93,7 @@
   "f_coach": "New coach",
   "ai_note": "Team news (injuries, suspensions, motivation, rotation) is researched automatically with AI and turned into model adjustments. The probabilities themselves come from our statistical model.",
   "method_title": "How we calculate",
-  "method_html": "<ul><li>Attack and defence strength from this season's results, separately for home and away games, with recent matches weighted more.</li><li>Poisson model with the Dixon-Coles correction for the full score distribution.</li><li>Elo rating as a second, independent estimate of 1X2 chances.</li><li>Adjustments for absences (by position and importance of the player), motivation, squad rotation, fatigue and coaching changes.</li></ul>",
+  "method_html": "<ul><li>Attack and defence strength from this season's results, separately for home and away games, with recent matches weighted more.</li><li>Our own form index (0-100) from the last 5 matches: points and goal difference, weighted by the opponent's strength and by how recent the match was; overall and separately at home / away.</li><li>Fixture load: days of rest and number of matches in the last 14 days.</li><li>Poisson model with the Dixon-Coles correction for the full score distribution.</li><li>Elo rating as a second, independent estimate of 1X2 chances.</li><li>Team news researched with AI: absences (by position and importance of the player), motivation, squad rotation and coaching changes.</li></ul>",
   "last_matches": "Last matches",
   "h2h": "Head to head",
   "injuries_title": "Injuries and suspensions",
@@ -195,7 +195,23 @@
   "page_prev": "Previous",
   "page_next": "Next",
   "matches_count": "{n} matches",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "model_breakdown": "How we calculated this match",
+  "inputs": "Model inputs",
+  "form_index": "Form index (last 5)",
+  "form_venue": "Form at home / away",
+  "attack_rating": "Attack strength",
+  "defence_rating": "Goals conceded",
+  "vs_avg": "vs league average",
+  "load_14": "Matches in last 14 days",
+  "rest_days": "Days of rest",
+  "h2h_balance": "Head to head (W-D-L)",
+  "step_base": "Base model (home/away strength)",
+  "step_form": "+ form",
+  "step_load": "+ fixture load",
+  "step_news": "+ team news (AI)",
+  "step_elo": "+ Elo rating = final",
+  "breakdown_hint": "Each step shows how the 1/X/2 chances change after adding the next factor."
  },
  "markets": {
   "1": "Home win (1)",
@@ -237,6 +253,7 @@
   "rotation": "{team} may rotate the squad because of another fixture soon.",
   "fatigue": "{team} played {d} days ago, so fatigue is taken into account.",
   "elo": "Elo rating: {home} {eh}, {away} {ea}.",
-  "table": "League position: {home} #{rh}, {away} #{ra}."
+  "table": "League position: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Form index: {home} {fh}, {away} {fa} (out of 100)."
  }
 }

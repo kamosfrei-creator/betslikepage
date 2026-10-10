@@ -41,6 +41,8 @@ def local_date(utc, tz):
 
 
 FATIGUE_DAYS = 3.5
+FORM_ATTACK = 0.12    # różnica formy 100 pkt = ±12% oczekiwanych goli
+FORM_DEFENCE = 0.06
 
 
 def _days_between(a, b):
@@ -61,20 +63,34 @@ def predict_match(m, model, cfg, ctx):
     else:
         ah, dh, aa, da, adjusted = news.adjustments(ctx.get("news"))
 
-    fatigue = {}
-    for side, tid in (("home", m["home_id"]), ("away", m["away_id"])):
-        last = teamstats.last_played(tid, ctx["all_matches"], m["utc"])
-        days = _days_between(last, m["utc"]) if last else None
-        if days is not None and days <= FATIGUE_DAYS:
-            fatigue[side] = round(days)
-            flags[side].append("fatigue")
-            adjusted = True
-            if side == "home":
-                ah, dh = ah * 0.97, dh * 1.03
-            else:
-                aa, da = aa * 0.97, da * 1.03
+    # Forma (indeks 0-100): 60% ostatnie 5 meczów ogółem + 40% ostatnie 5 w tej samej roli (u siebie / na wyjeździe).
+    am = ctx["all_matches"]
+    form = {}
+    for side, tid, venue in (("home", m["home_id"], "home"), ("away", m["away_id"], "away")):
+        overall = teamstats.form_index(tid, am, model.elo, m["utc"])
+        at_venue = teamstats.form_index(tid, am, model.elo, m["utc"], venue=venue)
+        combo = None if overall is None else round(0.6 * overall + 0.4 * (at_venue if at_venue is not None else overall))
+        form[side] = {"all": overall, "venue": at_venue, "combo": combo}
+    form_mult = (1.0, 1.0, 1.0, 1.0)
+    if form["home"]["combo"] is not None and form["away"]["combo"] is not None:
+        diff = (form["home"]["combo"] - form["away"]["combo"]) / 100
+        form_mult = (1 + FORM_ATTACK * diff, 1 - FORM_DEFENCE * diff, 1 - FORM_ATTACK * diff, 1 + FORM_DEFENCE * diff)
 
-    pred = model.predict(m["home_id"], m["away_id"], (ah, dh, aa, da))
+    # Obciążenie meczami: krótki odpoczynek i gęsty terminarz (wszystkie znane rozgrywki).
+    fatigue, loads, load_mult = {}, {}, [1.0, 1.0, 1.0, 1.0]
+    for i, (side, tid) in enumerate((("home", m["home_id"]), ("away", m["away_id"]))):
+        ld = teamstats.load(tid, am, m["utc"])
+        loads[side] = ld
+        penalty = (0.03 if ld["rest"] is not None and ld["rest"] <= FATIGUE_DAYS else 0) + (0.02 if ld["m14"] >= 4 else 0)
+        if penalty:
+            if ld["rest"] is not None and ld["rest"] <= FATIGUE_DAYS:
+                fatigue[side] = round(ld["rest"])
+            flags[side].append("fatigue")
+            load_mult[2 * i] *= 1 - penalty
+            load_mult[2 * i + 1] *= 1 + penalty
+
+    pred = model.predict(m["home_id"], m["away_id"],
+                         [("form", form_mult), ("load", tuple(load_mult)), ("news", (ah, dh, aa, da))])
     probs = pred["probs"]
     pick = cp.main_pick(probs)
     home_info, away_info = model.team_info(m["home_id"]), model.team_info(m["away_id"])
@@ -83,7 +99,11 @@ def predict_match(m, model, cfg, ctx):
     # H2H: mecze z API (także poprzednie sezony) + bieżący sezon, bez duplikatów.
     pool = {g["id"]: g for g in (ctx.get("h2h") or []) + lm}
     h2h = teamstats.h2h(m["home_id"], m["away_id"], list(pool.values()))
-    extra = {"flags": flags, "fatigue": fatigue, "ranks": ranks, "elo": (pred["elo_home"], pred["elo_away"])}
+    extra = {"flags": flags, "fatigue": fatigue, "ranks": ranks, "elo": (pred["elo_home"], pred["elo_away"]),
+             "form": {"home": form["home"]["combo"], "away": form["away"]["combo"]}}
+    m["form_index"] = form
+    m["load"] = loads
+    m["h2h_balance"] = teamstats.h2h_balance(m["home"], h2h[:10])
     m["research"] = rec
     m.update({
         "prediction": pred,

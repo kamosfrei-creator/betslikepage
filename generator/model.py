@@ -127,13 +127,19 @@ class LeagueModel:
         return attack, defence, t["games"]
 
     def predict(self, home_id, away_id, adjust=(1.0, 1.0, 1.0, 1.0)):
-        """adjust: mnożniki (atak, obrona) gospodarzy i gości z wiadomości o drużynach;
-        obrona > 1 oznacza więcej traconych goli."""
+        """adjust: mnożniki (atak_gosp, obrona_gosp, atak_gości, obrona_gości) albo lista
+        etapów [(nazwa, mnożniki), ...] - wtedy wynik zawiera szanse 1X2 po każdym etapie.
+        Obrona > 1 oznacza więcej traconych goli."""
+        steps_in = adjust if isinstance(adjust, list) else [("news", adjust)]
         ah, dh, gh = self.strength(home_id, home=True)
         aa, da, ga = self.strength(away_id, home=False)
-        att_h, def_h, att_a, def_a = adjust
-        lh = self.avg_home * ah * att_h * da * def_a
-        la = self.avg_away * aa * att_a * dh * def_h
+        lh = self.avg_home * ah * da
+        la = self.avg_away * aa * dh
+        steps = [("base", _x12(lh, la))]
+        for name, (att_h, def_h, att_a, def_a) in steps_in:
+            lh *= att_h * def_a
+            la *= att_a * def_h
+            steps.append((name, _x12(lh, la)))
         mx = score_matrix(lh, la)
         probs = markets(mx)
         top = sorted(((mx[x][y], x, y) for x in range(6) for y in range(6)), reverse=True)[:9]
@@ -145,8 +151,11 @@ class LeagueModel:
         probs["1"] = (1 - ELO_WEIGHT) * probs["1"] + ELO_WEIGHT * rest * e
         probs["2"] = 1 - probs["X"] - probs["1"]
         probs["1X"], probs["X2"], probs["12"] = probs["1"] + probs["X"], probs["X"] + probs["2"], probs["1"] + probs["2"]
+        steps.append(("elo", (probs["1"], probs["X"], probs["2"])))
         return {"xg_home": lh, "xg_away": la, "games": min(gh, ga), "probs": probs,
                 "elo_home": round(rh), "elo_away": round(ra),
+                "ratings": {"home_att": ah, "home_def": dh, "away_att": aa, "away_def": da},
+                "steps": steps,
                 "top_scores": [(x, y, p) for p, x, y in top]}
 
     def rank(self, tid):
@@ -165,6 +174,11 @@ class LeagueModel:
             "away_conceded": a[2] / a[0] if a[0] else None,
             "games": t["games"],
         }
+
+
+def _x12(lh, la):
+    p = markets(score_matrix(lh, la))
+    return p["1"], p["X"], p["2"]
 
 
 def _pois(k, lam):

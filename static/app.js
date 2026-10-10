@@ -231,6 +231,7 @@
       return '<div class="m-more">' +
         '<div class="mm-top"><div class="mm-xg"><span>' + esc(T("model_xg")) + "</span><b>" + dec(m.xg[0], 1) + " – " + dec(m.xg[1], 1) + "</b></div>" +
         '<div class="mm-form"><span>' + esc(T("form")) + "</span><div>" + form(m.form[0]) + "</div><div>" + form(m.form[1]) + "</div></div>" +
+        (m.fi && m.fi[0] != null ? '<div class="mm-fi"><span>' + esc(T("form_index")) + "</span><b>" + m.fi[0] + " – " + m.fi[1] + "</b></div>" : "") +
         '<div class="mm-sc"><span>' + esc(T("score_probs")) + "</span><div>" + scores + "</div></div></div>" +
         '<div class="mks">' + markets + "</div>" + flags + mvm +
         '<p class="mm-text">' + esc(m.text) + "</p>" +

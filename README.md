@@ -46,10 +46,16 @@ przed gwizdkiem.
 | Siła ataku i obrony, osobno u siebie i na wyjeździe, świeższe mecze ważniejsze | wyniki z football-data.org | darmowe |
 | Model Poissona z korektą Dixona-Colesa (rozkład wyników) | własny | darmowe |
 | Ranking Elo (30% udziału w 1X2) | własny, z wyników | darmowe |
-| Tabela ligowa, forma, H2H | football-data.org | darmowe |
-| Zmęczenie (mecz w ostatnich 3,5 dniach) | wyniki | darmowe |
+| **Indeks formy 0-100** (ostatnie 5 meczów: punkty + bilans bramek, ważone siłą rywala wg Elo i świeżością; 60% ogółem + 40% w tej samej roli u siebie/na wyjeździe) | własny, z wyników | darmowe |
+| Tabela ligowa, H2H | football-data.org | darmowe |
+| Obciążenie meczami (odpoczynek ≤ 3,5 dnia, ≥ 4 mecze w 14 dniach) | wyniki | darmowe |
 | Absencje wg pozycji i znaczenia zawodnika, motywacja, rotacja, zmiana trenera, przewidywane składy | **research AI** (Claude Haiku 5.5 + wyszukiwarka) | ok. $5-15/mies. |
 | Kursy, ruch kursów, value bet | The Odds API (opcjonalnie) | darmowy plan 500 zapytań/mies. wystarcza na 2 odczyty dziennie |
+
+Obliczenia idą etapami, a strona meczu pokazuje szanse 1/X/2 po każdym:
+model bazowy (siła u siebie/na wyjeździe) → forma (różnica indeksów 100 pkt
+= ±12% oczekiwanych goli, parametry `FORM_*` w `generator/build.py`) →
+obciążenie meczami → wiadomości o drużynach (AI) → ranking Elo = wynik końcowy.
 
 Korekty z researchu (parametry w `generator/research.py`): kluczowy napastnik
 -7% oczekiwanych goli, kluczowy bramkarz +7% traconych, zawodnik podstawowy
