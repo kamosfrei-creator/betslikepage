@@ -68,7 +68,7 @@ def layout(cfg, lang, page, title, body, updated, demo, leagues=None, active=Non
     <a class="brand" href="index.html"><img class="logo" src="../assets/logo.svg" alt="" width="34" height="34"><span class="wm">OnePick<b>Away</b></span></a>
     <nav class="mainnav">{nav}</nav>
     <div class="top-actions">
-      <button type="button" id="theme-btn" class="tb" aria-label="{escape(t["theme_dark"])}" title="{escape(t["theme_dark"])}">◐</button>
+      <button type="button" id="theme-btn" class="tb" aria-label="{escape(t["theme_dark"])}" title="{escape(t["theme_dark"])}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path class="i-moon" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor"/><g class="i-sun" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><path d="M12 1.5v2.5M12 20v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M1.5 12H4M20 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></g></svg></button>
       <button type="button" id="login-btn" class="tb login">{escape(t["login"])}</button>
       <label class="langs"><span class="sr">{escape(t["language"])}</span>
         <select id="lang-select" aria-label="{escape(t["language"])}">{options}</select></label>
@@ -153,13 +153,17 @@ def _badge(result):
     return f'<span class="badge {result}">{sym}</span>'
 
 
-def _odds(p):
-    return num(1 / p, "en") if p > 0 else "-"
+def _odds(p, lang="en"):
+    """Kurs sprawiedliwy z 2 miejscami po przecinku, w formacie języka."""
+    if p <= 0:
+        return "-"
+    s = f"{1 / p:.2f}"
+    return s.replace(".", ",") if META.get(lang, {}).get("decimal") == "," else s
 
 
 def _pick_line(lang, market, p):
     return (f'<span class="market">{escape(MARKETS[lang][market])}</span>'
-            f'<span class="prob">{pct(p)}</span><span class="odds">@{_odds(p)}</span>')
+            f'<span class="prob">{pct(p)}</span><span class="odds">@{_odds(p, lang)}</span>')
 
 
 def _pbar(probs):
@@ -200,7 +204,7 @@ def match_row(lang, m):
     if has_pred:
         p = m["prediction"]["probs"]
         best = max(("1", "X", "2"), key=lambda k: p[k])
-        cells = "".join(f'<span class="pc{" hi" if k == best else ""}">{round(p[k] * 100)}</span>' for k in ("1", "X", "2"))
+        cells = "".join(f'<span class="pc o{k}{" hi" if k == best else ""}">{round(p[k] * 100)}</span>' for k in ("1", "X", "2"))
         hs, as_ = m["likely_score"]
         exp = f'<span class="cs">{hs}:{as_}</span>'
     else:
@@ -453,7 +457,7 @@ def match_page(cfg, lang, m, updated, demo, leagues):
                    + (f'<span class="ad-label">{escape(t["ad_label"])} · 18+</span>' if link else ""))
 
     markets = "".join(
-        f'<tr><td>{escape(MARKETS[lang][k])}</td><td><b>{pct(p[k])}</b></td><td>{_odds(p[k])}</td><td>{_slip_btn(m, k, p[k])}</td></tr>'
+        f'<tr><td>{escape(MARKETS[lang][k])}</td><td><b>{pct(p[k])}</b></td><td>{_odds(p[k], lang)}</td><td>{_slip_btn(m, k, p[k])}</td></tr>'
         for k in ("1", "X", "2", "1X", "X2", "12", "O15", "O25", "O35", "U25", "U35", "BTTS", "NOBTTS"))
     scores = "".join(f'<div class="sc"><b>{x}:{y}</b><span>{pct(pp)}</span></div>' for x, y, pp in pred["top_scores"])
 
@@ -497,7 +501,7 @@ def match_page(cfg, lang, m, updated, demo, leagues):
     if pr:
         range_html = (f'<section class="pick-card alt"><div class="pc-main"><span class="label">{escape(t["pick_range"])}</span>'
                       f'<span class="pick-main">{escape(MARKETS[lang][pr["market"]])}</span>'
-                      f'<span><span class="prob">{pct(pr["p"])}</span> <span class="odds">{escape(t["fair_odds"])} {_odds(pr["p"])}</span></span></div>'
+                      f'<span><span class="prob">{pct(pr["p"])}</span> <span class="odds">{escape(t["fair_odds"])} {_odds(pr["p"], lang)}</span></span></div>'
                       f'<div class="cta">{_slip_btn(m, pr["market"], pr["p"], "+ " + escape(t["add_slip"]), "slip-add")}</div>'
                       f'{_thumbs(t, "range", m["id"])}</section>')
 
@@ -517,7 +521,7 @@ def match_page(cfg, lang, m, updated, demo, leagues):
 </section>
 <section class="pick-card">
   <div class="pc-main"><span class="label">{escape(t["pick"])}</span><span class="pick-main">{escape(MARKETS[lang][pick["market"]])}</span>
-  <span><span class="prob">{pct(pick["p"])}</span> <span class="odds">{escape(t["fair_odds"])} {_odds(pick["p"])}</span></span></div>
+  <span><span class="prob">{pct(pick["p"])}</span> <span class="odds">{escape(t["fair_odds"])} {_odds(pick["p"], lang)}</span></span></div>
   <div class="cta">{_slip_btn(m, pick["market"], pick["p"], "+ " + escape(t["add_slip"]), "slip-add big")}{cta}</div>
   {_thumbs(t, "safe", m["id"])}
 </section>
@@ -528,8 +532,8 @@ def match_page(cfg, lang, m, updated, demo, leagues):
 <section class="card"><h3>{escape(t["analysis_title"])}</h3><p class="analysis">{escape(m["analysis"][lang])}</p></section>
 {_breakdown(lang, m)}
 <div class="grid2">
-<section class="card"><h3>{escape(t["markets_title"])}</h3><div class="table-wrap"><table class="mk">
-<thead><tr><th></th><th>{escape(t["probability"])}</th><th>{escape(t["fair_odds"])}</th><th></th></tr></thead><tbody>{markets}</tbody></table></div></section>
+<section class="card"><h3>{escape(t["markets_title"])}</h3><div class="table-wrap"><table class="mkt">
+<thead><tr><th></th><th>%</th><th>{escape(t["fair_odds"])}</th><th></th></tr></thead><tbody>{markets}</tbody></table></div></section>
 <section class="card"><h3>{escape(t["score_probs"])}</h3><div class="scores">{scores}</div></section>
 </div>
 <section class="card"><h3>{escape(t["odds_title"])} · {escape(t["odds_movement"])}</h3>{_odds_block(lang, m)}</section>

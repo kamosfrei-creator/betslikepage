@@ -13,12 +13,12 @@
 }
 :root[data-theme="dark"] {
   --home-soft: #1a2a4a; --draw-soft: #222a35; --away-soft: #3a2616;
-  --bg: #0c1611; --surface: #13211a; --surface-2: #192b22; --ink: #e5f0e9; --muted: #8fa89a; --line: #24392d;
-  --brand: #0a3d22; --brand-2: #0c4d2b; --brand-ink: #e5f0e9; --brand-muted: #9cc7ae;
-  --accent: #2cc779; --accent-soft: #163a27; --accent-ink: #04140b; --highlight: #ffd84d;
+  --bg: #0a111d; --surface: #111b2b; --surface-2: #172337; --ink: #e6ecf4; --muted: #93a2b8; --line: #243149;
+  --brand: #070d18; --brand-2: #0f1b2d; --brand-ink: #f1f5fa; --brand-muted: #9fb0c6;
+  --accent: #2cc779; --accent-soft: #123427; --accent-ink: #04140b; --highlight: #ffd84d;
   --home: #5b8ff0; --draw: #6d7b85; --away: #f08d48;
   --won: #2cc779; --lost: #ff6b5b; --warn: #f0b429; --value: #a27bff;
-  --shadow: none; --foot: #07140d; color-scheme: dark;
+  --shadow: none; --foot: #060b14; color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -528,7 +528,7 @@ body > footer { background: var(--foot); }
 .c-form { display: flex; flex-direction: column; gap: 8px; }
 .c-form label { display: flex; flex-direction: column; gap: 4px; font-size: .88rem; }
 .c-form .btn { align-self: flex-start; }
-.mk td:last-child { text-align: end; }
+.mkt td:last-child { text-align: end; }
 .lgroup > header .lg-badge { color: #fff; background: var(--brand); }
 @media (min-width: 1200px) { .shell.has-side { grid-template-columns: 250px minmax(0, 1fr) 300px; } }
 #theme-btn { font-size: 1.05rem; padding: 4px 10px; }
@@ -640,3 +640,50 @@ a.nick { color: inherit; font-weight: 700; }
 .lead { font-size: 1.02rem; color: var(--muted); max-width: 70ch; }
 .pr-opt.o1 em { background: var(--home); } .pr-opt.oX em { background: var(--draw); } .pr-opt.o2 em { background: var(--away); }
 [hidden] { display: none !important; }
+
+/* ---------- dopracowanie wyglądu ---------- */
+/* przełącznik motywu: księżyc w jasnym, słońce w ciemnym */
+#theme-btn { display: inline-grid; place-items: center; width: 34px; height: 34px; padding: 0; }
+#theme-btn .i-sun { display: none; }
+:root[data-theme="dark"] #theme-btn .i-moon { display: none; }
+:root[data-theme="dark"] #theme-btn .i-sun { display: inline; }
+
+/* pasek wyników: 5 kafli w jednym rzędzie na komputerze */
+@media (min-width: 900px) {
+  #app > .kpis:first-child, .stats-head + .kpis { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+.kpi-l { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* nazwa typu: do dwóch linii zamiast ucinania */
+.tip-m { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.25; }
+.mhead span { white-space: nowrap; }
+
+/* tabela ligi: kolory 1 / X / 2 jak na liście meczów */
+.pc.hi.o1 { background: var(--home); color: #fff; }
+.pc.hi.oX { background: var(--draw); color: #fff; }
+.pc.hi.o2 { background: var(--away); color: #fff; }
+.row .tip .market { white-space: normal; }
+
+/* paski trafności: liczba czytelna niezależnie od kreski */
+.ratebar b { display: inline-block; margin-inline-start: 4px; padding: 0 5px; line-height: 18px; margin-top: 2px;
+             background: var(--surface); border-radius: 4px; }
+
+/* telefon: przewijane menu z wyraźnym wygaszeniem na końcu */
+@media (max-width: 760px) {
+  .mainnav { -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
+}
+
+/* tabela rynków na stronie meczu */
+table.mkt { width: 100%; }
+table.mkt td, table.mkt th { padding: 8px 10px; }
+table.mkt td:nth-child(2), table.mkt td:nth-child(3) { white-space: nowrap; }
+table.mkt th { white-space: nowrap; }
+table.mkt td:first-child { width: 100%; }
+table.mkt td:last-child { padding-inline-end: 4px; }
+.grid2.eq { align-items: stretch; }
+
+/* telefon: ostatni nieparzysty kafel wyników na całą szerokość */
+@media (max-width: 899px) {
+  #app > .kpis:first-child .kpi:last-child:nth-child(odd), .stats-head + .kpis .kpi:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+:root[data-theme="dark"] .lgroup { border-color: var(--line); }

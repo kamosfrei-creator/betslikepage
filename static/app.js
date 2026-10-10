@@ -850,7 +850,7 @@
       for (var i = 29; i >= 0; i--) days.push(addDays(today, -i));
       var by = {};
       rows.forEach(function (r) { (by[r.d] = by[r.d] || []).push(r); });
-      var W = 480, H = 240, L = 34, B = 26, step = (W - L - 8) / days.length, bw = Math.max(4, step - 6);
+      var W = 480, H = 240, L = 42, B = 26, step = (W - L - 8) / days.length, bw = Math.max(4, step - 6);
       var y = function (v) { return H - B - v * (H - B - 12); };
       var grid = [0, 0.25, 0.5, 0.75, 1].map(function (v) {
         return '<line x1="' + L + '" x2="' + (W - 4) + '" y1="' + y(v) + '" y2="' + y(v) + '" class="grid"/>' +
@@ -942,7 +942,7 @@
         '<div class="kpi"><span class="kpi-l">' + esc(T("roi")) + '</span><b class="' + (a.roi > 0 ? "won" : a.roi < 0 ? "lost" : "") + '">' +
         (a.roi != null ? (a.roi > 0 ? "+" : "") + Math.round(a.roi * 100) + "%" : "–") + '</b><span class="kpi-s">' + (a.roiN ? a.roiN + " · " + esc(T("market_odds")) : "–") + "</span></div></div>";
 
-      html += '<div class="grid2"><section class="card"><h3>' + esc(T("daily_chart")) + "</h3>" + dailyChart(all.filter(function (r) { return r.d >= addDays(today, -30); })) +
+      html += '<div class="grid2 eq"><section class="card"><h3>' + esc(T("daily_chart")) + "</h3>" + dailyChart(all.filter(function (r) { return r.d >= addDays(today, -30); })) +
         '</section><section class="card"><h3>' + esc(T("calibration")) + "</h3>" + calibration(rows) + "</section></div>";
       html += rankTable(byLeague, function (c) { return hist.leagues[c] || c; }, T("leagues_ranking")) +
         rankTable(byMarket, M, T("markets_ranking")) +
