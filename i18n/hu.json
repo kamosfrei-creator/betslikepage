@@ -285,7 +285,8 @@
   "tipster": "Tippelő",
   "points": "Pontok",
   "tips_count": "Tippek",
-  "score": "Pontszám"
+  "score": "Eredmény",
+  "show_started": "Elkezdődött meccsek ({n})"
  },
  "markets": {
   "1": "Hazai győzelem (1)",

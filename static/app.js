@@ -48,6 +48,9 @@
     get: function (k, def) { try { var v = localStorage.getItem("bl:" + k); return v ? JSON.parse(v) : def; } catch (e) { return def; } },
     set: function (k, v) { try { localStorage.setItem("bl:" + k, JSON.stringify(v)); } catch (e) {} }
   };
+  // Mecz znika ze strony 15 min po rozpoczęciu (zostaje w "Wczoraj" i w statystykach).
+  var GONE_MS = 15 * 60e3;
+  function gone(utc) { return !!utc && Date.now() > new Date(utc).getTime() + GONE_MS; }
   function getJSON(url) { return fetch(url, { cache: "no-cache" }).then(function (r) { if (!r.ok) throw r.status; return r.json(); }); }
   function hue(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 360; return h; }
   function crest(url, name) {
@@ -91,7 +94,7 @@
   var slipEl = document.getElementById("slip");
   function renderSlip() {
     if (!slipEl) return;
-    var slip = Prefs.slip.filter(function (s) { return !s.utc || new Date(s.utc) > new Date(Date.now() - 3 * 3600e3); });
+    var slip = Prefs.slip.filter(function (s) { return !gone(s.utc); });
     var prob = slip.reduce(function (a, s) { return a * s.p; }, 1);
     var allOdds = slip.length && slip.every(function (s) { return s.o; });
     var mo = allOdds ? slip.reduce(function (a, s) { return a * s.o; }, 1) : null;
@@ -434,6 +437,14 @@
   });
   window.addEventListener("hashchange", function () { Social.community(); });
 
+  function hideStarted() {
+    document.querySelectorAll(".mtable .row[data-start]").forEach(function (r) {
+      var sec = r.closest("[data-day]");
+      r.hidden = !(sec && sec.getAttribute("data-day") === "yesterday") && gone(r.getAttribute("data-start"));
+    });
+  }
+  hideStarted();
+  setInterval(function () { hideStarted(); renderSlip(); }, 60e3);
   Prefs.onChange(renderSlip);
   Prefs.onChange(renderSidebar);
   renderSlip(); renderSidebar();
@@ -499,7 +510,7 @@
   function tipsApp() {
     var state = Object.assign({ day: "today", leagues: [], q: "", sort: "time", market: "all", min: 0, value: false,
                                 fav: false, view: "grouped", mix: 0, pmode: "safe", coupon: "safe" }, store.get("filters", {}));
-    state.q = ""; state.day = location.hash.slice(1) || state.day;
+    state.q = ""; state.started = false; state.day = location.hash.slice(1) || state.day;
     var open = {};
     var data, hist, byId = {};
 
@@ -510,6 +521,12 @@
         if (!data.days.some(function (d) { return d.key === state.day; })) state.day = "today";
         render();
         Prefs.onChange(function () { render(); });
+        // Strona otwarta dłużej: co minutę chowamy mecze, które właśnie przekroczyły 15 min gry.
+        var goneCount = data.matches.filter(hidden).length;
+        setInterval(function () {
+          var n = data.matches.filter(hidden).length;
+          if (n !== goneCount && !state.started) { goneCount = n; render(); }
+        }, 60e3);
       })
       .catch(function () { /* zostaje statyczna wersja strony */ });
 
@@ -519,10 +536,13 @@
                              pmode: state.pmode, coupon: state.coupon });
     }
 
+    function hidden(m) { return m.day !== "yesterday" && gone(m.utc); }
+    function visible(m) { return state.started || !hidden(m); }
     function filtered() {
       var q = state.q.trim().toLowerCase();
       return data.matches.filter(function (m) {
         if (m.day !== state.day) return false;
+        if (!state.started && hidden(m)) return false;
         if (state.leagues.length && state.leagues.indexOf(m.comp) < 0) return false;
         if (q && (m.home + " " + m.away).toLowerCase().indexOf(q) < 0) return false;
         if (state.fav && Prefs.favs.indexOf(m.id) < 0) return false;
@@ -645,7 +665,9 @@
     function couponsHtml() {
       var cs = data.coupons[state.day];
       if (!cs) return "";
-      var keys = ["safe", "standard", "bold", "range", "c8", "c10"].filter(function (k) { return cs[k]; });
+      var keys = ["safe", "standard", "bold", "range", "c8", "c10"].filter(function (k) {
+        return cs[k] && (state.day === "yesterday" || state.started || !cs[k].legs.some(function (l) { return gone(l.utc); }));
+      });
       if (!keys.length) return "";
       var k = keys.indexOf(state.coupon) >= 0 ? state.coupon : keys[0];
       var c = cs[k];
@@ -673,7 +695,8 @@
     }
 
     function render() {
-      var dayMatches = data.matches.filter(function (m) { return m.day === state.day; });
+      var dayMatches = data.matches.filter(function (m) { return m.day === state.day && visible(m); });
+      var nHidden = data.matches.filter(function (m) { return m.day === state.day && hidden(m); }).length;
       var counts = {};
       dayMatches.forEach(function (m) { counts[m.comp] = (counts[m.comp] || 0) + 1; });
       var today = data.days.filter(function (d) { return d.key === "today"; })[0].date;
@@ -681,7 +704,7 @@
 
       var html = kpiStrip(hist, today);
       html += '<nav class="daytabs" role="tablist">' + data.days.map(function (d) {
-        var n = data.matches.filter(function (m) { return m.day === d.key; }).length;
+        var n = data.matches.filter(function (m) { return m.day === d.key && visible(m); }).length;
         return '<button type="button" role="tab" data-act="day" data-day="' + d.key + '" aria-selected="' + (d.key === state.day) + '">' +
           "<b>" + esc(T(d.key)) + "</b><span>" + dayLabel(d.date) + " · " + n + "</span></button>";
       }).join("") + "</nav>";
@@ -696,6 +719,7 @@
           return '<button type="button" data-act="pmode" data-v="' + v + '" aria-pressed="' + (state.pmode === v) + '">' + esc(T("pick_" + v)) + "</button>";
         }).join("") + "</div>" +
         toggle("value", T("only_value")) + toggle("fav", T("only_fav")) +
+        (nHidden || state.started ? toggle("started", fmt(T("show_started"), { n: nHidden })) : "") +
         '<div class="seg" role="group">' + ["grouped", "list", "index"].map(function (v) {
           return '<button type="button" data-act="view" data-view="' + v + '" aria-pressed="' + (state.view === v) + '">' + esc(T("view_" + v)) + "</button>";
         }).join("") + "</div></div>";

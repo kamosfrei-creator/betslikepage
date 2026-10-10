@@ -285,7 +285,8 @@
   "tipster": "竞猜者",
   "points": "积分",
   "tips_count": "预测数",
-  "score": "得分"
+  "score": "比分",
+  "show_started": "显示已开赛 ({n})"
  },
  "markets": {
   "1": "主胜 (1)",

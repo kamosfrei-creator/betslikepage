@@ -285,7 +285,8 @@
   "tipster": "Tipster",
   "points": "Punten",
   "tips_count": "Voorspellingen",
-  "score": "Score"
+  "score": "Uitslag",
+  "show_started": "Begonnen wedstrijden tonen ({n})"
  },
  "markets": {
   "1": "Thuisoverwinning (1)",

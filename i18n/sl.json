@@ -285,7 +285,8 @@
   "tipster": "Napovedovalec",
   "points": "Točke",
   "tips_count": "Napovedi",
-  "score": "Rezultat"
+  "score": "Rezultat",
+  "show_started": "Prikaži začete ({n})"
  },
  "markets": {
   "1": "Zmaga domačih (1)",

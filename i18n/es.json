@@ -285,7 +285,8 @@
   "tipster": "Pronosticador",
   "points": "Puntos",
   "tips_count": "Pronósticos",
-  "score": "Puntuación"
+  "score": "Resultado",
+  "show_started": "Mostrar iniciados ({n})"
  },
  "markets": {
   "1": "Gana local (1)",

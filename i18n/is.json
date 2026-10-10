@@ -285,7 +285,8 @@
   "tipster": "Spámaður",
   "points": "Stig",
   "tips_count": "Spár",
-  "score": "Einkunn"
+  "score": "Úrslit",
+  "show_started": "Sýna hafna leiki ({n})"
  },
  "markets": {
   "1": "Heimasigur (1)",

@@ -285,7 +285,8 @@
   "tipster": "Tippare",
   "points": "Poäng",
   "tips_count": "Tips",
-  "score": "Resultat"
+  "score": "Resultat",
+  "show_started": "Visa påbörjade ({n})"
  },
  "markets": {
   "1": "Hemmavinst (1)",

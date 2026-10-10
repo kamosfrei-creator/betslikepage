@@ -285,7 +285,8 @@
   "tipster": "Pronosticador",
   "points": "Punts",
   "tips_count": "Pronòstics",
-  "score": "Puntuació"
+  "score": "Resultat",
+  "show_started": "Mostra els començats ({n})"
  },
  "markets": {
   "1": "Guanya el local (1)",

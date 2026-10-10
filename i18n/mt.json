@@ -285,7 +285,8 @@
   "tipster": "Tipster",
   "points": "Punti",
   "tips_count": "Tbassir",
-  "score": "Punteġġ"
+  "score": "Riżultat",
+  "show_started": "Uri dawk li bdew ({n})"
  },
  "markets": {
   "1": "Rebħa tad-dar (1)",

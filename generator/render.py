@@ -217,7 +217,7 @@ def match_row(lang, m):
     tip = (f'<span class="market">{escape(MARKETS[lang][pick["market"]])}</span>'
            f'<span class="prob">{pct(pick["p"])}</span>{_badge(pick.get("result"))}'
            f'{_slip_btn(m, pick["market"], pick["p"]) if has_pred else ""}') if pick else "–"
-    return f"""<div class="row">
+    return f"""<div class="row" data-start="{m["utc"]}">
 <time class="ko" data-utc="{m["utc"]}" data-fmt="time"></time>
 <div class="teams-cell">{link}{score}{flags}</div>
 <div class="p3">{cells}</div>{exp}
@@ -304,8 +304,8 @@ def league_page(cfg, lang, code, league, days, record, updated, demo, leagues):
         ms = [m for m in day["matches"] if m["competition"] == code]
         if ms:
             any_match = True
-            parts.append(f'<h2>{escape(t[day["key"]])} <small>{day["date"]}</small></h2>'
-                         + match_table(lang, ms))
+            parts.append(f'<section data-day="{day["key"]}"><h2>{escape(t[day["key"]])} <small>{day["date"]}</small></h2>'
+                         + match_table(lang, ms) + "</section>")
     if not any_match:
         parts.append(f'<p class="empty">{escape(t["no_league_matches"])}</p>')
     parts.append(ad_slot(cfg, lang, "league"))

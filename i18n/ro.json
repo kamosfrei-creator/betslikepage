@@ -285,7 +285,8 @@
   "tipster": "Pronosticor",
   "points": "Puncte",
   "tips_count": "Pronosticuri",
-  "score": "Scor"
+  "score": "Scor",
+  "show_started": "Arată meciurile începute ({n})"
  },
  "markets": {
   "1": "Victorie gazde (1)",

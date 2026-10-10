@@ -285,7 +285,8 @@
   "tipster": "Parashikues",
   "points": "Pikë",
   "tips_count": "Parashikime",
-  "score": "Rezultati"
+  "score": "Rezultati",
+  "show_started": "Shfaq të nisurat ({n})"
  },
  "markets": {
   "1": "Fiton vendasi (1)",

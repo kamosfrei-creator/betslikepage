@@ -639,3 +639,4 @@ table.cm tr.me td { background: var(--accent-soft); }
 a.nick { color: inherit; font-weight: 700; }
 .lead { font-size: 1.02rem; color: var(--muted); max-width: 70ch; }
 .pr-opt.o1 em { background: var(--home); } .pr-opt.oX em { background: var(--draw); } .pr-opt.o2 em { background: var(--away); }
+[hidden] { display: none !important; }

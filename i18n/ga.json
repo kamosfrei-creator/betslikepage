@@ -285,7 +285,8 @@
   "tipster": "Tuarthálaí",
   "points": "Pointí",
   "tips_count": "Tuartha",
-  "score": "Scór"
+  "score": "Scór",
+  "show_started": "Taispeáin cluichí tosaithe ({n})"
  },
  "markets": {
   "1": "Bua baile (1)",

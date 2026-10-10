@@ -285,7 +285,8 @@
   "tipster": "予想家",
   "points": "ポイント",
   "tips_count": "予想数",
-  "score": "スコア"
+  "score": "スコア",
+  "show_started": "開始済みを表示 ({n})"
  },
  "markets": {
   "1": "ホーム勝利 (1)",

@@ -285,7 +285,8 @@
   "tipster": "Tipér",
   "points": "Body",
   "tips_count": "Tipy",
-  "score": "Skóre"
+  "score": "Skóre",
+  "show_started": "Zobrazit zahájené ({n})"
  },
  "markets": {
   "1": "Výhra domácích (1)",

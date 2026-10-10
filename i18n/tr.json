@@ -285,7 +285,8 @@
   "tipster": "Tahminci",
   "points": "Puan",
   "tips_count": "Tahminler",
-  "score": "Skor"
+  "score": "Skor",
+  "show_started": "Başlayanları göster ({n})"
  },
  "markets": {
   "1": "Ev sahibi kazanır (1)",

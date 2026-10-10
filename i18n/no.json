@@ -285,7 +285,8 @@
   "tipster": "Tipser",
   "points": "Poeng",
   "tips_count": "Tips",
-  "score": "Score"
+  "score": "Resultat",
+  "show_started": "Vis startede ({n})"
  },
  "markets": {
   "1": "Hjemmeseier (1)",

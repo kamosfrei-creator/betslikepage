@@ -285,7 +285,8 @@
   "tipster": "Prognozuotojas",
   "points": "Taškai",
   "tips_count": "Prognozės",
-  "score": "Rezultatas"
+  "score": "Rezultatas",
+  "show_started": "Rodyti prasidėjusias ({n})"
  },
  "markets": {
   "1": "Šeimininkų pergalė (1)",

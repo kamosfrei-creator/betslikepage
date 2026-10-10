@@ -285,7 +285,8 @@
   "tipster": "Typer",
   "points": "Punkty",
   "tips_count": "Typy",
-  "score": "Wynik"
+  "score": "Wynik",
+  "show_started": "Pokaż rozpoczęte ({n})"
  },
  "markets": {
   "1": "Wygrana gospodarzy (1)",

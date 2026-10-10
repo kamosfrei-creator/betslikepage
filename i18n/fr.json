@@ -285,7 +285,8 @@
   "tipster": "Pronostiqueur",
   "points": "Points",
   "tips_count": "Pronostics",
-  "score": "Score"
+  "score": "Résultat",
+  "show_started": "Afficher les matchs commencés ({n})"
  },
  "markets": {
   "1": "Victoire domicile (1)",

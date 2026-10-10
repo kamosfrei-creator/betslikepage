@@ -285,7 +285,8 @@
   "tipster": "Prognozētājs",
   "points": "Punkti",
   "tips_count": "Prognozes",
-  "score": "Rezultāts"
+  "score": "Rezultāts",
+  "show_started": "Rādīt sāktās ({n})"
  },
  "markets": {
   "1": "Mājinieku uzvara (1)",

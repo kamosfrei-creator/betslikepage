@@ -285,7 +285,8 @@
   "tipster": "Tipster",
   "points": "Poin",
   "tips_count": "Tebakan",
-  "score": "Skor"
+  "score": "Skor",
+  "show_started": "Tampilkan yang sudah dimulai ({n})"
  },
  "markets": {
   "1": "Tuan rumah menang (1)",

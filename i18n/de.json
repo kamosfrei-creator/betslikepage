@@ -285,7 +285,8 @@
   "tipster": "Tipper",
   "points": "Punkte",
   "tips_count": "Tipps",
-  "score": "Wertung"
+  "score": "Ergebnis",
+  "show_started": "Begonnene anzeigen ({n})"
  },
  "markets": {
   "1": "Heimsieg (1)",

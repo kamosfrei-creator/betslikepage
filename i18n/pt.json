@@ -285,7 +285,8 @@
   "tipster": "Tipster",
   "points": "Pontos",
   "tips_count": "Palpites",
-  "score": "Pontuação"
+  "score": "Resultado",
+  "show_started": "Mostrar iniciados ({n})"
  },
  "markets": {
   "1": "Vitória da casa (1)",

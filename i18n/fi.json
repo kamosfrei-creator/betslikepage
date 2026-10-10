@@ -285,7 +285,8 @@
   "tipster": "Veikkaaja",
   "points": "Pisteet",
   "tips_count": "Veikkaukset",
-  "score": "Tulos"
+  "score": "Tulos",
+  "show_started": "Näytä alkaneet ({n})"
  },
  "markets": {
   "1": "Kotivoitto (1)",

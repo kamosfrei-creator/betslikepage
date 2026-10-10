@@ -285,7 +285,8 @@
   "tipster": "Ennustaja",
   "points": "Punktid",
   "tips_count": "Ennustused",
-  "score": "Tulemus"
+  "score": "Tulemus",
+  "show_started": "Näita alanuid ({n})"
  },
  "markets": {
   "1": "Kodumeeskonna võit (1)",

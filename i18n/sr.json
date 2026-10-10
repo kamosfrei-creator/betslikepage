@@ -285,7 +285,8 @@
   "tipster": "Tiper",
   "points": "Poeni",
   "tips_count": "Tipovi",
-  "score": "Rezultat"
+  "score": "Rezultat",
+  "show_started": "Prikaži započete ({n})"
  },
  "markets": {
   "1": "Pobeda domaćina (1)",
