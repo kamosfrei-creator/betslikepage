@@ -93,7 +93,7 @@
   "f_coach": "Nov trener",
   "ai_note": "Novice o ekipah (poškodbe, kazni, motivacija, rotacija) samodejno zbira AI in jih pretvori v prilagoditve modela. Same verjetnosti izhajajo iz našega statističnega modela.",
   "method_title": "Kako računamo",
-  "method_html": "<ul><li>Moč napada in obrambe iz rezultatov te sezone, ločeno za domače in gostujoče tekme, z večjo težo nedavnih tekem.</li><li>Poissonov model z Dixon-Colesovim popravkom za celotno porazdelitev izidov.</li><li>Elo ocena kot druga, neodvisna ocena možnosti 1X2.</li><li>Prilagoditve za odsotnosti (glede na položaj in pomembnost igralca), motivacijo, rotacijo igralcev, utrujenost in menjave trenerja.</li></ul>",
+  "method_html": "<ul><li>Moč napada in obrambe iz rezultatov te sezone, ločeno za domače in gostujoče tekme, pri čemer imajo novejše tekme večjo težo.</li><li>Naš lastni indeks forme (0-100) iz zadnjih 5 tekem: točke in gol razlika, utežene z močjo nasprotnika in tem, kako nedavna je bila tekma; skupno in ločeno doma / v gosteh.</li><li>Obremenitev s tekmami: dnevi počitka in število tekem v zadnjih 14 dneh.</li><li>Poissonov model s popravkom Dixon-Coles za celotno porazdelitev rezultatov.</li><li>Elo rating kot druga, neodvisna ocena verjetnosti 1X2.</li><li>Novice o ekipi, raziskane z UI: odsotnosti (glede na položaj in pomembnost igralca), motivacija, rotacija igralcev in trenerske menjave.</li></ul>",
   "last_matches": "Zadnje tekme",
   "h2h": "Medsebojne tekme",
   "injuries_title": "Poškodbe in kazni",
@@ -195,7 +195,23 @@
   "page_prev": "Prejšnja",
   "page_next": "Naslednja",
   "matches_count": "Tekme: {n}",
-  "loading": "Nalaganje..."
+  "loading": "Nalaganje...",
+  "model_breakdown": "Kako smo izračunali to tekmo",
+  "inputs": "Vhodni podatki modela",
+  "form_index": "Indeks forme (zadnjih 5)",
+  "form_venue": "Forma doma / v gosteh",
+  "attack_rating": "Moč napada",
+  "defence_rating": "Prejeti goli",
+  "vs_avg": "v primerjavi s povprečjem lige",
+  "load_14": "Tekme v zadnjih 14 dneh",
+  "rest_days": "Dnevi počitka",
+  "h2h_balance": "Medsebojne tekme (Z-N-P)",
+  "step_base": "Osnovni model (moč doma/v gosteh)",
+  "step_form": "+ forma",
+  "step_load": "+ obremenitev s tekmami",
+  "step_news": "+ novice o ekipi (UI)",
+  "step_elo": "+ Elo rating = končno",
+  "breakdown_hint": "Vsak korak pokaže, kako se verjetnosti za 1/X/2 spremenijo po dodajanju naslednjega dejavnika."
  },
  "markets": {
   "1": "Zmaga domačih (1)",
@@ -237,6 +253,7 @@
   "rotation": "Ekipa {team} bi lahko zaradi bližnje naslednje tekme rotirala igralce.",
   "fatigue": "Ekipa {team} je igrala pred {d} dnevi, zato je upoštevana utrujenost.",
   "elo": "Elo ocena: {home} {eh}, {away} {ea}.",
-  "table": "Mesto na lestvici: {home} #{rh}, {away} #{ra}."
+  "table": "Mesto na lestvici: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Indeks forme: {home} {fh}, {away} {fa} (od 100)."
  }
 }

@@ -93,7 +93,7 @@
   "f_coach": "Naujas treneris",
   "ai_note": "Komandų naujienos (traumos, diskvalifikacijos, motyvacija, rotacija) automatiškai surenkamos naudojant DI ir paverčiamos modelio korekcijomis. Pačios tikimybės gaunamos iš mūsų statistinio modelio.",
   "method_title": "Kaip skaičiuojame",
-  "method_html": "<ul><li>Puolimo ir gynybos stiprumas pagal šio sezono rezultatus, atskirai namų ir išvykos rungtynėms, didesnį svorį suteikiant naujausioms rungtynėms.</li><li>Puasono modelis su Dixono-Coleso korekcija visam rezultatų pasiskirstymui.</li><li>Elo reitingas kaip antras, nepriklausomas 1X2 šansų įvertis.</li><li>Korekcijos dėl netekčių (pagal žaidėjo poziciją ir svarbą), motyvacijos, sudėties rotacijos, nuovargio ir trenerių pasikeitimų.</li></ul>",
+  "method_html": "<ul><li>Puolimo ir gynybos jėga pagal šio sezono rezultatus, atskirai namų ir išvykos rungtynėms, didesnį svorį suteikiant naujausioms rungtynėms.</li><li>Mūsų pačių formos indeksas (0-100) pagal paskutines 5 rungtynes: taškai ir įvarčių santykis, įvertinti pagal varžovo stiprumą ir rungtynių naujumą; bendrai ir atskirai namuose / išvykoje.</li><li>Rungtynių krūvis: poilsio dienos ir rungtynių skaičius per paskutines 14 dienų.</li><li>Puasono modelis su Dixono-Coleso korekcija visam rezultatų pasiskirstymui.</li><li>Elo reitingas kaip antras, nepriklausomas 1X2 tikimybių įvertis.</li><li>Komandos naujienos, ištirtos naudojant DI: trūkstami žaidėjai (pagal poziciją ir žaidėjo svarbą), motyvacija, sudėties rotacija ir trenerių pasikeitimai.</li></ul>",
   "last_matches": "Paskutinės rungtynės",
   "h2h": "Tarpusavio rungtynės",
   "injuries_title": "Traumos ir diskvalifikacijos",
@@ -195,7 +195,23 @@
   "page_prev": "Ankstesnis",
   "page_next": "Kitas",
   "matches_count": "Rungtynių: {n}",
-  "loading": "Įkeliama..."
+  "loading": "Įkeliama...",
+  "model_breakdown": "Kaip apskaičiavome šias rungtynes",
+  "inputs": "Modelio įvesties duomenys",
+  "form_index": "Formos indeksas (paskutinės 5)",
+  "form_venue": "Forma namuose / išvykoje",
+  "attack_rating": "Puolimo jėga",
+  "defence_rating": "Praleisti įvarčiai",
+  "vs_avg": "palyginti su lygos vidurkiu",
+  "load_14": "Rungtynės per paskutines 14 dienų",
+  "rest_days": "Poilsio dienos",
+  "h2h_balance": "Tarpusavio rungtynės (P-L-Pr)",
+  "step_base": "Bazinis modelis (jėga namuose/išvykoje)",
+  "step_form": "+ forma",
+  "step_load": "+ rungtynių krūvis",
+  "step_news": "+ komandos naujienos (DI)",
+  "step_elo": "+ Elo reitingas = galutinis",
+  "breakdown_hint": "Kiekvienas žingsnis rodo, kaip keičiasi 1/X/2 tikimybės pridėjus kitą veiksnį."
  },
  "markets": {
   "1": "Šeimininkų pergalė (1)",
@@ -237,6 +253,7 @@
   "motivation_high": "Komandai {team} daug kas pastatyta ant kortos, todėl modelis tai vertina kaip papildomą motyvaciją.",
   "motivation_low": "Komandai {team} mažai kas pastatyta ant kortos, todėl intensyvumas gali būti mažesnis.",
   "rotation": "Komanda {team} gali rotuoti sudėtį dėl netrukus vyksiančių kitų rungtynių.",
-  "table": "Vieta lentelėje: {home} #{rh}, {away} #{ra}."
+  "table": "Vieta lentelėje: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Formos indeksas: {home} {fh}, {away} {fa} (iš 100)."
  }
 }

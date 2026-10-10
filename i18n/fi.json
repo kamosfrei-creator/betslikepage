@@ -93,7 +93,7 @@
   "f_coach": "Uusi valmentaja",
   "ai_note": "Joukkueuutiset (loukkaantumiset, pelikiellot, motivaatio, rotaatio) selvitetään automaattisesti tekoälyn avulla ja muunnetaan mallin säädöiksi. Itse todennäköisyydet tulevat tilastollisesta mallistamme.",
   "method_title": "Näin laskemme",
-  "method_html": "<ul><li>Hyökkäys- ja puolustusvoima tämän kauden tuloksista, erikseen koti- ja vierasotteluille, viimeisimpiä otteluita painottaen.</li><li>Poisson-malli Dixon-Coles-korjauksella koko tulosjakaumalle.</li><li>Elo-luku toisena, riippumattomana arviona 1X2-todennäköisyyksistä.</li><li>Säädöt poissaoloille (pelaajan pelipaikan ja tärkeyden mukaan), motivaatiolle, kokoonpanon kierrätykselle, väsymykselle ja valmentajavaihdoksille.</li></ul>",
+  "method_html": "<ul><li>Hyökkäys- ja puolustusvoima tämän kauden tuloksista, erikseen koti- ja vierasotteluille, tuoreempia otteluita painottaen.</li><li>Oma vire-indeksimme (0-100) viimeisistä 5 ottelusta: pisteet ja maaliero painotettuna vastustajan tasolla ja ottelun tuoreudella; kokonaisuutena sekä erikseen kotona / vieraissa.</li><li>Otteluruuhka: lepopäivät ja otteluiden määrä viimeisten 14 päivän aikana.</li><li>Poisson-malli Dixon-Coles-korjauksella koko lopputulosjakaumaa varten.</li><li>Elo-luku toisena, riippumattomana arviona 1X2-todennäköisyyksistä.</li><li>Tekoälyn avulla selvitetyt joukkueuutiset: poissaolot (pelipaikan ja pelaajan tärkeyden mukaan), motivaatio, kokoonpanon kierrätys ja valmennusmuutokset.</li></ul>",
   "last_matches": "Viimeisimmät ottelut",
   "h2h": "Keskinäiset ottelut",
   "injuries_title": "Loukkaantumiset ja pelikiellot",
@@ -195,7 +195,23 @@
   "page_prev": "Edellinen",
   "page_next": "Seuraava",
   "matches_count": "Otteluita: {n}",
-  "loading": "Ladataan..."
+  "loading": "Ladataan...",
+  "model_breakdown": "Näin laskimme tämän ottelun",
+  "inputs": "Mallin syötteet",
+  "form_index": "Vire-indeksi (viimeiset 5)",
+  "form_venue": "Vire kotona / vieraissa",
+  "attack_rating": "Hyökkäysvoima",
+  "defence_rating": "Päästetyt maalit",
+  "vs_avg": "verrattuna sarjan keskiarvoon",
+  "load_14": "Otteluita viimeisten 14 päivän aikana",
+  "rest_days": "Lepopäiviä",
+  "h2h_balance": "Keskinäiset ottelut (V-T-H)",
+  "step_base": "Perusmalli (koti-/vierasvoima)",
+  "step_form": "+ vire",
+  "step_load": "+ otteluruuhka",
+  "step_news": "+ joukkueuutiset (AI)",
+  "step_elo": "+ Elo-luku = lopullinen",
+  "breakdown_hint": "Jokainen vaihe näyttää, miten 1/X/2-todennäköisyydet muuttuvat seuraavan tekijän lisäämisen jälkeen."
  },
  "markets": {
   "1": "Kotivoitto (1)",
@@ -237,6 +253,7 @@
   "motivation_high": "Joukkueella {team} on paljon pelattavaa, minkä malli huomioi lisämotivaationa.",
   "motivation_low": "Joukkueella {team} on vain vähän pelissä, mikä voi laskea intensiteettiä.",
   "rotation": "Joukkue {team} saattaa kierrättää kokoonpanoaan pian edessä olevan toisen ottelun vuoksi.",
-  "table": "Sarjasijoitus: {home} #{rh}, {away} #{ra}."
+  "table": "Sarjasijoitus: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Vire-indeksi: {home} {fh}, {away} {fa} (asteikolla 0–100)."
  }
 }

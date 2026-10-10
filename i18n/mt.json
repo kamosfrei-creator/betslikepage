@@ -93,7 +93,7 @@
   "f_coach": "Kowċ ġdid",
   "ai_note": "L-aħbarijiet tat-timijiet (korrimenti, sospensjonijiet, motivazzjoni, rotazzjoni) jiġu riċerkati awtomatikament bl-AI u jinbidlu f'aġġustamenti fil-mudell. Il-probabbiltajiet infushom ġejjin mill-mudell statistiku tagħna.",
   "method_title": "Kif nikkalkulaw",
-  "method_html": "<ul><li>Is-saħħa fl-attakk u fid-difiża mir-riżultati ta' dan l-istaġun, separatament għal-logħbiet id-dar u barra, b'piż akbar għal-logħbiet riċenti.</li><li>Mudell Poisson bil-korrezzjoni Dixon-Coles għad-distribuzzjoni sħiħa tar-riżultati.</li><li>Rating Elo bħala stima oħra indipendenti taċ-ċansijiet 1X2.</li><li>Aġġustamenti għall-assenzi (skont il-pożizzjoni u l-importanza tal-plejer), il-motivazzjoni, ir-rotazzjoni tal-iskwadra, l-għeja u t-tibdil fil-kowċ.</li></ul>",
+  "method_html": "<ul><li>Is-saħħa fl-attakk u fid-difiża mir-riżultati ta' dan l-istaġun, separatament għal-logħbiet id-dar u barra, b'aktar piż fuq il-logħbiet riċenti.</li><li>L-indiċi tal-forma tagħna stess (0-100) mill-aħħar 5 logħbiet: punti u differenza fil-gowls, ippeżati skont is-saħħa tal-avversarju u kemm il-logħba kienet riċenti; b'mod ġenerali u separatament id-dar / barra.</li><li>Piż tal-logħbiet: jiem ta' mistrieħ u n-numru ta' logħbiet fl-aħħar 14-il jum.</li><li>Mudell ta' Poisson bil-korrezzjoni Dixon-Coles għad-distribuzzjoni sħiħa tar-riżultati.</li><li>Klassifikazzjoni Elo bħala stima oħra, indipendenti, taċ-ċansijiet 1X2.</li><li>Aħbarijiet tat-tim riċerkati bl-AI: assenzi (skont il-pożizzjoni u l-importanza tal-plejer), motivazzjoni, rotazzjoni tal-iskwadra u bidliet fit-taħriġ.</li></ul>",
   "last_matches": "L-aħħar logħbiet",
   "h2h": "Kontra xulxin",
   "injuries_title": "Korrimenti u sospensjonijiet",
@@ -195,7 +195,23 @@
   "page_prev": "Ta' qabel",
   "page_next": "Li jmiss",
   "matches_count": "{n} logħbiet",
-  "loading": "Qed jitgħabba..."
+  "loading": "Qed jitgħabba...",
+  "model_breakdown": "Kif ikkalkulajna din il-partita",
+  "inputs": "Id-dejta tal-mudell",
+  "form_index": "Indiċi tal-forma (l-aħħar 5)",
+  "form_venue": "Forma d-dar / barra",
+  "attack_rating": "Saħħa fl-attakk",
+  "defence_rating": "Gowls milqugħa",
+  "vs_avg": "meta mqabbel mal-medja tal-kampjonat",
+  "load_14": "Logħbiet fl-aħħar 14-il jum",
+  "rest_days": "Jiem ta' mistrieħ",
+  "h2h_balance": "Kontra xulxin (R-D-T)",
+  "step_base": "Mudell bażiku (saħħa d-dar/barra)",
+  "step_form": "+ forma",
+  "step_load": "+ piż tal-logħbiet",
+  "step_news": "+ aħbarijiet tat-tim (AI)",
+  "step_elo": "+ klassifikazzjoni Elo = finali",
+  "breakdown_hint": "Kull pass juri kif jinbidlu ċ-ċansijiet ta' 1/X/2 wara li jiżdied il-fattur li jmiss."
  },
  "markets": {
   "1": "Rebħa tad-dar (1)",
@@ -237,6 +253,7 @@
   "motivation_high": "{team} għandhom ħafna x'jilagħbu għalih, u l-mudell jgħodd dan bħala motivazzjoni żejda.",
   "motivation_low": "{team} m'għandhomx wisq x'jilagħbu għalih, li jista' jnaqqas l-intensità.",
   "rotation": "{team} jistgħu jdawru l-iskwadra minħabba logħba oħra dalwaqt.",
-  "table": "Pożizzjoni fil-kampjonat: {home} #{rh}, {away} #{ra}."
+  "table": "Pożizzjoni fil-kampjonat: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Indiċi tal-forma: {home} {fh}, {away} {fa} (minn 100)."
  }
 }

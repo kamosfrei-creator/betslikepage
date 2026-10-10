@@ -93,7 +93,7 @@
   "f_coach": "Nový tréner",
   "ai_note": "Správy o tímoch (zranenia, tresty, motivácia, rotácia) automaticky zisťuje AI a premieta ich do úprav modelu. Samotné pravdepodobnosti pochádzajú z nášho štatistického modelu.",
   "method_title": "Ako počítame",
-  "method_html": "<ul><li>Sila útoku a obrany z výsledkov tejto sezóny, zvlášť pre domáce a vonkajšie zápasy, s vyššou váhou nedávnych zápasov.</li><li>Poissonov model s Dixon-Colesovou korekciou pre úplné rozdelenie výsledkov.</li><li>Elo rating ako druhý, nezávislý odhad šancí 1X2.</li><li>Úpravy za absencie (podľa pozície a dôležitosti hráča), motiváciu, rotáciu kádra, únavu a zmeny trénera.</li></ul>",
+  "method_html": "<ul><li>Sila útoku a obrany z výsledkov tejto sezóny, osobitne pre domáce a vonkajšie zápasy, s vyššou váhou nedávnych zápasov.</li><li>Náš vlastný index formy (0-100) z posledných 5 zápasov: body a gólový rozdiel, vážené silou súpera a tým, ako nedávno sa zápas hral; celkovo aj osobitne doma / vonku.</li><li>Zápasové vyťaženie: dni oddychu a počet zápasov za posledných 14 dní.</li><li>Poissonov model s korekciou Dixon-Coles pre celé rozdelenie výsledkov.</li><li>Elo rating ako druhý, nezávislý odhad šancí 1X2.</li><li>Tímové správy zistené pomocou AI: absencie (podľa pozície a dôležitosti hráča), motivácia, rotácia kádra a zmeny trénerov.</li></ul>",
   "last_matches": "Posledné zápasy",
   "h2h": "Vzájomné zápasy",
   "injuries_title": "Zranenia a tresty",
@@ -195,7 +195,23 @@
   "page_prev": "Predchádzajúce",
   "page_next": "Ďalšie",
   "matches_count": "Zápasy: {n}",
-  "loading": "Načítava sa..."
+  "loading": "Načítava sa...",
+  "model_breakdown": "Ako sme vypočítali tento zápas",
+  "inputs": "Vstupy modelu",
+  "form_index": "Index formy (posledných 5)",
+  "form_venue": "Forma doma / vonku",
+  "attack_rating": "Sila útoku",
+  "defence_rating": "Inkasované góly",
+  "vs_avg": "oproti priemeru ligy",
+  "load_14": "Zápasy za posledných 14 dní",
+  "rest_days": "Dni oddychu",
+  "h2h_balance": "Vzájomné zápasy (V-R-P)",
+  "step_base": "Základný model (sila doma/vonku)",
+  "step_form": "+ forma",
+  "step_load": "+ zápasové vyťaženie",
+  "step_news": "+ tímové správy (AI)",
+  "step_elo": "+ Elo rating = výsledok",
+  "breakdown_hint": "Každý krok ukazuje, ako sa menia šance na 1/X/2 po pridaní ďalšieho faktora."
  },
  "markets": {
   "1": "Výhra domácich (1)",
@@ -237,6 +253,7 @@
   "rotation": "Tím {team} môže pre blížiaci sa ďalší zápas rotovať kádrom.",
   "fatigue": "Tím {team} hral pred {d} dňami, preto sa počíta s únavou.",
   "elo": "Elo rating: {home} {eh}, {away} {ea}.",
-  "table": "Pozícia v tabuľke: {home} #{rh}, {away} #{ra}."
+  "table": "Pozícia v tabuľke: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Index formy: {home} {fh}, {away} {fa} (zo 100)."
  }
 }

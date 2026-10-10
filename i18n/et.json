@@ -93,7 +93,7 @@
   "f_coach": "Uus treener",
   "ai_note": "Meeskonnauudised (vigastused, mängukeelud, motivatsioon, rotatsioon) kogutakse automaatselt tehisintellekti abil ja muudetakse mudeli korrektsioonideks. Tõenäosused ise pärinevad meie statistilisest mudelist.",
   "method_title": "Kuidas me arvutame",
-  "method_html": "<ul><li>Rünnaku- ja kaitsetugevus selle hooaja tulemuste põhjal, eraldi kodu- ja võõrsilmängude jaoks, kusjuures viimased mängud kaaluvad rohkem.</li><li>Poissoni mudel Dixoni-Colesi korrektsiooniga kogu tulemuste jaotuse jaoks.</li><li>Elo reiting kui teine, sõltumatu hinnang 1X2 võimalustele.</li><li>Korrektsioonid puudujate (mängija positsiooni ja tähtsuse järgi), motivatsiooni, koosseisu roteerimise, väsimuse ja treenerivahetuste tõttu.</li></ul>",
+  "method_html": "<ul><li>Ründe- ja kaitsetugevus selle hooaja tulemuste põhjal, eraldi kodu- ja võõrsilmängude jaoks, kusjuures hilisematel mängudel on suurem kaal.</li><li>Meie oma vormiindeks (0-100) viimase 5 mängu põhjal: punktid ja väravate vahe, kaalutud vastase tugevuse ja mängu värskusega; kokku ning eraldi kodus / võõrsil.</li><li>Mängukoormus: puhkepäevad ja mängude arv viimase 14 päeva jooksul.</li><li>Poissoni mudel Dixon-Colesi korrektsiooniga kogu tulemuste jaotuse jaoks.</li><li>Elo reiting teise, sõltumatu hinnanguna 1X2 tõenäosustele.</li><li>AI abil uuritud meeskonnauudised: puudujad (positsiooni ja mängija olulisuse järgi), motivatsioon, koosseisu roteerimine ja treenerivahetused.</li></ul>",
   "last_matches": "Viimased mängud",
   "h2h": "Omavahelised mängud",
   "injuries_title": "Vigastused ja mängukeelud",
@@ -195,7 +195,23 @@
   "page_prev": "Eelmine",
   "page_next": "Järgmine",
   "matches_count": "Mänge: {n}",
-  "loading": "Laadimine..."
+  "loading": "Laadimine...",
+  "model_breakdown": "Kuidas me selle mängu arvutasime",
+  "inputs": "Mudeli sisendid",
+  "form_index": "Vormiindeks (viimased 5)",
+  "form_venue": "Vorm kodus / võõrsil",
+  "attack_rating": "Ründejõud",
+  "defence_rating": "Lastud väravad",
+  "vs_avg": "võrreldes liiga keskmisega",
+  "load_14": "Mänge viimase 14 päeva jooksul",
+  "rest_days": "Puhkepäevi",
+  "h2h_balance": "Omavahelised mängud (V-Vi-K)",
+  "step_base": "Põhimudel (kodu-/võõrsiltugevus)",
+  "step_form": "+ vorm",
+  "step_load": "+ mängukoormus",
+  "step_news": "+ meeskonnauudised (AI)",
+  "step_elo": "+ Elo reiting = lõplik",
+  "breakdown_hint": "Iga samm näitab, kuidas 1/X/2 tõenäosused muutuvad pärast järgmise teguri lisamist."
  },
  "markets": {
   "1": "Kodumeeskonna võit (1)",
@@ -237,6 +253,7 @@
   "motivation_high": "Meeskonnal {team} on palju mängus, mida mudel arvestab lisamotivatsioonina.",
   "motivation_low": "Meeskonnal {team} on vähe kaalul, mis võib intensiivsust vähendada.",
   "rotation": "Meeskond {team} võib peatselt ootava järgmise mängu tõttu koosseisu roteerida.",
-  "table": "Koht tabelis: {home} #{rh}, {away} #{ra}."
+  "table": "Koht tabelis: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Vormiindeks: {home} {fh}, {away} {fa} (100-st)."
  }
 }

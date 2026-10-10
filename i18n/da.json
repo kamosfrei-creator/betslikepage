@@ -93,7 +93,7 @@
   "f_coach": "Ny træner",
   "ai_note": "Holdnyheder (skader, karantæner, motivation, rotation) researches automatisk med AI og omsættes til justeringer i modellen. Selve sandsynlighederne kommer fra vores statistiske model.",
   "method_title": "Sådan beregner vi",
-  "method_html": "<ul><li>Angrebs- og forsvarsstyrke ud fra sæsonens resultater, opdelt på hjemme- og udekampe, hvor de seneste kampe vægtes højest.</li><li>Poisson-model med Dixon-Coles-korrektion for den fulde resultatfordeling.</li><li>Elo-rating som et andet, uafhængigt estimat af 1X2-chancerne.</li><li>Justeringer for fravær (efter spillerens position og betydning), motivation, rotation i truppen, træthed og trænerskifter.</li></ul>",
+  "method_html": "<ul><li>Angrebs- og forsvarsstyrke ud fra sæsonens resultater, separat for hjemme- og udekampe, hvor de seneste kampe vægtes højere.</li><li>Vores eget formindeks (0-100) ud fra de seneste 5 kampe: point og målforskel, vægtet efter modstanderens styrke og hvor nylig kampen er; samlet og separat hjemme / ude.</li><li>Kampbelastning: hviledage og antal kampe de seneste 14 dage.</li><li>Poisson-model med Dixon-Coles-korrektion for hele fordelingen af resultater.</li><li>Elo-rating som et andet, uafhængigt estimat af chancerne for 1X2.</li><li>Holdnyheder researchet med AI: fravær (efter position og spillerens betydning), motivation, rotation i truppen og trænerskifter.</li></ul>",
   "last_matches": "Seneste kampe",
   "h2h": "Indbyrdes opgør",
   "injuries_title": "Skader og karantæner",
@@ -195,7 +195,23 @@
   "page_prev": "Forrige",
   "page_next": "Næste",
   "matches_count": "{n} kampe",
-  "loading": "Indlæser..."
+  "loading": "Indlæser...",
+  "model_breakdown": "Sådan beregnede vi denne kamp",
+  "inputs": "Modellens input",
+  "form_index": "Formindeks (seneste 5)",
+  "form_venue": "Form hjemme / ude",
+  "attack_rating": "Angrebsstyrke",
+  "defence_rating": "Mål imod",
+  "vs_avg": "i forhold til ligagennemsnittet",
+  "load_14": "Kampe de seneste 14 dage",
+  "rest_days": "Hviledage",
+  "h2h_balance": "Indbyrdes opgør (V-U-T)",
+  "step_base": "Basismodel (hjemme-/udestyrke)",
+  "step_form": "+ form",
+  "step_load": "+ kampbelastning",
+  "step_news": "+ holdnyheder (AI)",
+  "step_elo": "+ Elo-rating = endeligt",
+  "breakdown_hint": "Hvert trin viser, hvordan chancerne for 1/X/2 ændrer sig, når den næste faktor lægges til."
  },
  "markets": {
   "1": "Hjemmesejr (1)",
@@ -237,6 +253,7 @@
   "motivation_high": "{team} har meget at spille for, hvilket modellen regner som ekstra motivation.",
   "motivation_low": "{team} har ikke meget på spil, hvilket kan sænke intensiteten.",
   "rotation": "{team} kan rotere truppen på grund af en anden kamp snart.",
-  "table": "Placering i tabellen: {home} nr. {rh}, {away} nr. {ra}."
+  "table": "Placering i tabellen: {home} nr. {rh}, {away} nr. {ra}.",
+  "form_compare": "Formindeks: {home} {fh}, {away} {fa} (ud af 100)."
  }
 }

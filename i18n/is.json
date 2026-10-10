@@ -93,7 +93,7 @@
   "f_coach": "Nýr þjálfari",
   "ai_note": "Fréttir af liðunum (meiðsli, leikbönn, hvatning, róteringar) eru kannaðar sjálfvirkt með gervigreind og breytt í leiðréttingar á líkaninu. Líkurnar sjálfar koma úr tölfræðilíkani okkar.",
   "method_title": "Svona reiknum við",
-  "method_html": "<ul><li>Sóknar- og varnarstyrkur út frá úrslitum tímabilsins, aðskilið fyrir heima- og útileiki, þar sem nýlegir leikir vega þyngra.</li><li>Poisson-líkan með Dixon-Coles-leiðréttingu fyrir alla dreifingu úrslita.</li><li>Elo-stig sem annað, óháð mat á 1X2-líkum.</li><li>Leiðréttingar vegna fjarvista (eftir stöðu og mikilvægi leikmanns), hvatningar, róteringar í hópnum, þreytu og þjálfaraskipta.</li></ul>",
+  "method_html": "<ul><li>Sóknar- og varnarstyrkur út frá úrslitum tímabilsins, aðskilið fyrir heima- og útileiki, þar sem nýlegri leikir vega þyngra.</li><li>Okkar eigin formvísitala (0-100) úr síðustu 5 leikjum: stig og markamunur, vegin eftir styrk andstæðingsins og hversu nýlegur leikurinn er; í heild og aðskilið heima / úti.</li><li>Leikjaálag: hvíldardagar og fjöldi leikja síðustu 14 daga.</li><li>Poisson-líkan með Dixon-Coles-leiðréttingu fyrir alla dreifingu úrslita.</li><li>Elo-stig sem annað, óháð mat á líkunum á 1X2.</li><li>Liðsfréttir kannaðar með gervigreind: fjarverur (eftir stöðu og mikilvægi leikmanns), hvatning, róteringar í hópnum og þjálfaraskipti.</li></ul>",
   "last_matches": "Síðustu leikir",
   "h2h": "Innbyrðis viðureignir",
   "injuries_title": "Meiðsli og leikbönn",
@@ -195,7 +195,23 @@
   "page_prev": "Fyrri",
   "page_next": "Næsta",
   "matches_count": "Leikir: {n}",
-  "loading": "Hleður..."
+  "loading": "Hleður...",
+  "model_breakdown": "Svona reiknuðum við þennan leik",
+  "inputs": "Inntak líkansins",
+  "form_index": "Formvísitala (síðustu 5)",
+  "form_venue": "Form heima / úti",
+  "attack_rating": "Sóknarstyrkur",
+  "defence_rating": "Fengin mörk",
+  "vs_avg": "miðað við meðaltal deildarinnar",
+  "load_14": "Leikir síðustu 14 daga",
+  "rest_days": "Hvíldardagar",
+  "h2h_balance": "Innbyrðis viðureignir (S-J-T)",
+  "step_base": "Grunnlíkan (styrkur heima/úti)",
+  "step_form": "+ form",
+  "step_load": "+ leikjaálag",
+  "step_news": "+ liðsfréttir (gervigreind)",
+  "step_elo": "+ Elo-stig = lokaniðurstaða",
+  "breakdown_hint": "Hvert skref sýnir hvernig líkurnar á 1/X/2 breytast þegar næsta þætti er bætt við."
  },
  "markets": {
   "1": "Heimasigur (1)",
@@ -237,6 +253,7 @@
   "motivation_high": "Liðið {team} hefur að miklu að keppa, sem líkanið metur sem aukna hvatningu.",
   "motivation_low": "Liðið {team} hefur að litlu að keppa, sem getur dregið úr ákefð.",
   "rotation": "Liðið {team} gæti hvílt leikmenn vegna annars leiks á næstunni.",
-  "table": "Staða í deildinni: {home} #{rh}, {away} #{ra}."
+  "table": "Staða í deildinni: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Formvísitala: {home} {fh}, {away} {fa} (af 100)."
  }
 }

@@ -93,7 +93,7 @@
   "f_coach": "Jauns treneris",
   "ai_note": "Komandu ziņas (traumas, diskvalifikācijas, motivācija, rotācija) tiek automātiski apkopotas ar mākslīgā intelekta palīdzību un pārvērstas modeļa korekcijās. Pašas varbūtības nāk no mūsu statistiskā modeļa.",
   "method_title": "Kā mēs aprēķinām",
-  "method_html": "<ul><li>Uzbrukuma un aizsardzības spēks pēc šīs sezonas rezultātiem, atsevišķi mājas un izbraukuma spēlēm, pēdējām spēlēm piešķirot lielāku svaru.</li><li>Puasona modelis ar Diksona-Kolsa korekciju pilnam rezultātu sadalījumam.</li><li>Elo reitings kā otrs, neatkarīgs 1X2 iespēju novērtējums.</li><li>Korekcijas par iztrūkstošajiem spēlētājiem (pēc spēlētāja pozīcijas un nozīmes), motivāciju, sastāva rotāciju, nogurumu un treneru maiņu.</li></ul>",
+  "method_html": "<ul><li>Uzbrukuma un aizsardzības spēks pēc šīs sezonas rezultātiem, atsevišķi mājas un izbraukuma spēlēm, lielāku svaru piešķirot nesenākām spēlēm.</li><li>Mūsu pašu formas indekss (0-100) no pēdējām 5 spēlēm: punkti un vārtu starpība, svērti pēc pretinieka spēka un spēles nesenuma; kopumā un atsevišķi mājās / izbraukumā.</li><li>Spēļu slodze: atpūtas dienas un spēļu skaits pēdējās 14 dienās.</li><li>Puasona modelis ar Diksona-Kolsa korekciju pilnam rezultātu sadalījumam.</li><li>Elo reitings kā otrs, neatkarīgs 1X2 iespēju novērtējums.</li><li>Ar AI izpētītas komandas ziņas: prombūtnes (pēc pozīcijas un spēlētāja nozīmīguma), motivācija, sastāva rotācija un treneru maiņas.</li></ul>",
   "last_matches": "Pēdējās spēles",
   "h2h": "Savstarpējās spēles",
   "injuries_title": "Traumas un diskvalifikācijas",
@@ -195,7 +195,23 @@
   "page_prev": "Iepriekšējā",
   "page_next": "Nākamā",
   "matches_count": "Spēles: {n}",
-  "loading": "Ielādē..."
+  "loading": "Ielādē...",
+  "model_breakdown": "Kā mēs aprēķinājām šo spēli",
+  "inputs": "Modeļa ievaddati",
+  "form_index": "Formas indekss (pēdējās 5)",
+  "form_venue": "Forma mājās / izbraukumā",
+  "attack_rating": "Uzbrukuma spēks",
+  "defence_rating": "Ielaistie vārti",
+  "vs_avg": "salīdzinot ar līgas vidējo",
+  "load_14": "Spēles pēdējās 14 dienās",
+  "rest_days": "Atpūtas dienas",
+  "h2h_balance": "Savstarpējās spēles (U-N-Z)",
+  "step_base": "Bāzes modelis (spēks mājās/izbraukumā)",
+  "step_form": "+ forma",
+  "step_load": "+ spēļu slodze",
+  "step_news": "+ komandas ziņas (AI)",
+  "step_elo": "+ Elo reitings = galīgais",
+  "breakdown_hint": "Katrs solis parāda, kā mainās 1/X/2 iespējas pēc nākamā faktora pievienošanas."
  },
  "markets": {
   "1": "Mājinieku uzvara (1)",
@@ -237,6 +253,7 @@
   "motivation_high": "Komandai {team} ir daudz uz spēles, ko modelis uzskata par papildu motivāciju.",
   "motivation_low": "Komandai {team} ir maz uz spēles, kas var mazināt intensitāti.",
   "rotation": "Komanda {team} var rotēt sastāvu drīzas nākamās spēles dēļ.",
-  "table": "Vieta tabulā: {home} #{rh}, {away} #{ra}."
+  "table": "Vieta tabulā: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Formas indekss: {home} {fh}, {away} {fa} (no 100)."
  }
 }
