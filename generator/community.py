@@ -6,7 +6,9 @@ Baza na tej podstawie zamyka typowanie o godzinie meczu i liczy punkty.
 """
 
 import json
+import urllib.error
 import urllib.request
+from datetime import datetime, timezone
 
 BATCH = 200
 
@@ -27,6 +29,11 @@ def rows(matches):
     return out
 
 
+def _kind(key):
+    key = key or ""
+    return "sb_secret" if key.startswith("sb_secret") else "jwt" if key.startswith("eyJ") else "brak" if not key else "inny"
+
+
 def _headers(key):
     h = {"apikey": key, "Content-Type": "application/json", "Prefer": "resolution=merge-duplicates,return=minimal"}
     if key.startswith("eyJ"):  # stary klucz JWT service_role; nowe klucze sb_secret_ idą tylko w apikey
@@ -34,9 +41,22 @@ def _headers(key):
     return h
 
 
-def sync(url, key, matches, log=print):
+def sync(url, key, matches, log=print, status_path=None):
+    """Wysyła mecze; wynik (bez kluczy) zapisuje w status_path do podglądu."""
+    errors = []
+    sent = _sync(url, key, matches, lambda msg: (errors.append(msg), log(msg)))
+    if status_path:
+        with open(status_path, "w") as f:
+            json.dump({"at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "key_set": bool(key),
+                       "key_type": _kind(key),
+                       "sent": sent, "log": errors[-5:]}, f, indent=1)
+    return sent
+
+
+def _sync(url, key, matches, log):
     data = rows(matches)
     if not (url and key and data):
+        log(f"[community] pomijam: url={'tak' if url else 'brak'}, klucz={'tak' if key else 'brak'}, mecze={len(data)}")
         return 0
     # Wynik zakończonego meczu nie może skasować prawdopodobieństw zapisanych wcześniej.
     for r in data:
@@ -56,6 +76,9 @@ def sync(url, key, matches, log=print):
             try:
                 urllib.request.urlopen(req, timeout=30).close()
                 sent += len(group[i:i + BATCH])
+            except urllib.error.HTTPError as e:
+                log(f"[community] HTTP {e.code}: {e.read()[:300].decode('utf-8', 'replace')}")
+                return sent
             except Exception as e:
                 log(f"[community] {e}")
                 return sent
