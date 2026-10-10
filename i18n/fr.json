@@ -93,7 +93,7 @@
   "f_coach": "Nouvel entraîneur",
   "ai_note": "Les infos des équipes (blessures, suspensions, motivation, turnover) sont recherchées automatiquement par IA et converties en ajustements du modèle. Les probabilités elles-mêmes proviennent de notre modèle statistique.",
   "method_title": "Notre méthode de calcul",
-  "method_html": "<ul><li>Force offensive et défensive tirée des résultats de cette saison, séparément à domicile et à l'extérieur, avec plus de poids pour les matchs récents.</li><li>Modèle de Poisson avec la correction de Dixon-Coles pour la distribution complète des scores.</li><li>Classement Elo comme seconde estimation indépendante des chances 1N2.</li><li>Ajustements pour les absences (selon le poste et l'importance du joueur), la motivation, le turnover, la fatigue et les changements d'entraîneur.</li></ul>",
+  "method_html": "<ul><li>Force offensive et défensive tirée des résultats de cette saison, séparément pour les matchs à domicile et à l'extérieur, les matchs récents ayant plus de poids.</li><li>Notre propre indice de forme (0-100) sur les 5 derniers matchs : points et différence de buts, pondérés par la force de l'adversaire et l'ancienneté du match ; global et séparément à domicile / à l'extérieur.</li><li>Charge du calendrier : jours de repos et nombre de matchs sur les 14 derniers jours.</li><li>Modèle de Poisson avec la correction de Dixon-Coles pour la distribution complète des scores.</li><li>Classement Elo comme seconde estimation indépendante des probabilités 1N2.</li><li>Infos d'équipe recherchées par IA : absences (selon le poste et l'importance du joueur), motivation, rotation de l'effectif et changements d'entraîneur.</li></ul>",
   "last_matches": "Derniers matchs",
   "h2h": "Confrontations directes",
   "injuries_title": "Blessures et suspensions",
@@ -195,7 +195,23 @@
   "page_prev": "Précédent",
   "page_next": "Suivant",
   "matches_count": "{n} matchs",
-  "loading": "Chargement..."
+  "loading": "Chargement...",
+  "model_breakdown": "Comment nous avons calculé ce match",
+  "inputs": "Données du modèle",
+  "form_index": "Indice de forme (5 derniers)",
+  "form_venue": "Forme à domicile / à l'extérieur",
+  "attack_rating": "Force offensive",
+  "defence_rating": "Buts encaissés",
+  "vs_avg": "vs moyenne de la ligue",
+  "load_14": "Matchs sur les 14 derniers jours",
+  "rest_days": "Jours de repos",
+  "h2h_balance": "Confrontations directes (G-N-P)",
+  "step_base": "Modèle de base (force à domicile/à l'extérieur)",
+  "step_form": "+ forme",
+  "step_load": "+ calendrier chargé",
+  "step_news": "+ infos d'équipe (IA)",
+  "step_elo": "+ classement Elo = final",
+  "breakdown_hint": "Chaque étape montre comment les probabilités 1/N/2 évoluent après l'ajout du facteur suivant."
  },
  "markets": {
   "1": "Victoire domicile (1)",
@@ -237,6 +253,7 @@
   "rotation": "L'équipe {team} pourrait faire tourner son effectif en raison d'un autre match proche.",
   "fatigue": "L'équipe {team} a joué il y a {d} jours, la fatigue est donc prise en compte.",
   "elo": "Classement Elo : {home} {eh}, {away} {ea}.",
-  "table": "Classement : {home} #{rh}, {away} #{ra}."
+  "table": "Classement : {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Indice de forme : {home} {fh}, {away} {fa} (sur 100)."
  }
 }

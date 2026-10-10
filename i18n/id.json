@@ -93,7 +93,7 @@
   "f_coach": "Pelatih baru",
   "ai_note": "Kabar tim (cedera, skorsing, motivasi, rotasi) dikumpulkan secara otomatis dengan AI dan diubah menjadi penyesuaian model. Probabilitasnya sendiri berasal dari model statistik kami.",
   "method_title": "Cara kami menghitung",
-  "method_html": "<ul><li>Kekuatan serangan dan pertahanan dari hasil musim ini, dihitung terpisah untuk laga kandang dan tandang, dengan bobot lebih besar untuk pertandingan terbaru.</li><li>Model Poisson dengan koreksi Dixon-Coles untuk distribusi skor secara lengkap.</li><li>Rating Elo sebagai perkiraan kedua yang independen untuk peluang 1X2.</li><li>Penyesuaian untuk pemain absen (berdasarkan posisi dan peran pemain), motivasi, rotasi skuad, kelelahan, dan pergantian pelatih.</li></ul>",
+  "method_html": "<ul><li>Kekuatan serangan dan pertahanan dari hasil musim ini, terpisah untuk laga kandang dan tandang, dengan bobot lebih besar untuk pertandingan terbaru.</li><li>Indeks performa kami sendiri (0-100) dari 5 pertandingan terakhir: poin dan selisih gol, dibobot menurut kekuatan lawan dan seberapa baru pertandingan tersebut; secara keseluruhan serta terpisah di kandang / tandang.</li><li>Padatnya jadwal: hari istirahat dan jumlah pertandingan dalam 14 hari terakhir.</li><li>Model Poisson dengan koreksi Dixon-Coles untuk distribusi skor lengkap.</li><li>Rating Elo sebagai estimasi kedua yang independen untuk peluang 1X2.</li><li>Berita tim yang diriset dengan AI: absennya pemain (menurut posisi dan pentingnya pemain), motivasi, rotasi skuad, dan pergantian pelatih.</li></ul>",
   "last_matches": "Pertandingan terakhir",
   "h2h": "Rekor pertemuan",
   "injuries_title": "Cedera dan skorsing",
@@ -195,7 +195,23 @@
   "page_prev": "Sebelumnya",
   "page_next": "Berikutnya",
   "matches_count": "{n} pertandingan",
-  "loading": "Memuat..."
+  "loading": "Memuat...",
+  "model_breakdown": "Cara kami menghitung pertandingan ini",
+  "inputs": "Input model",
+  "form_index": "Indeks performa (5 terakhir)",
+  "form_venue": "Performa kandang / tandang",
+  "attack_rating": "Kekuatan serangan",
+  "defence_rating": "Gol kebobolan",
+  "vs_avg": "vs rata-rata liga",
+  "load_14": "Pertandingan dalam 14 hari terakhir",
+  "rest_days": "Hari istirahat",
+  "h2h_balance": "Head to head (M-S-K)",
+  "step_base": "Model dasar (kekuatan kandang/tandang)",
+  "step_form": "+ performa",
+  "step_load": "+ padatnya jadwal",
+  "step_news": "+ berita tim (AI)",
+  "step_elo": "+ rating Elo = akhir",
+  "breakdown_hint": "Setiap langkah menunjukkan bagaimana peluang 1/X/2 berubah setelah faktor berikutnya ditambahkan."
  },
  "markets": {
   "1": "Tuan rumah menang (1)",
@@ -237,6 +253,7 @@
   "rotation": "{team} mungkin merotasi skuad karena ada pertandingan lain dalam waktu dekat.",
   "fatigue": "{team} bermain {d} hari lalu, sehingga faktor kelelahan diperhitungkan.",
   "elo": "Rating Elo: {home} {eh}, {away} {ea}.",
-  "table": "Posisi di klasemen: {home} #{rh}, {away} #{ra}."
+  "table": "Posisi di klasemen: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Indeks performa: {home} {fh}, {away} {fa} (dari 100)."
  }
 }

@@ -93,7 +93,7 @@
   "f_coach": "Bainisteoir nua",
   "ai_note": "Déantar taighde uathoibríoch le hIS ar nuacht na bhfoirne (gortuithe, cosc, spreagadh, rothlú) agus déantar coigeartuithe samhla astu. Is ónár samhail staitistiúil féin a thagann na dóchúlachtaí.",
   "method_title": "Conas a ríomhaimid",
-  "method_html": "<ul><li>Neart ionsaithe agus cosanta ó thorthaí an tséasúir seo, ar leith do chluichí baile agus as baile, agus níos mó meáchain ar chluichí le déanaí.</li><li>Samhail Poisson le ceartú Dixon-Coles don dáileadh iomlán scóranna.</li><li>Rátáil Elo mar an dara meastachán neamhspleách ar sheansanna 1X2.</li><li>Coigeartuithe do imreoirí as láthair (de réir ionaid agus thábhacht an imreora), spreagadh, rothlú na scuaine, tuirse agus athruithe bainisteora.</li></ul>",
+  "method_html": "<ul><li>Neart ionsaithe agus cosanta ó thorthaí an tséasúir seo, ar leith do chluichí baile agus as baile, le níos mó ualaithe ar chluichí le déanaí.</li><li>Ár n-innéacs foirme féin (0-100) ó na 5 chluiche dheireanacha: pointí agus difríocht cúl, ualaithe de réir neart an fhreasúra agus cé chomh déanach is a bhí an cluiche; san iomlán agus ar leith sa bhaile / as baile.</li><li>Ualach cluichí: laethanta scíthe agus líon na gcluichí sna 14 lá deireanacha.</li><li>Múnla Poisson le ceartú Dixon-Coles don dáileadh iomlán scóranna.</li><li>Rátáil Elo mar dhara meastachán neamhspleách ar sheansanna 1X2.</li><li>Nuacht foirne arna taighde le hIS: imreoirí as láthair (de réir ionaid agus thábhacht an imreora), spreagadh, rothlú na foirne agus athruithe bainisteora.</li></ul>",
   "last_matches": "Na cluichí deireanacha",
   "h2h": "Ceann ar cheann",
   "injuries_title": "Gortuithe agus coisc",
@@ -195,7 +195,23 @@
   "page_prev": "Roimhe",
   "page_next": "Ar aghaidh",
   "matches_count": "{n} cluiche",
-  "loading": "Ag lódáil..."
+  "loading": "Ag lódáil...",
+  "model_breakdown": "Conas a ríomhamar an cluiche seo",
+  "inputs": "Ionchuir an mhúnla",
+  "form_index": "Innéacs foirme (5 dheireanacha)",
+  "form_venue": "Foirm sa bhaile / as baile",
+  "attack_rating": "Neart ionsaithe",
+  "defence_rating": "Cúil a ligeadh isteach",
+  "vs_avg": "i gcomparáid le meán na sraithe",
+  "load_14": "Cluichí sna 14 lá deireanacha",
+  "rest_days": "Laethanta scíthe",
+  "h2h_balance": "Ceann ar cheann (B-C-D)",
+  "step_base": "Bunmhúnla (neart sa bhaile/as baile)",
+  "step_form": "+ foirm",
+  "step_load": "+ ualach cluichí",
+  "step_news": "+ nuacht foirne (IS)",
+  "step_elo": "+ rátáil Elo = deiridh",
+  "breakdown_hint": "Léiríonn gach céim conas a athraíonn seansanna 1/X/2 tar éis an chéad fhachtóir eile a chur leis."
  },
  "markets": {
   "1": "Bua baile (1)",
@@ -237,6 +253,7 @@
   "rotation": "D'fhéadfadh an fhoireann {team} an scuad a rothlú mar gheall ar chluiche eile go luath.",
   "fatigue": "D'imir an fhoireann {team} {d} lá ó shin, mar sin cuirtear tuirse san áireamh.",
   "elo": "Rátáil Elo: {home} {eh}, {away} {ea}.",
-  "table": "Áit sa tsraith: {home} #{rh}, {away} #{ra}."
+  "table": "Áit sa tsraith: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Innéacs foirme: {home} {fh}, {away} {fa} (as 100)."
  }
 }

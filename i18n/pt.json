@@ -93,7 +93,7 @@
   "f_coach": "Novo treinador",
   "ai_note": "As notícias das equipas (lesões, castigos, motivação, rotação) são pesquisadas automaticamente com IA e convertidas em ajustes do modelo. As probabilidades em si vêm do nosso modelo estatístico.",
   "method_title": "Como calculamos",
-  "method_html": "<ul><li>Força ofensiva e defensiva a partir dos resultados desta época, separadamente para jogos em casa e fora, com mais peso para os jogos recentes.</li><li>Modelo de Poisson com a correção de Dixon-Coles para a distribuição completa de resultados.</li><li>Rating Elo como segunda estimativa independente das probabilidades 1X2.</li><li>Ajustes para ausências (consoante a posição e a importância do jogador), motivação, rotação do plantel, cansaço e mudanças de treinador.</li></ul>",
+  "method_html": "<ul><li>Força ofensiva e defensiva a partir dos resultados desta época, separadamente para jogos em casa e fora, com maior peso para os jogos recentes.</li><li>O nosso próprio índice de forma (0-100) dos últimos 5 jogos: pontos e diferença de golos, ponderados pela força do adversário e pela antiguidade do jogo; geral e separadamente em casa / fora.</li><li>Carga de jogos: dias de descanso e número de jogos nos últimos 14 dias.</li><li>Modelo de Poisson com a correção de Dixon-Coles para a distribuição completa de resultados.</li><li>Rating Elo como segunda estimativa independente das probabilidades 1X2.</li><li>Notícias da equipa pesquisadas com IA: ausências (por posição e importância do jogador), motivação, rotação do plantel e mudanças de treinador.</li></ul>",
   "last_matches": "Últimos jogos",
   "h2h": "Confronto direto",
   "injuries_title": "Lesões e castigos",
@@ -195,7 +195,23 @@
   "page_prev": "Anterior",
   "page_next": "Seguinte",
   "matches_count": "{n} jogos",
-  "loading": "A carregar..."
+  "loading": "A carregar...",
+  "model_breakdown": "Como calculámos este jogo",
+  "inputs": "Dados do modelo",
+  "form_index": "Índice de forma (últimos 5)",
+  "form_venue": "Forma em casa / fora",
+  "attack_rating": "Força ofensiva",
+  "defence_rating": "Golos sofridos",
+  "vs_avg": "vs média da liga",
+  "load_14": "Jogos nos últimos 14 dias",
+  "rest_days": "Dias de descanso",
+  "h2h_balance": "Confronto direto (V-E-D)",
+  "step_base": "Modelo base (força em casa/fora)",
+  "step_form": "+ forma",
+  "step_load": "+ carga de jogos",
+  "step_news": "+ notícias da equipa (IA)",
+  "step_elo": "+ rating Elo = final",
+  "breakdown_hint": "Cada passo mostra como mudam as probabilidades 1/X/2 após adicionar o fator seguinte."
  },
  "markets": {
   "1": "Vitória da casa (1)",
@@ -237,6 +253,7 @@
   "rotation": "A equipa {team} pode fazer rotação no plantel devido a outro jogo em breve.",
   "fatigue": "A equipa {team} jogou há {d} dias, por isso o cansaço é tido em conta.",
   "elo": "Rating Elo: {home} {eh}, {away} {ea}.",
-  "table": "Posição na liga: {home} #{rh}, {away} #{ra}."
+  "table": "Posição na liga: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Índice de forma: {home} {fh}, {away} {fa} (em 100)."
  }
 }

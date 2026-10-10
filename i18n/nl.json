@@ -93,7 +93,7 @@
   "f_coach": "Nieuwe trainer",
   "ai_note": "Teamnieuws (blessures, schorsingen, motivatie, rotatie) wordt automatisch met AI onderzocht en omgezet in modelaanpassingen. De kansen zelf komen uit ons statistische model.",
   "method_title": "Hoe we rekenen",
-  "method_html": "<ul><li>Aanvals- en verdedigingskracht op basis van de resultaten van dit seizoen, apart voor thuis- en uitwedstrijden, waarbij recente wedstrijden zwaarder wegen.</li><li>Poissonmodel met de Dixon-Coles-correctie voor de volledige verdeling van uitslagen.</li><li>Elo-rating als tweede, onafhankelijke schatting van de 1X2-kansen.</li><li>Aanpassingen voor afwezigen (naar positie en belang van de speler), motivatie, rotatie, vermoeidheid en trainerswissels.</li></ul>",
+  "method_html": "<ul><li>Aanvals- en verdedigingskracht op basis van de resultaten van dit seizoen, apart voor thuis- en uitwedstrijden, waarbij recente wedstrijden zwaarder wegen.</li><li>Onze eigen vormindex (0-100) uit de laatste 5 wedstrijden: punten en doelsaldo, gewogen naar de sterkte van de tegenstander en hoe recent de wedstrijd was; totaal en apart thuis / uit.</li><li>Wedstrijdbelasting: rustdagen en aantal wedstrijden in de laatste 14 dagen.</li><li>Poissonmodel met de Dixon-Coles-correctie voor de volledige scoreverdeling.</li><li>Elo-rating als tweede, onafhankelijke schatting van de 1X2-kansen.</li><li>Teamnieuws onderzocht met AI: afwezigen (naar positie en belang van de speler), motivatie, rotatie en trainerswissels.</li></ul>",
   "last_matches": "Laatste wedstrijden",
   "h2h": "Onderlinge duels",
   "injuries_title": "Blessures en schorsingen",
@@ -195,7 +195,23 @@
   "page_prev": "Vorige",
   "page_next": "Volgende",
   "matches_count": "{n} wedstrijden",
-  "loading": "Laden..."
+  "loading": "Laden...",
+  "model_breakdown": "Zo hebben we deze wedstrijd berekend",
+  "inputs": "Modelinvoer",
+  "form_index": "Vormindex (laatste 5)",
+  "form_venue": "Vorm thuis / uit",
+  "attack_rating": "Aanvalskracht",
+  "defence_rating": "Tegendoelpunten",
+  "vs_avg": "vs competitiegemiddelde",
+  "load_14": "Wedstrijden in de laatste 14 dagen",
+  "rest_days": "Rustdagen",
+  "h2h_balance": "Onderling (W-G-V)",
+  "step_base": "Basismodel (thuis-/uitkracht)",
+  "step_form": "+ vorm",
+  "step_load": "+ wedstrijdbelasting",
+  "step_news": "+ teamnieuws (AI)",
+  "step_elo": "+ Elo-rating = eindresultaat",
+  "breakdown_hint": "Elke stap laat zien hoe de 1/X/2-kansen veranderen na het toevoegen van de volgende factor."
  },
  "markets": {
   "1": "Thuisoverwinning (1)",
@@ -237,6 +253,7 @@
   "rotation": "{team} laat mogelijk spelers rusten vanwege een volgende wedstrijd kort hierna.",
   "fatigue": "{team} speelde {d} dagen geleden, dus wordt rekening gehouden met vermoeidheid.",
   "elo": "Elo-rating: {home} {eh}, {away} {ea}.",
-  "table": "Positie in de competitie: {home} #{rh}, {away} #{ra}."
+  "table": "Positie in de competitie: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Vormindex: {home} {fh}, {away} {fa} (van de 100)."
  }
 }

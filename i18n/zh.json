@@ -93,7 +93,7 @@
   "f_coach": "新帅",
   "ai_note": "球队动态（伤病、停赛、战意、轮换）由 AI 自动检索，并转化为模型调整。概率本身来自我们的统计模型。",
   "method_title": "计算方法",
-  "method_html": "<ul><li>根据本赛季赛果计算攻防实力，主场和客场分开计算，近期比赛权重更高。</li><li>采用带 Dixon-Coles 修正的泊松模型，得出完整的比分分布。</li><li>Elo 评分作为第二个独立估算，用于评估胜平负概率。</li><li>针对缺阵（按球员位置和重要性）、战意、阵容轮换、疲劳和换帅进行调整。</li></ul>",
+  "method_html": "<ul><li>根据本赛季赛果计算攻防实力，主场和客场分开计算，近期比赛权重更高。</li><li>我们自己的状态指数（0-100），基于近5场比赛：积分和净胜球，按对手实力和比赛远近加权；分为总体以及主场 / 客场。</li><li>赛程负荷：休息天数以及近14天的比赛场次。</li><li>采用带 Dixon-Coles 修正的泊松模型，得出完整的比分分布。</li><li>Elo 评分作为第二个独立估算，用于评估胜平负概率。</li><li>借助 AI 调研的球队新闻：缺阵（按球员位置和重要性）、战意、阵容轮换和换帅。</li></ul>",
   "last_matches": "近期比赛",
   "h2h": "交锋记录",
   "injuries_title": "伤病与停赛",
@@ -195,7 +195,23 @@
   "page_prev": "上一页",
   "page_next": "下一页",
   "matches_count": "{n} 场比赛",
-  "loading": "加载中..."
+  "loading": "加载中...",
+  "model_breakdown": "本场比赛的计算过程",
+  "inputs": "模型输入",
+  "form_index": "状态指数（近5场）",
+  "form_venue": "主场 / 客场状态",
+  "attack_rating": "进攻实力",
+  "defence_rating": "失球",
+  "vs_avg": "对比联赛平均",
+  "load_14": "近14天比赛场次",
+  "rest_days": "休息天数",
+  "h2h_balance": "交锋记录（胜-平-负）",
+  "step_base": "基础模型（主客场实力）",
+  "step_form": "+ 状态",
+  "step_load": "+ 赛程负荷",
+  "step_news": "+ 球队新闻（AI）",
+  "step_elo": "+ Elo 评分 = 最终结果",
+  "breakdown_hint": "每一步显示加入下一个因素后 1/X/2 概率如何变化。"
  },
  "markets": {
   "1": "主胜 (1)",
@@ -237,6 +253,7 @@
   "rotation": "{team}近期另有赛事，可能进行阵容轮换。",
   "fatigue": "{team}在 {d} 天前刚踢过比赛，因此已考虑疲劳因素。",
   "elo": "Elo 评分：{home} {eh}，{away} {ea}。",
-  "table": "联赛排名：{home}第 {rh} 位，{away}第 {ra} 位。"
+  "table": "联赛排名：{home}第 {rh} 位，{away}第 {ra} 位。",
+  "form_compare": "状态指数：{home} {fh}，{away} {fa}（满分100）。"
  }
 }

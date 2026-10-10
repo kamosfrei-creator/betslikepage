@@ -93,7 +93,7 @@
   "f_coach": "Neuer Trainer",
   "ai_note": "Teamnews (Verletzungen, Sperren, Motivation, Rotation) werden automatisch mit KI recherchiert und in Modellanpassungen umgesetzt. Die Wahrscheinlichkeiten selbst stammen aus unserem statistischen Modell.",
   "method_title": "So rechnen wir",
-  "method_html": "<ul><li>Angriffs- und Abwehrstärke aus den Ergebnissen dieser Saison, getrennt nach Heim- und Auswärtsspielen, wobei jüngere Spiele stärker gewichtet werden.</li><li>Poisson-Modell mit Dixon-Coles-Korrektur für die vollständige Ergebnisverteilung.</li><li>Elo-Rating als zweite, unabhängige Schätzung der 1X2-Chancen.</li><li>Anpassungen für Ausfälle (nach Position und Bedeutung des Spielers), Motivation, Rotation, Müdigkeit und Trainerwechsel.</li></ul>",
+  "method_html": "<ul><li>Angriffs- und Abwehrstärke aus den Ergebnissen dieser Saison, getrennt nach Heim- und Auswärtsspielen, wobei jüngere Spiele stärker gewichtet werden.</li><li>Unser eigener Formindex (0-100) aus den letzten 5 Spielen: Punkte und Tordifferenz, gewichtet nach der Stärke des Gegners und danach, wie lange das Spiel zurückliegt; insgesamt sowie getrennt zu Hause / auswärts.</li><li>Spielbelastung: Ruhetage und Anzahl der Spiele in den letzten 14 Tagen.</li><li>Poisson-Modell mit Dixon-Coles-Korrektur für die vollständige Ergebnisverteilung.</li><li>Elo-Rating als zweite, unabhängige Schätzung der 1X2-Chancen.</li><li>Mit KI recherchierte Teamnews: Ausfälle (nach Position und Bedeutung des Spielers), Motivation, Rotation und Trainerwechsel.</li></ul>",
   "last_matches": "Letzte Spiele",
   "h2h": "Direkter Vergleich",
   "injuries_title": "Verletzungen und Sperren",
@@ -195,7 +195,23 @@
   "page_prev": "Zurück",
   "page_next": "Weiter",
   "matches_count": "{n} Spiele",
-  "loading": "Wird geladen..."
+  "loading": "Wird geladen...",
+  "model_breakdown": "So haben wir dieses Spiel berechnet",
+  "inputs": "Modell-Eingaben",
+  "form_index": "Formindex (letzte 5)",
+  "form_venue": "Form zu Hause / auswärts",
+  "attack_rating": "Angriffsstärke",
+  "defence_rating": "Gegentore",
+  "vs_avg": "vs. Ligadurchschnitt",
+  "load_14": "Spiele in den letzten 14 Tagen",
+  "rest_days": "Ruhetage",
+  "h2h_balance": "Direktvergleich (S-U-N)",
+  "step_base": "Basismodell (Heim-/Auswärtsstärke)",
+  "step_form": "+ Form",
+  "step_load": "+ Spielbelastung",
+  "step_news": "+ Teamnews (KI)",
+  "step_elo": "+ Elo-Rating = Endergebnis",
+  "breakdown_hint": "Jeder Schritt zeigt, wie sich die 1/X/2-Chancen nach Hinzufügen des nächsten Faktors verändern."
  },
  "markets": {
   "1": "Heimsieg (1)",
@@ -237,6 +253,7 @@
   "rotation": "{team} könnte wegen eines baldigen weiteren Spiels rotieren.",
   "fatigue": "{team} hat vor {d} Tagen gespielt, daher wird Müdigkeit berücksichtigt.",
   "elo": "Elo-Rating: {home} {eh}, {away} {ea}.",
-  "table": "Tabellenplatz: {home} #{rh}, {away} #{ra}."
+  "table": "Tabellenplatz: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Formindex: {home} {fh}, {away} {fa} (von 100)."
  }
 }

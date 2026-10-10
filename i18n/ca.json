@@ -93,7 +93,7 @@
   "f_coach": "Nou entrenador",
   "ai_note": "Les notícies dels equips (lesions, sancions, motivació, rotacions) s'investiguen automàticament amb IA i es converteixen en ajustos del model. Les probabilitats en si provenen del nostre model estadístic.",
   "method_title": "Com calculem",
-  "method_html": "<ul><li>Força ofensiva i defensiva a partir dels resultats d'aquesta temporada, per separat per als partits a casa i a fora, amb més pes per als partits recents.</li><li>Model de Poisson amb la correcció de Dixon-Coles per a la distribució completa de resultats.</li><li>Rànquing Elo com a segona estimació independent de les probabilitats 1X2.</li><li>Ajustos per baixes (segons la posició i la importància del jugador), motivació, rotacions, cansament i canvis d'entrenador.</li></ul>",
+  "method_html": "<ul><li>Força ofensiva i defensiva a partir dels resultats d'aquesta temporada, per separat per als partits a casa i a fora, donant més pes als partits recents.</li><li>El nostre propi índex de forma (0-100) dels últims 5 partits: punts i diferència de gols, ponderats per la força del rival i per com de recent és el partit; en general i per separat a casa / a fora.</li><li>Càrrega de partits: dies de descans i nombre de partits en els últims 14 dies.</li><li>Model de Poisson amb la correcció de Dixon-Coles per a la distribució completa de resultats.</li><li>Rànquing Elo com a segona estimació independent de les probabilitats 1X2.</li><li>Notícies de l'equip investigades amb IA: baixes (segons la posició i la importància del jugador), motivació, rotacions i canvis d'entrenador.</li></ul>",
   "last_matches": "Últims partits",
   "h2h": "Cara a cara",
   "injuries_title": "Lesions i sancions",
@@ -195,7 +195,23 @@
   "page_prev": "Anterior",
   "page_next": "Següent",
   "matches_count": "{n} partits",
-  "loading": "Carregant..."
+  "loading": "Carregant...",
+  "model_breakdown": "Com hem calculat aquest partit",
+  "inputs": "Dades del model",
+  "form_index": "Índex de forma (últims 5)",
+  "form_venue": "Forma a casa / a fora",
+  "attack_rating": "Força ofensiva",
+  "defence_rating": "Gols encaixats",
+  "vs_avg": "vs. mitjana de la lliga",
+  "load_14": "Partits en els últims 14 dies",
+  "rest_days": "Dies de descans",
+  "h2h_balance": "Cara a cara (G-E-P)",
+  "step_base": "Model base (força a casa/a fora)",
+  "step_form": "+ forma",
+  "step_load": "+ càrrega de partits",
+  "step_news": "+ notícies de l'equip (IA)",
+  "step_elo": "+ rànquing Elo = final",
+  "breakdown_hint": "Cada pas mostra com canvien les probabilitats 1/X/2 en afegir el factor següent."
  },
  "markets": {
   "1": "Guanya el local (1)",
@@ -237,6 +253,7 @@
   "rotation": "L'equip {team} podria fer rotacions per tenir un altre partit aviat.",
   "fatigue": "L'equip {team} va jugar fa {d} dies, així que es té en compte el cansament.",
   "elo": "Rànquing Elo: {home} {eh}, {away} {ea}.",
-  "table": "Posició a la lliga: {home} #{rh}, {away} #{ra}."
+  "table": "Posició a la lliga: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Índex de forma: {home} {fh}, {away} {fa} (sobre 100)."
  }
 }
