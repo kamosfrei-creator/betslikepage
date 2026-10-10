@@ -93,7 +93,7 @@
   "f_coach": "Yeni teknik direktör",
   "ai_note": "Takım haberleri (sakatlıklar, cezalar, motivasyon, rotasyon) yapay zekâ ile otomatik olarak araştırılır ve model düzeltmelerine dönüştürülür. Olasılıkların kendisi istatistiksel modelimizden gelir.",
   "method_title": "Nasıl hesaplıyoruz",
-  "method_html": "<ul><li>Bu sezonun sonuçlarından hücum ve savunma gücü; iç saha ve deplasman maçları için ayrı ayrı, son maçlara daha fazla ağırlık verilerek.</li><li>Tüm skor dağılımı için Dixon-Coles düzeltmeli Poisson modeli.</li><li>1X2 olasılıklarının ikinci ve bağımsız bir tahmini olarak Elo reytingi.</li><li>Eksik oyuncular (mevki ve oyuncunun önemine göre), motivasyon, kadro rotasyonu, yorgunluk ve teknik direktör değişikliği için düzeltmeler.</li></ul>",
+  "method_html": "<ul><li>Bu sezonun sonuçlarından hücum ve savunma gücü, iç saha ve deplasman maçları için ayrı ayrı, son maçlara daha fazla ağırlık verilerek.</li><li>Son 5 maçtan kendi form endeksimiz (0-100): puanlar ve averaj, rakibin gücüne ve maçın ne kadar yakın tarihli olduğuna göre ağırlıklandırılır; genel olarak ve iç saha / deplasman için ayrı ayrı.</li><li>Maç yoğunluğu: dinlenme günleri ve son 14 gündeki maç sayısı.</li><li>Tam skor dağılımı için Dixon-Coles düzeltmeli Poisson modeli.</li><li>1X2 olasılıklarının ikinci, bağımsız tahmini olarak Elo puanı.</li><li>Yapay zekâ ile araştırılan takım haberleri: eksikler (oyuncunun mevkisine ve önemine göre), motivasyon, kadro rotasyonu ve teknik direktör değişiklikleri.</li></ul>",
   "last_matches": "Son maçlar",
   "h2h": "Aralarındaki maçlar",
   "injuries_title": "Sakatlıklar ve cezalılar",
@@ -195,7 +195,23 @@
   "view_grouped": "Lige göre",
   "view_list": "Liste",
   "void": "İade",
-  "yesterday": "Dün"
+  "yesterday": "Dün",
+  "model_breakdown": "Bu maçı nasıl hesapladık",
+  "inputs": "Model girdileri",
+  "form_index": "Form endeksi (son 5)",
+  "form_venue": "İç saha / deplasman formu",
+  "attack_rating": "Hücum gücü",
+  "defence_rating": "Yenilen goller",
+  "vs_avg": "lig ortalamasına göre",
+  "load_14": "Son 14 gündeki maçlar",
+  "rest_days": "Dinlenme günleri",
+  "h2h_balance": "Aralarındaki maçlar (G-B-M)",
+  "step_base": "Temel model (iç saha/deplasman gücü)",
+  "step_form": "+ form",
+  "step_load": "+ maç yoğunluğu",
+  "step_news": "+ takım haberleri (AI)",
+  "step_elo": "+ Elo puanı = nihai",
+  "breakdown_hint": "Her adım, bir sonraki faktör eklendiğinde 1/X/2 olasılıklarının nasıl değiştiğini gösterir."
  },
  "markets": {
   "1": "Ev sahibi kazanır (1)",
@@ -237,6 +253,7 @@
   "rotation": "{team} takımı yakında oynayacağı başka bir maç nedeniyle rotasyona gidebilir.",
   "fatigue": "{team} takımı {d} gün önce maç oynadı; bu nedenle yorgunluk hesaba katılıyor.",
   "elo": "Elo reytingi: {home} {eh}, {away} {ea}.",
-  "table": "Ligdeki sıralama: {home} #{rh}, {away} #{ra}."
+  "table": "Ligdeki sıralama: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Form endeksi: {home} {fh}, {away} {fa} (100 üzerinden)."
  }
 }

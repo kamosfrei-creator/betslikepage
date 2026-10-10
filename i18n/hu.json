@@ -93,7 +93,7 @@
   "f_coach": "Új edző",
   "ai_note": "A csapathíreket (sérülések, eltiltások, motiváció, rotáció) mesterséges intelligencia gyűjti automatikusan, és ezekből modellkorrekciók lesznek. Maguk a valószínűségek a statisztikai modellünkből származnak.",
   "method_title": "Hogyan számolunk",
-  "method_html": "<ul><li>Támadó- és védekezőerő az idei szezon eredményei alapján, külön a hazai és az idegenbeli meccsekre, a legutóbbi mérkőzések nagyobb súllyal.</li><li>Poisson-modell Dixon–Coles-korrekcióval a teljes eredményeloszláshoz.</li><li>Az Elo-pontszám mint az 1X2 esélyek második, független becslése.</li><li>Korrekciók a hiányzók (poszt és a játékos fontossága szerint), a motiváció, a keretrotáció, a fáradtság és az edzőváltás miatt.</li></ul>",
+  "method_html": "<ul><li>Támadó- és védekezőerő az idei szezon eredményeiből, külön a hazai és az idegenbeli meccsekre, a legutóbbi mérkőzések nagyobb súlyával.</li><li>Saját formaindexünk (0-100) az utolsó 5 mérkőzésből: pontok és gólkülönbség, az ellenfél erejével és a mérkőzés frissességével súlyozva; összesítve, valamint külön otthon / idegenben.</li><li>Terheltség: pihenőnapok és a mérkőzések száma az elmúlt 14 napban.</li><li>Poisson-modell Dixon–Coles-korrekcióval a teljes eredményeloszláshoz.</li><li>Élő-pontszám mint az 1X2 esélyek második, független becslése.</li><li>MI segítségével gyűjtött csapathírek: hiányzók (poszt és a játékos fontossága szerint), motiváció, rotáció és edzőváltások.</li></ul>",
   "last_matches": "Legutóbbi mérkőzések",
   "h2h": "Egymás elleni mérleg",
   "injuries_title": "Sérülések és eltiltások",
@@ -195,7 +195,23 @@
   "view_grouped": "Bajnokságonként",
   "view_list": "Lista",
   "void": "Érvénytelen",
-  "yesterday": "Tegnap"
+  "yesterday": "Tegnap",
+  "model_breakdown": "Így számoltuk ki ezt a mérkőzést",
+  "inputs": "A modell bemenetei",
+  "form_index": "Formaindex (utolsó 5)",
+  "form_venue": "Forma otthon / idegenben",
+  "attack_rating": "Támadóerő",
+  "defence_rating": "Kapott gólok",
+  "vs_avg": "a bajnoki átlaghoz képest",
+  "load_14": "Mérkőzések az elmúlt 14 napban",
+  "rest_days": "Pihenőnapok",
+  "h2h_balance": "Egymás elleni (GY-D-V)",
+  "step_base": "Alapmodell (hazai/idegenbeli erő)",
+  "step_form": "+ forma",
+  "step_load": "+ terheltség",
+  "step_news": "+ csapathírek (AI)",
+  "step_elo": "+ Élő-pontszám = végső",
+  "breakdown_hint": "Minden lépés megmutatja, hogyan változnak az 1/X/2 esélyek a következő tényező hozzáadása után."
  },
  "markets": {
   "1": "Hazai győzelem (1)",
@@ -237,6 +253,7 @@
   "rotation": "{team} rotálhat a keretben egy közelgő másik mérkőzés miatt.",
   "fatigue": "{team} {d} napja játszott, ezért a fáradtságot is figyelembe vesszük.",
   "elo": "Elo-pontszám: {home} {eh}, {away} {ea}.",
-  "table": "Tabellán elfoglalt hely: {home} #{rh}, {away} #{ra}."
+  "table": "Tabellán elfoglalt hely: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Formaindex: {home} {fh}, {away} {fa} (100-ból)."
  }
 }

@@ -93,7 +93,7 @@
   "f_coach": "Trajner i ri",
   "ai_note": "Lajmet e skuadrave (dëmtime, pezullime, motivim, rotacion) mblidhen automatikisht me AI dhe kthehen në rregullime të modelit. Vetë probabilitetet vijnë nga modeli ynë statistikor.",
   "method_title": "Si llogarisim",
-  "method_html": "<ul><li>Forca e sulmit dhe e mbrojtjes nga rezultatet e këtij sezoni, veçmas për ndeshjet në shtëpi dhe në transfertë, me peshë më të madhe për ndeshjet e fundit.</li><li>Modeli Poisson me korrigjimin Dixon-Coles për shpërndarjen e plotë të rezultateve.</li><li>Vlerësimi Elo si një vlerësim i dytë, i pavarur i shanseve 1X2.</li><li>Rregullime për mungesat (sipas pozicionit dhe rëndësisë së lojtarit), motivimin, rotacionin e skuadrës, lodhjen dhe ndryshimet e trajnerit.</li></ul>",
+  "method_html": "<ul><li>Forca në sulm dhe në mbrojtje nga rezultatet e këtij sezoni, veçmas për ndeshjet në shtëpi dhe në transfertë, me peshë më të madhe për ndeshjet e fundit.</li><li>Indeksi ynë i formës (0-100) nga 5 ndeshjet e fundit: pikët dhe diferenca e golave, të ponderuara sipas forcës së kundërshtarit dhe sa e afërt është ndeshja; në total dhe veçmas në shtëpi / në transfertë.</li><li>Ngarkesa e kalendarit: ditët e pushimit dhe numri i ndeshjeve në 14 ditët e fundit.</li><li>Modeli Poisson me korrigjimin Dixon-Coles për shpërndarjen e plotë të rezultateve.</li><li>Vlerësimi Elo si një vlerësim i dytë, i pavarur i shanseve 1X2.</li><li>Lajmet e skuadrës të hulumtuara me AI: mungesat (sipas pozicionit dhe rëndësisë së lojtarit), motivimi, rotacioni i skuadrës dhe ndryshimet e trajnerit.</li></ul>",
   "last_matches": "Ndeshjet e fundit",
   "h2h": "Ballafaqimet direkte",
   "injuries_title": "Dëmtime dhe pezullime",
@@ -195,7 +195,23 @@
   "page_prev": "E mëparshmja",
   "page_next": "Tjetra",
   "matches_count": "{n} ndeshje",
-  "loading": "Duke u ngarkuar..."
+  "loading": "Duke u ngarkuar...",
+  "model_breakdown": "Si e llogaritëm këtë ndeshje",
+  "inputs": "Të dhënat e modelit",
+  "form_index": "Indeksi i formës (5 të fundit)",
+  "form_venue": "Forma në shtëpi / në transfertë",
+  "attack_rating": "Forca në sulm",
+  "defence_rating": "Gola të pësuar",
+  "vs_avg": "krahasuar me mesataren e ligës",
+  "load_14": "Ndeshje në 14 ditët e fundit",
+  "rest_days": "Ditë pushimi",
+  "h2h_balance": "Përballjet direkte (F-B-H)",
+  "step_base": "Modeli bazë (forca në shtëpi/në transfertë)",
+  "step_form": "+ forma",
+  "step_load": "+ ngarkesa e kalendarit",
+  "step_news": "+ lajmet e skuadrës (AI)",
+  "step_elo": "+ vlerësimi Elo = përfundimtar",
+  "breakdown_hint": "Çdo hap tregon si ndryshojnë shanset 1/X/2 pasi shtohet faktori i radhës."
  },
  "markets": {
   "1": "Fiton vendasi (1)",
@@ -237,6 +253,7 @@
   "rotation": "{team} mund të bëjë rotacion të skuadrës për shkak të një ndeshjeje tjetër së shpejti.",
   "fatigue": "{team} ka luajtur {d} ditë më parë, prandaj merret parasysh lodhja.",
   "elo": "Vlerësimi Elo: {home} {eh}, {away} {ea}.",
-  "table": "Pozicioni në tabelë: {home} #{rh}, {away} #{ra}."
+  "table": "Pozicioni në tabelë: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Indeksi i formës: {home} {fh}, {away} {fa} (nga 100)."
  }
 }

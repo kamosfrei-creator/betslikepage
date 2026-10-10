@@ -93,7 +93,7 @@
   "f_coach": "Antrenor nou",
   "ai_note": "Știrile despre echipe (accidentări, suspendări, motivație, rotație) sunt documentate automat cu ajutorul AI și transformate în ajustări ale modelului. Probabilitățile în sine provin din modelul nostru statistic.",
   "method_title": "Cum calculăm",
-  "method_html": "<ul><li>Forța ofensivă și defensivă din rezultatele sezonului curent, separat pentru meciurile de acasă și din deplasare, cu pondere mai mare pentru meciurile recente.</li><li>Model Poisson cu corecția Dixon-Coles pentru distribuția completă a scorurilor.</li><li>Ratingul Elo ca a doua estimare, independentă, a șanselor 1X2.</li><li>Ajustări pentru absențe (în funcție de post și de importanța jucătorului), motivație, rotația lotului, oboseală și schimbarea antrenorului.</li></ul>",
+  "method_html": "<ul><li>Forța ofensivă și defensivă din rezultatele acestui sezon, separat pentru meciurile de acasă și din deplasare, cu pondere mai mare pentru meciurile recente.</li><li>Propriul nostru indice de formă (0-100) din ultimele 5 meciuri: puncte și golaveraj, ponderate după forța adversarului și cât de recent a fost meciul; în total și separat acasă / în deplasare.</li><li>Încărcarea programului: zile de odihnă și numărul de meciuri din ultimele 14 zile.</li><li>Model Poisson cu corecția Dixon-Coles pentru distribuția completă a scorurilor.</li><li>Ratingul Elo ca a doua estimare, independentă, a șanselor 1X2.</li><li>Știri despre echipă cercetate cu AI: absențe (după post și importanța jucătorului), motivație, rotația lotului și schimbări de antrenor.</li></ul>",
   "last_matches": "Ultimele meciuri",
   "h2h": "Meciuri directe",
   "injuries_title": "Accidentări și suspendări",
@@ -195,7 +195,23 @@
   "view_grouped": "Pe ligi",
   "view_list": "Listă",
   "void": "Anulat",
-  "yesterday": "Ieri"
+  "yesterday": "Ieri",
+  "model_breakdown": "Cum am calculat acest meci",
+  "inputs": "Datele de intrare ale modelului",
+  "form_index": "Indicele de formă (ultimele 5)",
+  "form_venue": "Forma acasă / în deplasare",
+  "attack_rating": "Forța ofensivă",
+  "defence_rating": "Goluri primite",
+  "vs_avg": "față de media ligii",
+  "load_14": "Meciuri în ultimele 14 zile",
+  "rest_days": "Zile de odihnă",
+  "h2h_balance": "Meciuri directe (V-E-Î)",
+  "step_base": "Model de bază (forța acasă/în deplasare)",
+  "step_form": "+ forma",
+  "step_load": "+ încărcarea programului",
+  "step_news": "+ știri despre echipă (AI)",
+  "step_elo": "+ rating Elo = final",
+  "breakdown_hint": "Fiecare pas arată cum se schimbă șansele 1/X/2 după adăugarea următorului factor."
  },
  "markets": {
   "1": "Victorie gazde (1)",
@@ -237,6 +253,7 @@
   "rotation": "Echipa {team} ar putea roti lotul din cauza unui alt meci apropiat.",
   "fatigue": "Echipa {team} a jucat acum {d} zile, așa că oboseala este luată în calcul.",
   "elo": "Rating Elo: {home} {eh}, {away} {ea}.",
-  "table": "Locul în clasament: {home} #{rh}, {away} #{ra}."
+  "table": "Locul în clasament: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Indicele de formă: {home} {fh}, {away} {fa} (din 100)."
  }
 }

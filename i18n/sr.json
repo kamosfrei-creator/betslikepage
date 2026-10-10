@@ -93,7 +93,7 @@
   "f_coach": "Novi trener",
   "ai_note": "Vesti o timovima (povrede, suspenzije, motivacija, rotacija) automatski prikuplja AI i pretvara ih u korekcije modela. Same verovatnoće dolaze iz našeg statističkog modela.",
   "method_title": "Kako računamo",
-  "method_html": "<ul><li>Snaga napada i odbrane iz rezultata ove sezone, posebno za domaće i gostujuće utakmice, sa većom težinom skorijih utakmica.</li><li>Poasonov model sa Dixon-Coles korekcijom za kompletnu raspodelu rezultata.</li><li>Elo rejting kao druga, nezavisna procena šansi 1X2.</li><li>Korekcije za odsustva (prema poziciji i važnosti igrača), motivaciju, rotaciju igrača, umor i promene trenera.</li></ul>",
+  "method_html": "<ul><li>Snaga napada i odbrane iz rezultata ove sezone, posebno za domaće i gostujuće utakmice, uz veću težinu skorijih utakmica.</li><li>Naš sopstveni indeks forme (0-100) iz poslednjih 5 utakmica: bodovi i gol-razlika, ponderisani snagom protivnika i time koliko je utakmica skorašnja; ukupno i posebno kod kuće / u gostima.</li><li>Opterećenje rasporedom: dani odmora i broj utakmica u poslednjih 14 dana.</li><li>Poasonov model sa Dixon-Coles korekcijom za kompletnu raspodelu rezultata.</li><li>Elo rejting kao druga, nezavisna procena šansi 1X2.</li><li>Vesti o timu istražene uz pomoć AI: odsustva (prema poziciji i važnosti igrača), motivacija, rotacija sastava i promene trenera.</li></ul>",
   "last_matches": "Poslednje utakmice",
   "h2h": "Međusobni dueli",
   "injuries_title": "Povrede i suspenzije",
@@ -195,7 +195,23 @@
   "page_prev": "Prethodna",
   "page_next": "Sledeća",
   "matches_count": "Utakmica: {n}",
-  "loading": "Učitavanje..."
+  "loading": "Učitavanje...",
+  "model_breakdown": "Kako smo izračunali ovu utakmicu",
+  "inputs": "Ulazni podaci modela",
+  "form_index": "Indeks forme (poslednjih 5)",
+  "form_venue": "Forma kod kuće / u gostima",
+  "attack_rating": "Snaga napada",
+  "defence_rating": "Primljeni golovi",
+  "vs_avg": "u odnosu na prosek lige",
+  "load_14": "Utakmice u poslednjih 14 dana",
+  "rest_days": "Dani odmora",
+  "h2h_balance": "Međusobni dueli (P-N-I)",
+  "step_base": "Osnovni model (snaga kod kuće/u gostima)",
+  "step_form": "+ forma",
+  "step_load": "+ opterećenje rasporedom",
+  "step_news": "+ vesti o timu (AI)",
+  "step_elo": "+ Elo rejting = konačno",
+  "breakdown_hint": "Svaki korak pokazuje kako se menjaju šanse 1/X/2 nakon dodavanja sledećeg faktora."
  },
  "markets": {
   "1": "Pobeda domaćina (1)",
@@ -237,6 +253,7 @@
   "rotation": "Tim {team} bi mogao da rotira igrače zbog skore naredne utakmice.",
   "fatigue": "Tim {team} je igrao pre {d} dana, pa se uzima u obzir umor.",
   "elo": "Elo rejting: {home} {eh}, {away} {ea}.",
-  "table": "Pozicija na tabeli: {home} #{rh}, {away} #{ra}."
+  "table": "Pozicija na tabeli: {home} #{rh}, {away} #{ra}.",
+  "form_compare": "Indeks forme: {home} {fh}, {away} {fa} (od 100)."
  }
 }
