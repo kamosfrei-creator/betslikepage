@@ -58,6 +58,11 @@ def _match(m):
         "away": m["awayTeam"].get("shortName") or m["awayTeam"].get("name") or "?",
         "home_names": [n for n in (m["homeTeam"].get("name"), m["homeTeam"].get("shortName")) if n],
         "away_names": [n for n in (m["awayTeam"].get("name"), m["awayTeam"].get("shortName")) if n],
+        "home_crest": m["homeTeam"].get("crest"),
+        "away_crest": m["awayTeam"].get("crest"),
+        "emblem": m["competition"].get("emblem"),
+        "area": (m.get("area") or {}).get("name"),
+        "flag": (m.get("area") or {}).get("flag"),
         "home_id": m["homeTeam"].get("id"),
         "away_id": m["awayTeam"].get("id"),
         "home_goals": ft.get("home"),
@@ -70,7 +75,7 @@ def fetch_live(token, competitions, today):
     client = Client(token)
     window = client.get("/matches", {
         "dateFrom": (today - timedelta(days=3)).isoformat(),
-        "dateTo": (today + timedelta(days=2)).isoformat(),
+        "dateTo": (today + timedelta(days=3)).isoformat(),
         "competitions": ",".join(competitions),
     })
     window_matches = [_match(m) for m in window.get("matches", []) if m.get("homeTeam", {}).get("id")]
@@ -137,7 +142,7 @@ def fetch_demo(today, now):
                 next_id += 1
         history[code] = played
 
-    for offset in range(-3, 2):
+    for offset in range(-3, 3):
         day = today + timedelta(days=offset)
         drng = random.Random(f"demo-{day.isoformat()}")
         base = datetime.combine(day, datetime.min.time(), timezone.utc)

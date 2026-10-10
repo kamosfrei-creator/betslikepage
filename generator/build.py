@@ -13,7 +13,7 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 from . import coupons as cp
-from . import fetch, news, odds, render, research, stats, teamstats
+from . import export, fetch, news, odds, render, research, stats, teamstats
 from .model import LeagueModel
 from .texts import LANGS, analysis
 
@@ -147,7 +147,8 @@ def build(demo=False, now=None, langs=None):
     tz = ZoneInfo(cfg["timezone"])
     now = now or datetime.now(timezone.utc)
     today = now.astimezone(tz).date()
-    days = [today, today + timedelta(days=1)]
+    # Wczoraj (wyniki i rozliczenia), dziś, jutro, pojutrze.
+    days = [today + timedelta(days=k) for k in (-1, 0, 1, 2)]
 
     token = os.environ.get("FOOTBALL_DATA_TOKEN", "").strip()
     demo = demo or not token
@@ -224,10 +225,16 @@ def build(demo=False, now=None, langs=None):
                     "market": m["pick"]["market"], "p": round(m["pick"]["p"], 4), "result": None,
                     "adjusted": m["adjusted"],
                 }
+                market_odds = next((r["now"] for r in m.get("odds") or [] if r["outcome"] == m["pick"]["market"]), None)
+                if market_odds:
+                    history["picks"][key]["odds"] = market_odds
                 shown.append(m)
             elif key in history["picks"]:
                 rec = history["picks"][key]
                 m["pick"] = {"market": rec["market"], "p": rec["p"], "result": rec.get("result")}
+                shown.append(m)
+            elif d < today or m["status"] in ("IN_PLAY", "PAUSED", "FINISHED"):
+                m["pick"] = None  # mecz bez naszego typu - pokazujemy sam wynik
                 shown.append(m)
 
         stored = history["coupons"].get(ds, {})
@@ -248,7 +255,8 @@ def build(demo=False, now=None, langs=None):
                 }
         if day_coupons:
             history["coupons"][ds] = day_coupons
-        out_days.append({"date": ds, "matches": shown, "coupons": day_coupons})
+        out_days.append({"date": ds, "key": ("yesterday", "today", "tomorrow", "after_tomorrow")[(d - today).days + 1],
+                         "matches": shown, "coupons": day_coupons})
 
     if demo:
         # Kursy demo liczone z gotowych prognoz - podgląd sekcji kursów i value bet.
@@ -300,6 +308,8 @@ def render_site(cfg, out_days, history, today, now, demo, leagues):
                 pages.append(name)
 
         page("index.html", render.index_page(cfg, lang, out_days, updated, demo, menu))
+        write(os.path.join(d, "data.json"),
+              json.dumps(export.day_data(cfg, lang, out_days, menu, updated, demo), ensure_ascii=False, separators=(",", ":")))
         page("results.html", render.results_page(cfg, lang, summary, updated, demo, menu))
         for month, month_days in summary["months"].items():
             page(f"archive-{month}.html",
@@ -317,6 +327,8 @@ def render_site(cfg, out_days, history, today, now, demo, leagues):
                 continue
             page(f"match-{m['id']}.html", html)
 
+    write(os.path.join(out, "data", "history.json"),
+          json.dumps(export.history_data(history, menu), ensure_ascii=False, separators=(",", ":")))
     write(os.path.join(out, "index.html"), render.root_redirect(cfg))
     base = cfg["base_url"].rstrip("/")
     urls = "".join(f"<url><loc>{base}/{l}/{p}</loc><lastmod>{today.isoformat()}</lastmod></url>"

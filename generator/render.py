@@ -7,6 +7,7 @@ Struktura w każdym języku:
   results.html, archive-<rrrr-mm>.html, about/advertise/responsible.html
 """
 
+import json
 from html import escape
 
 from .texts import MARKETS, META, UI, num, pct
@@ -83,6 +84,15 @@ def layout(cfg, lang, page, title, body, updated, demo, leagues=None, active=Non
 </body>
 </html>
 """
+
+
+def _app(lang, kind, static_html):
+    """Kontener aplikacji JS: statyczna treść (SEO, brak JS) + teksty interfejsu dla skryptu."""
+    i18n = {"lang": lang, "decimal": META[lang]["decimal"], "dir": META[lang]["dir"],
+            "ui": {k: v for k, v in UI[lang].items() if not k.endswith("_html")}, "markets": MARKETS[lang]}
+    payload = json.dumps(i18n, ensure_ascii=False).replace("</", "<\\/")
+    return (f'<div id="app" data-kind="{kind}">{static_html}</div>'
+            f'<script id="i18n" type="application/json">{payload}</script>')
 
 
 # ----------------------------------------------------------------- pieces
@@ -168,12 +178,13 @@ def match_row(lang, m):
         flags += f'<span class="chip value">{escape(t["value_bet"])}</span>'
     if m.get("low_data"):
         flags += f'<span class="chip low" title="{escape(t["low_data"])}">?</span>'
+    tip = (f'<span class="market">{escape(MARKETS[lang][pick["market"]])}</span>'
+           f'<span class="prob">{pct(pick["p"])}</span>{_badge(pick.get("result"))}') if pick else "–"
     return f"""<div class="row">
 <time class="ko" data-utc="{m["utc"]}" data-fmt="time"></time>
 <div class="teams-cell">{link}{score}{flags}</div>
 <div class="p3">{cells}</div>{exp}
-<div class="tip"><span class="market">{escape(MARKETS[lang][pick["market"]])}</span>
-<span class="prob">{pct(pick["p"])}</span>{_badge(pick.get("result"))}</div>
+<div class="tip">{tip}</div>
 </div>"""
 
 
@@ -193,8 +204,8 @@ def _by_league(matches):
 
 
 def _day_tabs(t):
-    return (f'<nav class="tabs"><a href="#today">{escape(t["today"])}</a>'
-            f'<a href="#tomorrow">{escape(t["tomorrow"])}</a></nav>')
+    return ('<nav class="tabs">' + "".join(f'<a href="#{k}">{escape(t[k])}</a>'
+            for k in ("yesterday", "today", "tomorrow", "after_tomorrow")) + "</nav>")
 
 
 # ----------------------------------------------------------------- pages
@@ -203,9 +214,9 @@ def index_page(cfg, lang, days, updated, demo, leagues=None):
     t = UI[lang]
     sections = []
     for i, day in enumerate(days):
-        label = t["today"] if i == 0 else t["tomorrow"]
+        label = t[day["key"]]
         coupons = "".join(coupon_card(lang, k, c) for k, c in day["coupons"].items())
-        candidates = [m for m in day["matches"] if "prediction" in m and not m.get("low_data")]
+        candidates = [m for m in day["matches"] if "prediction" in m and not m.get("low_data") and m.get("pick")]
         top = sorted(candidates, key=lambda m: m["pick"]["p"], reverse=True)[:6]
         top_html = "".join(
             f'<a class="top-pick" href="match-{m["id"]}.html"><span class="tp-comp">{escape(m["competition_name"])}</span>'
@@ -215,7 +226,7 @@ def index_page(cfg, lang, days, updated, demo, leagues=None):
         groups = "".join(
             f'<section class="league-block"><h4><a href="league-{code}.html">{escape(name)}</a></h4>{match_table(lang, ms)}</section>'
             for (code, name), ms in _by_league(day["matches"]).items())
-        sections.append(f"""<section class="day" id="{'today' if i == 0 else 'tomorrow'}">
+        sections.append(f"""<section class="day" id="{day["key"]}">
 <h2>{escape(label)} <small>{day["date"]}</small></h2>
 {f'<div class="coupons">{coupons}</div><p class="hint">{escape(t["fair_odds_hint"])}</p>' if coupons else ''}
 {f'<h3 class="sec">{escape(t["top_picks"])}</h3><div class="top-picks">{top_html}</div>' if top_html else ''}
@@ -223,7 +234,8 @@ def index_page(cfg, lang, days, updated, demo, leagues=None):
 <h3 class="sec">{escape(t["all_matches"])}</h3>
 {groups or f'<p class="empty">{escape(t["no_matches"])}</p>'}
 </section>""")
-    return layout(cfg, lang, "index", t["coupons"], _day_tabs(t) + "\n".join(sections), updated, demo, leagues)
+    static = _day_tabs(t) + "\n".join(sections)
+    return layout(cfg, lang, "index", t["coupons"], _app(lang, "tips", static), updated, demo, leagues)
 
 
 def _standings(lang, table, highlight=()):
@@ -251,7 +263,7 @@ def league_page(cfg, lang, code, league, days, record, updated, demo, leagues):
         ms = [m for m in day["matches"] if m["competition"] == code]
         if ms:
             any_match = True
-            parts.append(f'<h2>{escape(t["today"] if i == 0 else t["tomorrow"])} <small>{day["date"]}</small></h2>'
+            parts.append(f'<h2>{escape(t[day["key"]])} <small>{day["date"]}</small></h2>'
                          + match_table(lang, ms))
     if not any_match:
         parts.append(f'<p class="empty">{escape(t["no_league_matches"])}</p>')
@@ -452,7 +464,7 @@ def results_page(cfg, lang, summary, updated, demo, leagues=None):
     t = UI[lang]
     if not summary["recent_days"]:
         body = f'<h1>{escape(t["results_title"])}</h1><p class="empty">{escape(t["no_history"])}</p>'
-        return layout(cfg, lang, "results", t["results"], body, updated, demo, leagues)
+        return layout(cfg, lang, "results", t["results"], _app(lang, "stats", body), updated, demo, leagues)
 
     coupons = "".join(_stat_box(t, t["coupon_" + k], s) for k, s in summary["coupons"].items())
     markets = "".join(
@@ -470,7 +482,7 @@ def results_page(cfg, lang, summary, updated, demo, leagues=None):
 <h2>{escape(t["history_by_day"])}</h2>
 {days}
 {_archive_links(lang, summary["months"])}"""
-    return layout(cfg, lang, "results", t["results"], body, updated, demo, leagues)
+    return layout(cfg, lang, "results", t["results"], _app(lang, "stats", body), updated, demo, leagues)
 
 
 def archive_page(cfg, lang, month, days, months, updated, demo, leagues=None):
