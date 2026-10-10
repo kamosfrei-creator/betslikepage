@@ -118,6 +118,8 @@ DEMO_LEAGUES = {
                                 "Stonebury", "Ashford City", "Millbrook", "Harbor Town", "Oakridge"]),
     "DEMO2": ("Demo League B", ["Bergstadt", "Talheim", "Seeburg", "Waldfeld", "Rosenau",
                                 "Felsbach", "Lindenhof", "Kronberg"]),
+    "DEMO3": ("Demo League C", ["Portavera", "Monteluce", "Sanrocco", "Valbruna", "Castelmare",
+                                "Rivabella", "Torrefino", "Campolungo"]),
 }
 
 

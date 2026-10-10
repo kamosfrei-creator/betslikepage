@@ -64,7 +64,7 @@ def layout(cfg, lang, page, title, body, updated, demo, leagues=None, active=Non
 {banner}
 <header class="topbar">
   <div class="topbar-in">
-    <a class="brand" href="index.html"><span class="mark">{escape(cfg["site_name"][0])}</span>{escape(cfg["site_name"])}</a>
+    <a class="brand" href="index.html"><img class="logo" src="../assets/logo.svg" alt="" width="34" height="34"><span class="wm">OnePick<b>Away</b></span></a>
     <nav class="mainnav">{nav}</nav>
     <div class="top-actions">
       <button type="button" id="theme-btn" class="tb" aria-label="{escape(t["theme_dark"])}" title="{escape(t["theme_dark"])}">◐</button>
@@ -89,7 +89,7 @@ def layout(cfg, lang, page, title, body, updated, demo, leagues=None, active=Non
   <p>{escape(t["help_text"])} <a href="{t["help_url"]}" rel="noopener" target="_blank">{escape(t["help_name"])}</a> ·
      <a href="responsible.html">{escape(t["responsible"])}</a> · <a href="about.html">{escape(t["about"])}</a> ·
      <a href="privacy.html">{escape(t["privacy"])}</a></p>
-  <p class="muted">{escape(t["data_credit"])}</p>
+  <p class="muted">{escape(t["data_credit"])}{(" " + escape(t["data_extra"])) if cfg.get("extra_leagues") else ""}</p>
   <p class="muted">{escape(t["updated"])}: <time data-utc="{updated}">{updated}</time> · {escape(t["next_update"])}</p>
   </div>
 </footer>
@@ -183,7 +183,8 @@ def coupon_card(lang, key, coupon):
 <header><h3>{escape(t["coupon_" + key])}</h3>{_badge(coupon.get("result"))}</header>
 <ol>{legs}</ol>
 <footer class="total"><span>{escape(t["probability"])} <b>{pct(coupon["p"])}</b></span>
-<span>{escape(t["fair_odds"])} <b>{num(coupon["fair_odds"], "en")}</b></span></footer>
+<span>{escape(t["fair_odds"])} <b>{num(coupon["fair_odds"], "en")}</b></span>
+{f'<span>{escape(t["exp_hits"])} <b>{num(coupon["exp"], lang)}/{len(coupon["legs"])}</b></span>' if coupon.get("exp") else ""}</footer>
 </article>"""
 
 
@@ -270,7 +271,11 @@ def index_page(cfg, lang, days, updated, demo, leagues=None):
 {groups or f'<p class="empty">{escape(t["no_matches"])}</p>'}
 </section>""")
     static = _day_tabs(t) + "\n".join(sections)
-    return layout(cfg, lang, "index", t["coupons"], _app(lang, "tips", static), updated, demo, leagues)
+    feats = "".join(f'<li>{escape(t["hero_f" + str(i)])}</li>' for i in range(1, 6))
+    hero = (f'<section class="welcome"><div><h1>{escape(t["hero_title"])}</h1><p>{escape(t["hero_sub"])}</p>'
+            f'<ul class="feats">{feats}</ul><a class="btn" href="#matches">{escape(t["hero_cta"])} ↓</a></div></section>')
+    return layout(cfg, lang, "index", t["coupons"], hero + '<div id="matches"></div>' + _app(lang, "tips", static),
+                  updated, demo, leagues)
 
 
 def _standings(lang, table, highlight=()):

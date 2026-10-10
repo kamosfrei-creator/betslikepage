@@ -21,6 +21,9 @@ def match(m, lang):
     pick = m.get("pick")
     if pick:
         out["pick"] = {"m": pick["market"], "p": _r(pick["p"]), "r": pick.get("result")}
+    pr = m.get("pick_range")
+    if pr:
+        out["pickr"] = {"m": pr["market"], "p": _r(pr["p"]), "r": pr.get("result")}
     if "prediction" in m:
         pred = m["prediction"]
         out.update({
@@ -70,7 +73,7 @@ def day_data(cfg, lang, out_days, leagues, updated, demo):
 
 
 def history_data(history, leagues):
-    picks = [{"id": int(k) if str(k).isdigit() else k, "d": r["date"], "utc": r["utc"], "c": r.get("competition"),
+    picks = [{"id": r.get("mid", int(k) if str(k).isdigit() else k), "k": r.get("kind", "safe"), "d": r["date"], "utc": r["utc"], "c": r.get("competition"),
               "h": r["home"], "a": r["away"], "m": r["market"], "p": r["p"], "r": r.get("result"),
               "s": r.get("score"), "o": r.get("odds"), "ix": r.get("ix")}
              for k, r in history["picks"].items()]

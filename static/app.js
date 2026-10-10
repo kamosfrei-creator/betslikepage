@@ -1,4 +1,4 @@
-// FormaBet - skrypt wspólny + aplikacje "tips" (przegląd typów) i "stats" (statystyki).
+// OnePickAway - skrypt wspólny + aplikacje "tips" (przegląd typów) i "stats" (statystyki).
 // Bez bibliotek; dane z <lang>/data.json i data/history.json, teksty z <script id="i18n">.
 (function () {
   "use strict";
@@ -319,7 +319,7 @@
   });
 
   function kpiStrip(hist, today) {
-    var picks = hist.picks;
+    var picks = hist.picks.filter(function (r) { return (r.k || "safe") === "safe"; });
     var y = addDays(today, -1);
     var k = {
       y: agg(picks.filter(function (r) { return r.d === y; })),
@@ -350,14 +350,15 @@
   // ---------------------------------------------------------------- przegląd typów
   function tipsApp() {
     var state = Object.assign({ day: "today", leagues: [], q: "", sort: "time", market: "all", min: 0, value: false,
-                                fav: false, view: "grouped", mix: 0 }, store.get("filters", {}));
+                                fav: false, view: "grouped", mix: 0, pmode: "safe", coupon: "safe" }, store.get("filters", {}));
     state.q = ""; state.day = location.hash.slice(1) || state.day;
     var open = {};
-    var data, hist;
+    var data, hist, byId = {};
 
     Promise.all([getJSON("data.json"), getJSON("../data/history.json").catch(function () { return { picks: [], coupons: [], leagues: {} }; })])
       .then(function (res) {
         data = res[0]; hist = res[1];
+        data.matches.forEach(function (m) { byId[m.id] = m; });
         if (!data.days.some(function (d) { return d.key === state.day; })) state.day = "today";
         render();
         Prefs.onChange(function () { render(); });
@@ -366,7 +367,8 @@
 
     function save() {
       store.set("filters", { leagues: state.leagues, sort: state.sort, market: state.market, min: state.min,
-                             value: state.value, fav: state.fav, view: state.view, day: state.day, mix: state.mix });
+                             value: state.value, fav: state.fav, view: state.view, day: state.day, mix: state.mix,
+                             pmode: state.pmode, coupon: state.coupon });
     }
 
     function filtered() {
@@ -376,7 +378,7 @@
         if (state.leagues.length && state.leagues.indexOf(m.comp) < 0) return false;
         if (q && (m.home + " " + m.away).toLowerCase().indexOf(q) < 0) return false;
         if (state.fav && Prefs.favs.indexOf(m.id) < 0) return false;
-        var pk = m.pick;
+        var pk = pickOf(m);
         if (state.market !== "all" && (!pk || GROUP[pk.m] !== state.market)) return false;
         if (state.min && (!pk || pk.p * 100 < state.min)) return false;
         if (state.mix && !(m.ix != null && Math.abs(m.ix) >= state.mix)) return false;
@@ -391,7 +393,7 @@
     function sorted(list) {
       var by = {
         time: function (a, b) { return a.utc < b.utc ? -1 : a.utc > b.utc ? 1 : 0; },
-        conf: function (a, b) { return (b.pick ? b.pick.p : 0) - (a.pick ? a.pick.p : 0); },
+        conf: function (a, b) { return (pickOf(b) ? pickOf(b).p : 0) - (pickOf(a) ? pickOf(a).p : 0); },
         value: function (a, b) { return valueOf(b) - valueOf(a); },
         league: function (a, b) { return a.comp < b.comp ? -1 : a.comp > b.comp ? 1 : (a.utc < b.utc ? -1 : 1); },
         goals: function (a, b) { return (b.xg ? b.xg[0] + b.xg[1] : 0) - (a.xg ? a.xg[0] + a.xg[1] : 0); },
@@ -406,6 +408,7 @@
       return '<span class="st">' + timeOf(m.utc) + "</span>";
     }
     function inSlip(id, mk) { return Prefs.inSlip(id, mk); }
+    function pickOf(m) { return state.pmode === "range" ? m.pickr : m.pick; }
     function ixChip(m) {
       if (m.ix == null) return "";
       var v = m.ix, cls = v >= 0 ? "pos" : "neg";
@@ -413,13 +416,13 @@
     }
 
     function row(m) {
-      var p = m.p, pk = m.pick, isOpen = open[m.id];
+      var p = m.p, pk = pickOf(m), isOpen = open[m.id];
       var played = m.hg != null;
       var probs = "";
       if (p) {
         var best = ["1", "X", "2"].reduce(function (a, k) { return p[k] > p[a] ? k : a; }, "1");
         probs = '<div class="m-probs">' + ["1", "X", "2"].map(function (k) {
-          return '<span class="pp' + (k === best ? " hi" : "") + '"><i>' + k + "</i>" + Math.round(p[k] * 100) + "</span>";
+          return '<span class="pp o' + k + (k === best ? " hi" : "") + '"><i>' + k + "</i>" + Math.round(p[k] * 100) + "%</span>";
         }).join("") + '<div class="pbar"><span class="p1" style="width:' + p["1"] * 100 + '%"></span><span class="px" style="width:' +
           p.X * 100 + '%"></span><span class="p2" style="width:' + p["2"] * 100 + '%"></span></div></div>';
       } else probs = '<div class="m-probs empty"></div>';
@@ -444,10 +447,15 @@
       var flags = (m.adj ? '<span class="dot news" data-tip="' + esc(T("adjusted")) + '"></span>' : "") +
                   (m.low ? '<span class="dot low" data-tip="' + esc(T("low_data")) + '"></span>' : "");
       return '<article class="mrow' + (isOpen ? " open" : "") + '" data-id="' + m.id + '">' +
-        '<div class="m-time">' + statusCell(m) + ixChip(m) + flags + "</div>" + teams + probs + tipHtml + acts +
+        '<div class="m-time">' + statusCell(m) + flags + "</div>" + teams + probs + '<div class="m-ix">' + ixChip(m) + "</div>" + tipHtml + acts +
         (isOpen ? more(m) : "") + "</article>";
     }
 
+    function colHead() {
+      return '<div class="mhead"><span>' + esc(T("kickoff")) + "</span><span>" + esc(T("match")) + "</span><span>" + esc(T("probs_1x2")) +
+        '</span><span data-tip="' + esc(T("index_hint")) + '">' + esc(T("index")) + " ⓘ</span><span>" + esc(T("pick")) +
+        (state.pmode === "range" ? " · " + esc(T("pick_range")) : "") + "</span><span></span></div>";
+    }
     function more(m) {
       var p = m.p;
       var markets = ["1", "X", "2", "1X", "X2", "O15", "O25", "U25", "O35", "BTTS", "NOBTTS"].map(function (k) {
@@ -483,33 +491,31 @@
     function couponsHtml() {
       var cs = data.coupons[state.day];
       if (!cs) return "";
-      return '<div class="coupons">' + ["safe", "standard", "bold"].filter(function (k) { return cs[k]; }).map(function (k) {
-        var c = cs[k];
-        return '<article class="coupon ' + k + '"><header><h3>' + esc(T("coupon_" + k)) + "</h3>" + badge(c.result) + "</header><ol>" +
-          c.legs.map(function (l) {
-            return '<li><span class="teams">' + esc(l.home) + " – " + esc(l.away) + '</span><span class="leg-meta">' + timeOf(l.utc) +
-              ' <span class="market">' + esc(M(l.market)) + '</span><span class="prob">' + pct(l.p) + "</span>" + badge(l.result) + "</span></li>";
-          }).join("") + '</ol><footer class="total"><span>' + esc(T("probability")) + " <b>" + pct(c.p) + "</b></span><span>" +
-          esc(T("fair_odds")) + " <b>" + dec(c.fair_odds) + "</b></span></footer></article>";
+      var keys = ["safe", "standard", "bold", "range", "c8", "c10"].filter(function (k) { return cs[k]; });
+      if (!keys.length) return "";
+      var k = keys.indexOf(state.coupon) >= 0 ? state.coupon : keys[0];
+      var c = cs[k];
+      var odds = c.legs.every(function (l) { var mm = byId[l.id]; return mm && mm.odds && mm.odds[l.market]; })
+        ? c.legs.reduce(function (a, l) { return a * byId[l.id].odds[l.market].now; }, 1) : null;
+      var tabs = '<div class="ctabs" role="tablist">' + keys.map(function (x) {
+        return '<button type="button" role="tab" data-act="coupon" data-v="' + x + '" aria-selected="' + (x === k) + '">' + esc(T("coupon_" + x)) +
+          " <i>@" + dec(cs[x].fair_odds) + "</i></button>";
       }).join("") + "</div>";
-    }
-
-    function slipHtml() {
-      var prob = slip.reduce(function (a, s) { return a * s.p; }, 1);
-      var allOdds = slip.length && slip.every(function (s) { return s.o; });
-      var mo = allOdds ? slip.reduce(function (a, s) { return a * s.o; }, 1) : null;
-      return '<aside class="slip' + (store.get("slipOpen", false) ? " open" : "") + '" aria-label="' + esc(T("my_slip")) + '">' +
-        '<button type="button" class="slip-head" data-act="slip">' + esc(T("my_slip")) + ' <span class="cnt">' + slip.length + "</span>" +
-        (slip.length ? '<span class="slip-odds">@' + dec(1 / prob) + "</span>" : "") + "</button>" +
-        '<div class="slip-body">' + (slip.length ? "<ol>" + slip.map(function (s, i) {
-          return "<li><span><b>" + esc(s.home) + " – " + esc(s.away) + "</b><small>" + esc(M(s.m)) + " · " + pct(s.p) + " · @" + fair(s.p) +
-            '</small></span><button type="button" class="ib" data-act="rm" data-i="' + i + '" aria-label="' + esc(T("remove")) + '">×</button></li>';
-        }).join("") + "</ol>" +
-          '<div class="slip-sum"><span>' + esc(T("combined_prob")) + " <b>" + pct(prob) + "</b></span><span>" + esc(T("combined_odds")) +
-          " <b>" + dec(1 / prob) + "</b></span>" + (mo ? "<span>" + esc(T("market_odds")) + " <b>" + dec(mo) + "</b></span>" : "") + "</div>" +
-          '<button type="button" class="btn ghost" data-act="clear">' + esc(T("slip_clear")) + "</button>"
-          : '<p class="muted">' + esc(T("slip_empty")) + "</p>") +
-        '<p class="hint">18+ · ' + esc(T("fair_odds_hint")) + "</p></div></aside>";
+      var stats = '<div class="cstats">' +
+        "<div><span>" + esc(T("picks_count")) + "</span><b>" + c.legs.length + "</b></div>" +
+        "<div><span>" + esc(T("combined_prob")) + "</span><b>" + pct(c.p) + "</b></div>" +
+        "<div><span>" + esc(T("combined_odds")) + "</span><b>" + dec(c.fair_odds) + "</b></div>" +
+        (odds ? "<div><span>" + esc(T("market_odds")) + "</span><b>" + dec(odds) + "</b></div>" : "") +
+        (c.exp != null ? "<div><span>" + esc(T("exp_hits")) + "</span><b>" + dec(c.exp, 1) + " / " + c.legs.length + "</b></div>" : "") +
+        (c.p1miss != null ? "<div><span>" + esc(T("p1miss")) + "</span><b>" + pct(c.p1miss) + "</b></div>" : "") +
+        (c.avg_p != null ? "<div><span>" + esc(T("avg_conf")) + "</span><b>" + pct(c.avg_p) + "</b></div>" : "") + "</div>";
+      var legs = "<ol>" + c.legs.map(function (l) {
+        return '<li><span class="teams"><a href="match-' + l.id + '.html">' + esc(l.home) + " – " + esc(l.away) + '</a></span><span class="leg-meta">' + timeOf(l.utc) +
+          ' <span class="market">' + esc(M(l.market)) + '</span><span class="prob">' + pct(l.p) + "</span><span class=\"odds\">@" + fair(l.p) + "</span>" + badge(l.result) + "</span></li>";
+      }).join("") + "</ol>";
+      var addAll = '<button type="button" class="btn" data-act="addcoupon" data-v="' + k + '">+ ' + esc(T("my_slip")) + "</button>";
+      return '<section class="couponbox"><header><h2>' + esc(T("coupons_title")) + "</h2>" + badge(c.result) + "</header>" + tabs +
+        '<div class="cbody ' + k + '">' + stats + legs + addAll + (k === "range" ? '<p class="hint">' + esc(T("range_hint")) + "</p>" : "") + "</div></section>";
     }
 
     function render() {
@@ -532,6 +538,9 @@
         sel("f-market", T("filter_market"), state.market, [["all", T("m_all")], ["1x2", T("m_1x2")], ["goals", T("m_goals")], ["btts", T("m_btts")]]) +
         sel("f-min", T("min_conf"), String(state.min), [["0", T("all_short")], ["55", "≥ 55%"], ["60", "≥ 60%"], ["65", "≥ 65%"], ["70", "≥ 70%"], ["75", "≥ 75%"]]) +
         sel("f-mix", T("min_index"), String(state.mix), [["0", T("all_short")], ["2", "±2"], ["3", "±3"], ["4", "±4"], ["5", "±5"], ["6", "±6"], ["7", "±7"]]) +
+        '<div class="seg" role="group" aria-label="' + esc(T("pick_mode")) + '">' + ["safe", "range"].map(function (v) {
+          return '<button type="button" data-act="pmode" data-v="' + v + '" aria-pressed="' + (state.pmode === v) + '">' + esc(T("pick_" + v)) + "</button>";
+        }).join("") + "</div>" +
         toggle("value", T("only_value")) + toggle("fav", T("only_fav")) +
         '<div class="seg" role="group">' + ["grouped", "list", "index"].map(function (v) {
           return '<button type="button" data-act="view" data-view="' + v + '" aria-pressed="' + (state.view === v) + '">' + esc(T("view_" + v)) + "</button>";
@@ -552,7 +561,7 @@
         html += '<div class="emptybox"><p>' + esc(T("no_results_filter")) + '</p><button type="button" class="btn" data-act="reset">' + esc(T("reset_filters")) + "</button></div>";
       } else if (state.view === "index") {
         var ixList = list.filter(function (m) { return m.ix != null; }).sort(function (a, b) { return Math.abs(b.ix) - Math.abs(a.ix) || b.ix - a.ix; });
-        html += '<p class="hint">' + esc(T("index_hint")) + '</p><section class="lgroup flat">' + ixList.map(row).join("") + "</section>";
+        html += '<p class="hint">' + esc(T("index_hint")) + '</p><section class="lgroup flat">' + colHead() + ixList.map(row).join("") + "</section>";
       } else if (state.view === "grouped" && state.sort !== "conf" && state.sort !== "value" && state.sort !== "index") {
         var groups = {};
         list.forEach(function (m) { (groups[m.comp] = groups[m.comp] || []).push(m); });
@@ -561,10 +570,10 @@
           html += '<section class="lgroup"><header><a href="league-' + c + '.html">' +
             (lg.emblem ? '<img src="' + esc(lg.emblem) + '" alt="" width="20" height="20" loading="lazy">' : '<span class="lg-badge">' + esc(c) + "</span>") +
             "<b>" + esc(lg.name) + "</b>" + (lg.area ? "<span>" + esc(lg.area) + "</span>" : "") + "</a></header>" +
-            groups[c].map(row).join("") + "</section>";
+            colHead() + groups[c].map(row).join("") + "</section>";
         });
       } else {
-        html += '<section class="lgroup flat">' + list.map(row).join("") + "</section>";
+        html += '<section class="lgroup flat">' + colHead() + list.map(row).join("") + "</section>";
       }
       app.innerHTML = html;
       app.classList.add("ready");
@@ -599,12 +608,20 @@
       }
       else if (act === "tgl") { var k = b.getAttribute("data-key"); state[k] = !state[k]; }
       else if (act === "view") state.view = b.getAttribute("data-view");
+      else if (act === "pmode") state.pmode = b.getAttribute("data-v");
+      else if (act === "coupon") state.coupon = b.getAttribute("data-v");
+      else if (act === "addcoupon") {
+        data.coupons[state.day][b.getAttribute("data-v")].legs.forEach(function (l) {
+          if (!Prefs.inSlip(l.id, l.market)) Prefs.toggleSlip({ id: l.id, home: l.home, away: l.away, m: l.market, p: l.p, utc: l.utc,
+                                                               o: byId[l.id] && byId[l.id].odds && byId[l.id].odds[l.market] ? byId[l.id].odds[l.market].now : null });
+        });
+      }
       else if (act === "reset") { state.leagues = []; state.q = ""; state.market = "all"; state.min = 0; state.mix = 0; state.value = false; state.fav = false; }
       else if (act === "open") open[m.id] = !open[m.id];
       else if (act === "fav") Prefs.toggleFav(m.id);
       else if (act === "add") {
         var mk = b.getAttribute("data-m");
-        Prefs.toggleSlip({ id: m.id, home: m.home, away: m.away, m: mk, p: m.p ? m.p[mk] : m.pick.p, utc: m.utc,
+        Prefs.toggleSlip({ id: m.id, home: m.home, away: m.away, m: mk, p: m.p ? m.p[mk] : pickOf(m).p, utc: m.utc,
                            o: m.odds && m.odds[mk] ? m.odds[mk].now : null });
       }
       save(); render();
@@ -635,7 +652,7 @@
   // ---------------------------------------------------------------- statystyki
   function statsApp() {
     var hist, today;
-    var state = { period: "30", league: "", market: "", result: "", page: 0 };
+    var state = { period: "30", league: "", market: "", result: "", page: 0, kind: "safe" };
     getJSON("../data/history.json").then(function (h) {
       hist = h; today = new Date().toISOString().slice(0, 10); render();
     }).catch(function () {});
@@ -725,7 +742,7 @@
     }
 
     function render() {
-      var all = hist.picks;
+      var all = hist.picks.filter(function (r) { return (r.k || "safe") === state.kind; });
       var rows = all.filter(inPeriod);
       var a = agg(rows);
       var byLeague = {}, byMarket = {}, byMonth = {};
@@ -736,6 +753,9 @@
       var html = '<div class="stats-head"><h1>' + esc(T("results_title")) + '</h1><div class="seg" role="group" aria-label="' + esc(T("period")) + '">' +
         periods.map(function (p) { return '<button type="button" data-act="period" data-p="' + p[0] + '" aria-pressed="' + (state.period === p[0]) + '">' + esc(p[1]) + "</button>"; }).join("") + "</div></div>";
       html += kpiStrip(hist, today);
+      html += '<div class="seg kindseg" role="group" aria-label="' + esc(T("pick_mode")) + '">' + ["safe", "range"].map(function (v) {
+        return '<button type="button" data-act="kind" data-v="' + v + '" aria-pressed="' + (state.kind === v) + '">' + esc(T("pick_" + v)) + "</button>";
+      }).join("") + "</div>";
       html += '<div class="kpis big">' +
         '<div class="kpi"><span class="kpi-l">' + esc(T("hit_rate")) + "</span><b>" + rateTxt(a) + '</b><span class="kpi-s">' + esc(fmt(T("picks_won_of"), { won: a.won, n: a.n })) + "</span></div>" +
         '<div class="kpi"><span class="kpi-l">' + esc(T("expected_hits")) + "</span><b>" + (a.n ? dec(a.exp, 1) : "–") + '</b><span class="kpi-s">' + esc(T("actual_hits")) + " " + a.won + "</span></div>" +
@@ -809,6 +829,7 @@
       if (!b || !hist) return;
       if (b.getAttribute("data-act") === "period") { state.period = b.getAttribute("data-p"); state.page = 0; }
       if (b.getAttribute("data-act") === "pg") state.page += +b.getAttribute("data-d");
+      if (b.getAttribute("data-act") === "kind") { state.kind = b.getAttribute("data-v"); state.page = 0; }
       render();
     });
     app.addEventListener("change", function (e) {

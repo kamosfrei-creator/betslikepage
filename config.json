@@ -1,5 +1,5 @@
 {
-  "site_name": "FormaBet",
+  "site_name": "OnePickAway",
   "base_url": "https://kamosfrei-creator.github.io/betslikepage",
   "timezone": "Europe/Warsaw",
   "languages": [
@@ -48,13 +48,27 @@
   "default_language": "en",
   "competitions": [
     "PL",
+    "ELC",
+    "E2",
     "BL1",
+    "D2",
     "SA",
+    "I2",
     "PD",
+    "SP2",
     "FL1",
+    "F2",
     "DED",
     "PPL",
-    "ELC",
+    "POL",
+    "SC0",
+    "B1",
+    "NOR",
+    "SWE",
+    "DNK",
+    "AUT",
+    "SWZ",
+    "T1",
     "CL",
     "BSA"
   ],
@@ -92,5 +106,21 @@
   "supabase": {
     "url": "",
     "anon_key": ""
-  }
+  },
+  "extra_leagues": [
+    "E2",
+    "D2",
+    "I2",
+    "SP2",
+    "F2",
+    "POL",
+    "NOR",
+    "SWE",
+    "DNK",
+    "SC0",
+    "B1",
+    "AUT",
+    "SWZ",
+    "T1"
+  ]
 }

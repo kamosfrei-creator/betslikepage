@@ -1,4 +1,4 @@
-# FormaBet - codzienne typy piłkarskie
+# OnePickAway - codzienne typy piłkarskie
 
 Statyczna strona z typami i kuponami na dziś i jutro, generowana automatycznie
 4 razy dziennie (ok. 8:00, 12:00, 16:00, 20:00 czasu polskiego). Działa
@@ -27,6 +27,19 @@ zużycia tokenów i za darmo**.
 Typ meczu jest aktualizowany przy każdej aktualizacji aż do rozpoczęcia meczu,
 a potem zamrażany - rozliczany jest dokładnie ten typ, który był na stronie
 przed gwizdkiem.
+
+## Ligi
+
+- football-data.org (klucz `FOOTBALL_DATA_TOKEN`, darmowy plan - 12 rozgrywek):
+  Premier League, Championship, Bundesliga, Serie A, LaLiga, Ligue 1,
+  Eredivisie, Primeira Liga, Liga Mistrzów, Brasileirão (+ herby drużyn, H2H).
+- football-data.co.uk (darmowe pliki CSV, bez klucza; `extra_leagues` w
+  `config.json`): League One, 2. Bundesliga, Serie B, Segunda División,
+  Ligue 2, Ekstraklasa, Eliteserien, Allsvenskan, Superliga (DK), Szkocja,
+  Belgia, Austria, Szwajcaria, Turcja - wraz ze średnimi kursami 1X2, więc
+  value bety działają tam bez płatnego API kursów. Przed komercyjnym użyciem
+  sprawdź warunki serwisu. Ligi chorwackiej nie ma w żadnym z tych darmowych
+  źródeł (wymagałaby płatnego API).
 
 ## Strony
 

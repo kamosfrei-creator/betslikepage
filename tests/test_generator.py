@@ -145,6 +145,36 @@ class TeamStatsTest(unittest.TestCase):
         self.assertEqual(teamstats.h2h(2, 1, raw)[0]["score"], "2:1")
 
 
+class FdcoukTest(unittest.TestCase):
+    def test_parses_results_fixtures_and_odds(self):
+        from datetime import date
+        from generator import fdcouk
+        files = {
+            "/mmz4281/2627/D2.csv": [{"Div": "D2", "Date": "03/10/2026", "Time": "13:30", "HomeTeam": "Hamburg", "AwayTeam": "Koln",
+                                      "FTHG": "2", "FTAG": "1", "AvgH": "2.1", "AvgD": "3.4", "AvgA": "3.3"}],
+            "/fixtures.csv": [{"Div": "D2", "Date": "11/10/2026", "Time": "12:00", "HomeTeam": "Koln", "AwayTeam": "Hamburg",
+                               "FTHG": "", "FTAG": "", "AvgH": "1.9", "AvgD": "3.5", "AvgA": "3.9"}],
+            "/new/POL.csv": [{"Country": "Poland", "League": "Ekstraklasa", "Season": "2026/2027", "Date": "05/10/2026",
+                              "Time": "17:30", "Home": "Legia", "Away": "Lech", "HG": "1", "AG": "1"}],
+            "/new_league_fixtures.csv": [{"Country": "Poland", "Date": "11/10/2026", "Time": "20:00", "Home": "Lech", "Away": "Legia"}],
+        }
+        orig = fdcouk._get_csv
+        fdcouk._get_csv = lambda url, log: files.get(url.replace(fdcouk.BASE, ""), [])
+        try:
+            window, seasons = fdcouk.fetch(["D2", "POL"], date(2026, 10, 10), log=lambda *a: None)
+        finally:
+            fdcouk._get_csv = orig
+        self.assertEqual(len(seasons["D2"]), 1)
+        self.assertEqual(seasons["POL"][0]["home_goals"], 1)
+        upcoming = [m for m in window if m["status"] == "TIMED"]
+        self.assertEqual(sorted(m["competition"] for m in upcoming), ["D2", "POL"])
+        d2 = [m for m in upcoming if m["competition"] == "D2"][0]
+        self.assertEqual(d2["utc"], "2026-10-11T11:00:00Z")  # 12:00 czasu UK (BST) = 11:00 UTC
+        self.assertGreater(d2["id"], 10 ** 12)
+        store = fdcouk.odds_snapshots({}, window, datetime(2026, 10, 10))
+        self.assertEqual(store[str(d2["id"])]["current"]["avg"]["1"], 1.9)
+
+
 class TranslationsTest(unittest.TestCase):
     def test_all_languages_have_same_keys_and_placeholders(self):
         import json, os, re

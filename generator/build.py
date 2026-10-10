@@ -13,7 +13,7 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 from . import coupons as cp
-from . import export, fetch, news, odds, render, research, stats, teamstats
+from . import export, fdcouk, fetch, news, odds, render, research, stats, teamstats
 from .model import LeagueModel
 from .texts import LANGS, analysis
 
@@ -93,6 +93,7 @@ def predict_match(m, model, cfg, ctx):
                          [("form", form_mult), ("load", tuple(load_mult)), ("news", (ah, dh, aa, da))])
     probs = pred["probs"]
     pick = cp.main_pick(probs)
+    m["pick_range"] = cp.range_pick(probs)
     home_info, away_info = model.team_info(m["home_id"]), model.team_info(m["away_id"])
     ranks = (model.rank(m["home_id"]), model.rank(m["away_id"]))
     lm = ctx["league_matches"]
@@ -132,7 +133,7 @@ def predict_match(m, model, cfg, ctx):
 def settle_history(history, window):
     by_id = {str(m["id"]): m for m in window}
     for key, rec in history["picks"].items():
-        m = by_id.get(key)
+        m = by_id.get(str(rec.get("mid", key)))
         if rec.get("result") or not m:
             continue
         if m["status"] == "FINISHED" and m["home_goals"] is not None:
@@ -175,7 +176,12 @@ def build(demo=False, now=None, langs=None):
     if demo:
         window, seasons = fetch.fetch_demo(today, now)
     else:
-        window, seasons = fetch.fetch_live(token, cfg["competitions"], today)
+        fd_codes = [c for c in cfg["competitions"] if c not in cfg.get("extra_leagues", [])]
+        window, seasons = fetch.fetch_live(token, fd_codes, today)
+        if cfg.get("extra_leagues"):
+            w2, s2 = fdcouk.fetch(cfg["extra_leagues"], today)
+            window += w2
+            seasons.update(s2)
 
     hist_path = os.path.join(ROOT, "data", "demo-history.json" if demo else "history.json")
     history = load_json(hist_path, {"picks": {}, "coupons": {}})
@@ -184,7 +190,8 @@ def build(demo=False, now=None, langs=None):
     # Typy starsze niż okno pobierania (np. po przerwie w aktualizacjach) dociągamy po id.
     extra = []
     oldest = (today - timedelta(days=3)).isoformat()
-    stale = [int(k) for k, v in history["picks"].items() if not v.get("result") and v["date"] < oldest]
+    stale = sorted({int(v.get("mid", k)) for k, v in history["picks"].items() if not v.get("result") and v["date"] < oldest})
+    stale = [i for i in stale if i < 10 ** 9]  # mecze z football-data.co.uk rozliczamy z ich własnego okna
     if stale and not demo:
         window_ids = {m["id"] for m in window}
         extra = [m for m in fetch.fetch_by_ids(token, stale[:200]) if m["id"] not in window_ids]
@@ -211,9 +218,9 @@ def build(demo=False, now=None, langs=None):
         h2h_cache = {}
     else:
         research_cache = research.run(cfg, upcoming, models, load_json(research_path, {}), now)
-        h2h_cache = fetch.fetch_h2h(token, [m["id"] for m in upcoming], load_json(h2h_path, {}),
+        h2h_cache = fetch.fetch_h2h(token, [m["id"] for m in upcoming if m["id"] < 10 ** 9], load_json(h2h_path, {}),
                                     cfg.get("h2h_per_run", 20))
-    odds_store = load_json(odds_path, {})
+    odds_store = fdcouk.odds_snapshots(load_json(odds_path, {}), window, now)
     odds_key = os.environ.get("ODDS_API_KEY", "").strip()
     local_hour = now.astimezone(tz).hour
     if odds_key and not demo and local_hour in cfg.get("odds", {}).get("hours", [8, 16]):
@@ -249,10 +256,24 @@ def build(demo=False, now=None, langs=None):
                 market_odds = next((r["now"] for r in m.get("odds") or [] if r["outcome"] == m["pick"]["market"]), None)
                 if market_odds:
                     history["picks"][key]["odds"] = market_odds
+                # Drugi, śledzony osobno typ: najpewniejszy z kursem ok. 1,5-2,0.
+                pr = m.get("pick_range")
+                if pr:
+                    rec_r = {**history["picks"][key], "market": pr["market"], "p": round(pr["p"], 4),
+                             "kind": "range", "mid": m["id"]}
+                    rec_r.pop("odds", None)
+                    ro = next((r["now"] for r in m.get("odds") or [] if r["outcome"] == pr["market"]), None)
+                    if ro:
+                        rec_r["odds"] = ro
+                    history["picks"][key + ":r"] = rec_r
+                else:
+                    history["picks"].pop(key + ":r", None)
                 shown.append(m)
             elif key in history["picks"]:
                 rec = history["picks"][key]
                 m["pick"] = {"market": rec["market"], "p": rec["p"], "result": rec.get("result")}
+                rr = history["picks"].get(key + ":r")
+                m["pick_range"] = {"market": rr["market"], "p": rr["p"], "result": rr.get("result")} if rr else None
                 shown.append(m)
             elif d < today or m["status"] in ("IN_PLAY", "PAUSED", "FINISHED"):
                 m["pick"] = None  # mecz bez naszego typu - pokazujemy sam wynik
@@ -261,7 +282,7 @@ def build(demo=False, now=None, langs=None):
         stored = history["coupons"].get(ds, {})
         fresh = cp.build_coupons([m for m in shown if m["open"] and not m.get("low_data")])
         day_coupons = {}
-        for key in ("safe", "standard", "bold"):
+        for key in cp.COUPON_KEYS:
             old = stored.get(key)
             started = old and any(leg["utc"] <= now_s for leg in old["legs"])
             if started:
@@ -270,6 +291,7 @@ def build(demo=False, now=None, langs=None):
                 c = fresh[key]
                 day_coupons[key] = {
                     "p": round(c["p"], 4), "fair_odds": round(c["fair_odds"], 2),
+                    "exp": round(c["exp"], 2), "p1miss": round(c["p1miss"], 4), "avg_p": round(c["avg_p"], 4),
                     "legs": [{"id": l["match"]["id"], "home": l["match"]["home"], "away": l["match"]["away"],
                               "utc": l["match"]["utc"], "market": l["market"], "p": round(l["p"], 4)}
                              for l in c["legs"]],

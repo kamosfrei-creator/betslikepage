@@ -22,7 +22,7 @@ from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
 API_FOOTBALL = "https://v3.football.api-sports.io"
-USER_AGENT = "FormaBetBot/1.0 (+https://github.com/kamosfrei-creator/betslikepage)"
+USER_AGENT = "OnePickAwayBot/1.0 (+https://github.com/kamosfrei-creator/betslikepage)"
 NEWS_MAX_AGE_H = 72
 
 # Słowa kluczowe sygnałów w kilku językach. Teksty normalizujemy do ASCII

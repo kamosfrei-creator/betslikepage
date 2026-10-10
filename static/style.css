@@ -1,16 +1,18 @@
-/* FormaBet - layout: górny pasek, menu lig z boku (na telefonie poziomy pasek), treść w kartach. */
-/* FormaBet - jasny, "piłkarski" motyw: zielona murawa w nagłówku, białe karty; ciemny tylko na życzenie (przycisk). */
+/* OnePickAway - layout: górny pasek, menu lig z boku (na telefonie poziomy pasek), treść w kartach. */
+/* OnePickAway - jasny, "piłkarski" motyw: zielona murawa w nagłówku, białe karty; ciemny tylko na życzenie (przycisk). */
 :root {
-  --bg: #eef3ef; --surface: #ffffff; --surface-2: #f3f7f4; --ink: #10241a; --muted: #5a6e62; --line: #dce6df;
-  --brand: #0b6e38; --brand-2: #0f8a46; --brand-ink: #ffffff; --brand-muted: #cdeedb;
-  --accent: #0e9f4f; --accent-soft: #e2f5ea; --accent-ink: #ffffff; --highlight: #ffcf24;
-  --home: #2563eb; --draw: #9aa7b0; --away: #ea6a1f;
-  --won: #0e9f4f; --lost: #d93a2b; --warn: #c88a0e; --value: #7a3ff2;
-  --safe: #0e9f4f; --standard: #2563eb; --bold: #ea6a1f;
-  --radius: 12px; --shadow: 0 1px 3px rgba(16, 36, 26, .07);
-  --foot: #0a3b21;
+  --bg: #eef1f5; --surface: #ffffff; --surface-2: #f5f7fa; --ink: #111a2b; --muted: #5d6b80; --line: #dde3ea;
+  --brand: #0f1b2d; --brand-2: #1b2c47; --brand-ink: #ffffff; --brand-muted: #a9b8cc;
+  --accent: #16a34a; --accent-soft: #e6f6ec; --accent-ink: #ffffff; --highlight: #ffcf24;
+  --home: #2563eb; --draw: #8a96a6; --away: #ea6a1f;
+  --home-soft: #e7eefc; --draw-soft: #eef0f3; --away-soft: #fdeee4;
+  --won: #16a34a; --lost: #d93a2b; --warn: #c88a0e; --value: #7a3ff2;
+  --safe: #16a34a; --standard: #2563eb; --bold: #ea6a1f;
+  --radius: 12px; --shadow: 0 1px 3px rgba(17, 26, 43, .08);
+  --foot: #0f1b2d;
 }
 :root[data-theme="dark"] {
+  --home-soft: #1a2a4a; --draw-soft: #222a35; --away-soft: #3a2616;
   --bg: #0c1611; --surface: #13211a; --surface-2: #192b22; --ink: #e5f0e9; --muted: #8fa89a; --line: #24392d;
   --brand: #0a3d22; --brand-2: #0c4d2b; --brand-ink: #e5f0e9; --brand-muted: #9cc7ae;
   --accent: #2cc779; --accent-soft: #163a27; --accent-ink: #04140b; --highlight: #ffd84d;
@@ -440,7 +442,7 @@ td.pos { color: var(--won); font-weight: 700; } td.neg { color: var(--lost); fon
 .h2h-bal { margin: 10px 0 0; font-size: .88rem; }
 .mm-fi b { font-size: 1.3rem; }
 
-/* ================================================================ FormaBet v2 */
+/* ================================================================ OnePickAway v2 */
 .topbar { background: linear-gradient(90deg, var(--brand) 0%, var(--brand-2) 100%); box-shadow: 0 2px 10px rgba(11, 110, 56, .25); }
 .mark { background: var(--highlight); color: #10241a; border-radius: 50%; }
 .brand { letter-spacing: .02em; text-transform: uppercase; font-size: 1.05rem; }
@@ -531,3 +533,83 @@ body > footer { background: var(--foot); }
 @media (min-width: 1200px) { .shell.has-side { grid-template-columns: 250px minmax(0, 1fr) 300px; } }
 #theme-btn { font-size: 1.05rem; padding: 4px 10px; }
 .slip-odds { color: var(--highlight); }
+
+
+/* ================================================================ OnePickAway: kontrast i czytelność */
+.topbar { background: linear-gradient(90deg, var(--brand) 0%, var(--brand-2) 100%); box-shadow: 0 2px 12px rgba(15, 27, 45, .35); }
+.brand { gap: 10px; text-transform: none; font-size: 1.15rem; letter-spacing: 0; }
+.brand .logo { display: block; }
+.brand .wm b { color: var(--highlight); }
+.mainnav a[aria-current] { border-bottom-color: var(--highlight); color: #fff; }
+.sidebar { border-color: var(--line); box-shadow: 0 2px 8px rgba(17, 26, 43, .06); }
+.side-title { color: var(--ink); border-bottom: 2px solid var(--line); padding-bottom: 6px; }
+.sidebar a[aria-current] { background: var(--brand); color: #fff; }
+.sidebar a[aria-current] .lg-code, .sidebar a[aria-current] .lg-count { color: var(--brand-muted); }
+
+/* powitanie */
+.welcome { background: linear-gradient(120deg, var(--brand) 0%, #173a63 60%, #12603a 100%); color: #fff; border-radius: 16px;
+           padding: 22px 24px; margin-bottom: 16px; position: relative; overflow: hidden; }
+.welcome::after { content: ""; position: absolute; inset-inline-end: -60px; top: -60px; width: 240px; height: 240px; border-radius: 50%;
+                  border: 2px solid rgba(255, 255, 255, .12); box-shadow: 0 0 0 40px rgba(255, 255, 255, .03); pointer-events: none; }
+.welcome h1 { font-size: clamp(1.25rem, 2.4vw, 1.75rem); margin: 0 0 8px; max-width: 32ch; }
+.welcome p { margin: 0 0 12px; color: #d4deec; max-width: 70ch; }
+.feats { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; padding: 0; }
+.feats li { font-size: .82rem; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .2); }
+.feats li::before { content: "✓ "; color: var(--highlight); }
+.welcome .btn { background: var(--highlight); border-color: var(--highlight); color: #111a2b; }
+
+/* pasek statystyk: boisko */
+#app > .kpis:first-child, .stats-head + .kpis { background: repeating-linear-gradient(90deg, #13803f 0 56px, #117439 56px 112px); }
+
+/* lista meczów */
+.daytabs button[aria-selected="true"] { background: var(--brand); border-color: var(--brand); color: #fff; }
+.daytabs button[aria-selected="true"] span { color: var(--brand-muted); }
+.lgroup { border-color: #cfd7e2; }
+.lgroup > header { background: var(--brand); border-bottom: 0; }
+.lgroup > header a, .lgroup > header b { color: #fff; }
+.lgroup > header span { color: var(--brand-muted); }
+.lgroup > header img { background: #fff; padding: 1px; }
+.mhead { display: grid; grid-template-columns: 64px minmax(0, 1.4fr) minmax(150px, 190px) 64px minmax(0, 1fr) auto; gap: 12px;
+         padding: 6px 14px; background: var(--surface-2); border-bottom: 1px solid var(--line);
+         font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.mrow { grid-template-columns: 64px minmax(0, 1.4fr) minmax(150px, 190px) 64px minmax(0, 1fr) auto; }
+.mrow:nth-of-type(even) { background: #fafbfd; }
+:root[data-theme="dark"] .mrow:nth-of-type(even) { background: transparent; }
+.pp { font-size: .9rem; }
+.pp.o1 { background: var(--home-soft); } .pp.oX { background: var(--draw-soft); } .pp.o2 { background: var(--away-soft); }
+.pp.hi.o1 { background: var(--home) !important; color: #fff; }
+.pp.hi.oX { background: var(--draw) !important; color: #fff; }
+.pp.hi.o2 { background: var(--away) !important; color: #fff; }
+.pp.hi i { color: #fff; }
+.m-ix { display: flex; justify-content: center; }
+.ix { font-size: .95rem; padding: 4px 8px; border-radius: 7px; min-width: 52px; text-align: center; }
+.ix.pos { background: var(--home); color: #fff; }
+.ix.neg { background: var(--away); color: #fff; }
+.conf { color: var(--accent); }
+@media (max-width: 760px) {
+  .mhead { display: none; }
+  .mrow { grid-template-columns: 48px minmax(0, 1fr) auto; }
+  .m-ix { grid-column: 1; grid-row: 2; justify-content: flex-start; }
+  .ix { min-width: 0; font-size: .8rem; }
+}
+
+/* kupony dnia */
+.couponbox { background: var(--surface); border: 1px solid #cfd7e2; border-radius: 14px; overflow: hidden; margin: 6px 0 18px; box-shadow: var(--shadow); }
+.couponbox > header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--brand); color: #fff; }
+.couponbox > header h2 { margin: 0; font-size: 1.05rem; }
+.ctabs { display: flex; gap: 6px; overflow-x: auto; padding: 10px 12px; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.ctabs button { font: inherit; font-size: .85rem; font-weight: 700; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line);
+                background: var(--surface); color: var(--ink); cursor: pointer; white-space: nowrap; }
+.ctabs button i { font-style: normal; color: var(--muted); font-weight: 600; }
+.ctabs button[aria-selected="true"] { background: var(--highlight); border-color: var(--highlight); color: #111a2b; }
+.ctabs button[aria-selected="true"] i { color: #111a2b; }
+.cbody { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+.cstats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
+.cstats div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; display: flex; flex-direction: column; }
+.cstats span { font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 700; }
+.cstats b { font-size: 1.15rem; }
+.cbody ol { margin: 0; padding-inline-start: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 4px 24px; }
+.cbody li { padding: 6px 0; border-bottom: 1px dashed var(--line); }
+.cbody .teams a { color: var(--ink); font-weight: 600; }
+.cbody .btn { align-self: flex-start; }
+.kindseg { margin-bottom: 12px; }
