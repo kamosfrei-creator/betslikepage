@@ -244,6 +244,7 @@ def build(demo=False, now=None, langs=None):
                     "home": m["home"], "away": m["away"],
                     "market": m["pick"]["market"], "p": round(m["pick"]["p"], 4), "result": None,
                     "adjusted": m["adjusted"],
+                    "ix": round(10 * (m["prediction"]["probs"]["1"] - m["prediction"]["probs"]["2"]), 1),
                 }
                 market_odds = next((r["now"] for r in m.get("odds") or [] if r["outcome"] == m["pick"]["market"]), None)
                 if market_odds:
@@ -334,7 +335,7 @@ def render_site(cfg, out_days, history, today, now, demo, leagues):
         for month, month_days in summary["months"].items():
             page(f"archive-{month}.html",
                  render.archive_page(cfg, lang, month, month_days, summary["months"], updated, demo, menu))
-        for name in ("about", "advertise", "responsible"):
+        for name in ("about", "advertise", "responsible", "privacy"):
             page(f"{name}.html", render.static_page(cfg, lang, name, updated, demo, menu))
         for code, lg in menu.items():
             page(f"league-{code}.html", render.league_page(cfg, lang, code, lg, out_days,

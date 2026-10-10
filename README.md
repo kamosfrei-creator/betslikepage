@@ -1,4 +1,4 @@
-# BetsLike - codzienne typy piłkarskie
+# FormaBet - codzienne typy piłkarskie
 
 Statyczna strona z typami i kuponami na dziś i jutro, generowana automatycznie
 4 razy dziennie (ok. 8:00, 12:00, 16:00, 20:00 czasu polskiego). Działa
@@ -92,11 +92,34 @@ na danym rynku, a `languages` ogranicz do krajów, gdzie mają licencję:
 Klucz (np. `betclic`) to identyfikator bukmachera w The Odds API. Bez wpisów
 strona pokazuje tylko średni kurs rynku, bez nazw i linków.
 
-## Społeczność (etap 2)
+## Konta i komentarze (Supabase, darmowy plan)
 
-Typy społeczności i ranking typerów wymagają kont użytkowników i bazy danych
-(np. Supabase), moderacji treści, weryfikacji wieku 18+ i polityki prywatności
-(RODO) - to osobny etap, strona statyczna tego nie obsłuży.
+Logowanie linkiem z e-maila, komentarze pod meczami, zgłaszanie komentarzy,
+synchronizacja ulubionych lig, obserwowanych meczów i kuponu między urządzeniami.
+Bez konfiguracji przycisk „Zaloguj” pokazuje „Konta nie są jeszcze dostępne”,
+a ulubione i kupon działają lokalnie w przeglądarce.
+
+1. Załóż projekt na <https://supabase.com> (region w UE, np. Frankfurt).
+2. **SQL Editor → New query** → wklej `supabase/schema.sql` → **Run**.
+3. **Authentication → URL Configuration**: Site URL =
+   `https://kamosfrei-creator.github.io/betslikepage/` (albo Twoja domena),
+   w Redirect URLs dodaj ten sam adres z `**` na końcu.
+4. **Project Settings → API**: skopiuj `Project URL` i klucz `anon public` do
+   `config.json` → `supabase.url` i `supabase.anon_key` (klucz anon jest
+   publiczny z założenia - dostęp chronią reguły RLS ze schematu).
+5. Darmowy plan Supabase wysyła tylko kilka e-maili na godzinę - przy większym
+   ruchu podłącz własny serwer SMTP (Authentication → SMTP Settings).
+
+Moderacja: komentarz ukrywasz w **Table Editor → comments → hidden = true**;
+zgłoszenia są w tabeli `reports`. Polityka prywatności jest na stronie
+`privacy.html` - uzupełnij w niej dane administratora (firma/osoba, adres).
+
+## Indeks meczu (-10 do +10)
+
+`indeks = 10 × (P(wygrana gospodarzy) − P(wygrana gości))` z końcowych
+prawdopodobieństw modelu. +5 = wygrana gospodarzy o 50 pkt proc. bardziej
+prawdopodobna niż gości. Na stronie: filtr „Min. indeks” (±2…±7), sortowanie
+i „Lista wg indeksu” (od największego); w statystykach trafność wg indeksu.
 
 ## Kontuzje z innych źródeł (gdy nie ma klucza Anthropic)
 

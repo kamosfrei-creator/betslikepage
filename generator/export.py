@@ -35,6 +35,7 @@ def match(m, lang):
             "adj": bool(m.get("adjusted")),
             "low": bool(m.get("low_data")),
             "text": m["analysis"][lang],
+            "ix": round(10 * (pred["probs"]["1"] - pred["probs"]["2"]), 1),
             "fi": [m["form_index"]["home"]["combo"], m["form_index"]["away"]["combo"]],
             "load": [m["load"]["home"]["m14"], m["load"]["away"]["m14"]],
         })
@@ -71,7 +72,7 @@ def day_data(cfg, lang, out_days, leagues, updated, demo):
 def history_data(history, leagues):
     picks = [{"id": int(k) if str(k).isdigit() else k, "d": r["date"], "utc": r["utc"], "c": r.get("competition"),
               "h": r["home"], "a": r["away"], "m": r["market"], "p": r["p"], "r": r.get("result"),
-              "s": r.get("score"), "o": r.get("odds")}
+              "s": r.get("score"), "o": r.get("odds"), "ix": r.get("ix")}
              for k, r in history["picks"].items()]
     picks.sort(key=lambda x: x["utc"], reverse=True)
     coupons = [{"d": d, "k": k, "p": c["p"], "o": c.get("fair_odds"), "r": c.get("result")}

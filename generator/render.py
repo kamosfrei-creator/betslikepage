@@ -12,7 +12,7 @@ from html import escape
 
 from .texts import MARKETS, META, UI, num, pct
 
-PAGES = ("index", "results", "about", "advertise", "responsible")
+PAGES = ("index", "results", "about", "advertise", "responsible", "privacy")
 
 
 def _file(page):
@@ -35,14 +35,17 @@ def layout(cfg, lang, page, title, body, updated, demo, leagues=None, active=Non
     side = ""
     if leagues:
         items = "".join(
-            f'<a href="league-{code}.html"{" aria-current=page" if code == active else ""}>'
+            f'<div class="lg-item" data-code="{escape(code)}"><a href="league-{code}.html"{" aria-current=page" if code == active else ""}>'
             f'<span class="lg-code">{escape(code)}</span><span class="lg-name">{escape(lg["name"])}</span>'
             f'<span class="lg-count">{lg.get("count") or ""}</span></a>'
+            f'<button type="button" class="lg-star" data-fav-league="{escape(code)}" aria-pressed="false" '
+            f'title="{escape(t["fav_league_toggle"])}" aria-label="{escape(t["fav_league_toggle"])}">☆</button></div>'
             for code, lg in leagues.items())
         side = f"""<aside class="sidebar" aria-label="{escape(t["leagues"])}">
+<a class="side-home" href="index.html"{" aria-current=page" if page == "index" else ""}><span class="lg-code">⚽</span><span class="lg-name">{escape(t["overview"])}</span><span class="lg-count"></span></a>
+<p class="side-title fav-title" hidden>{escape(t["fav_leagues"])}</p><div class="fav-list"></div>
 <p class="side-title">{escape(t["leagues"])}</p>
-<a href="index.html"{" aria-current=page" if page == "index" else ""}><span class="lg-code">★</span><span class="lg-name">{escape(t["overview"])}</span><span class="lg-count"></span></a>
-{items}</aside>"""
+<div class="lg-list">{items}</div></aside>"""
     return f"""<!doctype html>
 <html lang="{lang}" dir="{META[lang]["dir"]}">
 <head>
@@ -54,16 +57,21 @@ def layout(cfg, lang, page, title, body, updated, demo, leagues=None, active=Non
 {alt}
 <link rel="icon" href="../assets/favicon.svg">
 <link rel="stylesheet" href="../assets/style.css">
+<script>try{{if(localStorage.getItem("bl:theme")==='"dark"')document.documentElement.setAttribute("data-theme","dark")}}catch(e){{}}</script>
 <script defer src="../assets/app.js"></script>
 </head>
 <body>
 {banner}
 <header class="topbar">
   <div class="topbar-in">
-    <a class="brand" href="index.html"><span class="mark">B</span>{escape(cfg["site_name"])}</a>
+    <a class="brand" href="index.html"><span class="mark">{escape(cfg["site_name"][0])}</span>{escape(cfg["site_name"])}</a>
     <nav class="mainnav">{nav}</nav>
-    <label class="langs"><span class="sr">{escape(t["language"])}</span>
-      <select id="lang-select" aria-label="{escape(t["language"])}">{options}</select></label>
+    <div class="top-actions">
+      <button type="button" id="theme-btn" class="tb" aria-label="{escape(t["theme_dark"])}" title="{escape(t["theme_dark"])}">◐</button>
+      <button type="button" id="login-btn" class="tb login">{escape(t["login"])}</button>
+      <label class="langs"><span class="sr">{escape(t["language"])}</span>
+        <select id="lang-select" aria-label="{escape(t["language"])}">{options}</select></label>
+    </div>
   </div>
 </header>
 <div class="shell{' has-side' if side else ''}">
@@ -71,12 +79,16 @@ def layout(cfg, lang, page, title, body, updated, demo, leagues=None, active=Non
 <main>
 {body}
 </main>
+<aside id="slip" class="slip" aria-label="{escape(t["my_slip"])}"></aside>
 </div>
+<script id="i18n" type="application/json">{_i18n(lang)}</script>
+<script id="site-cfg" type="application/json">{_site_cfg(cfg)}</script>
 <footer>
   <div class="foot-in">
   <p class="disclaimer"><strong>18+</strong> {escape(t["disclaimer"])}</p>
   <p>{escape(t["help_text"])} <a href="{t["help_url"]}" rel="noopener" target="_blank">{escape(t["help_name"])}</a> ·
-     <a href="responsible.html">{escape(t["responsible"])}</a> · <a href="about.html">{escape(t["about"])}</a></p>
+     <a href="responsible.html">{escape(t["responsible"])}</a> · <a href="about.html">{escape(t["about"])}</a> ·
+     <a href="privacy.html">{escape(t["privacy"])}</a></p>
   <p class="muted">{escape(t["data_credit"])}</p>
   <p class="muted">{escape(t["updated"])}: <time data-utc="{updated}">{updated}</time> · {escape(t["next_update"])}</p>
   </div>
@@ -86,13 +98,35 @@ def layout(cfg, lang, page, title, body, updated, demo, leagues=None, active=Non
 """
 
 
+def _json_script(data):
+    return json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+
+
+def _i18n(lang):
+    """Teksty interfejsu dla skryptu (bez długich bloków HTML)."""
+    return _json_script({"lang": lang, "decimal": META[lang]["decimal"], "dir": META[lang]["dir"],
+                         "ui": {k: v for k, v in UI[lang].items() if not k.endswith("_html")},
+                         "markets": MARKETS[lang]})
+
+
+def _site_cfg(cfg):
+    """Publiczna konfiguracja dla przeglądarki (klucz anon Supabase jest publiczny z założenia)."""
+    sb = cfg.get("supabase") or {}
+    return _json_script({"supabase": {"url": sb.get("url", ""), "key": sb.get("anon_key", "")}})
+
+
+def _slip_btn(m, market, p, label="+", cls="slip-add"):
+    """Przycisk dodania typu do kuponu użytkownika (obsługuje go app.js na każdej stronie)."""
+    if m.get("status") not in ("SCHEDULED", "TIMED"):
+        return ""
+    o = next((r["now"] for r in m.get("odds") or [] if r["outcome"] == market), None)
+    data = {"id": m["id"], "m": market, "p": round(p, 4), "home": m["home"], "away": m["away"], "o": o, "utc": m["utc"]}
+    return f'<button type="button" class="{cls}" data-slip="{escape(json.dumps(data, ensure_ascii=False))}" aria-label="+">{label}</button>'
+
+
 def _app(lang, kind, static_html):
-    """Kontener aplikacji JS: statyczna treść (SEO, brak JS) + teksty interfejsu dla skryptu."""
-    i18n = {"lang": lang, "decimal": META[lang]["decimal"], "dir": META[lang]["dir"],
-            "ui": {k: v for k, v in UI[lang].items() if not k.endswith("_html")}, "markets": MARKETS[lang]}
-    payload = json.dumps(i18n, ensure_ascii=False).replace("</", "<\\/")
-    return (f'<div id="app" data-kind="{kind}">{static_html}</div>'
-            f'<script id="i18n" type="application/json">{payload}</script>')
+    """Kontener aplikacji JS: statyczna treść (SEO, brak JS), którą skrypt zastępuje."""
+    return f'<div id="app" data-kind="{kind}">{static_html}</div>'
 
 
 # ----------------------------------------------------------------- pieces
@@ -179,7 +213,8 @@ def match_row(lang, m):
     if m.get("low_data"):
         flags += f'<span class="chip low" title="{escape(t["low_data"])}">?</span>'
     tip = (f'<span class="market">{escape(MARKETS[lang][pick["market"]])}</span>'
-           f'<span class="prob">{pct(pick["p"])}</span>{_badge(pick.get("result"))}') if pick else "–"
+           f'<span class="prob">{pct(pick["p"])}</span>{_badge(pick.get("result"))}'
+           f'{_slip_btn(m, pick["market"], pick["p"]) if has_pred else ""}') if pick else "–"
     return f"""<div class="row">
 <time class="ko" data-utc="{m["utc"]}" data-fmt="time"></time>
 <div class="teams-cell">{link}{score}{flags}</div>
@@ -396,7 +431,7 @@ def match_page(cfg, lang, m, updated, demo, leagues):
                    + (f'<span class="ad-label">{escape(t["ad_label"])} · 18+</span>' if link else ""))
 
     markets = "".join(
-        f'<tr><td>{escape(MARKETS[lang][k])}</td><td><b>{pct(p[k])}</b></td><td>{_odds(p[k])}</td></tr>'
+        f'<tr><td>{escape(MARKETS[lang][k])}</td><td><b>{pct(p[k])}</b></td><td>{_odds(p[k])}</td><td>{_slip_btn(m, k, p[k])}</td></tr>'
         for k in ("1", "X", "2", "1X", "X2", "12", "O15", "O25", "O35", "U25", "U35", "BTTS", "NOBTTS"))
     scores = "".join(f'<div class="sc"><b>{x}:{y}</b><span>{pct(pp)}</span></div>' for x, y, pp in pred["top_scores"])
 
@@ -452,14 +487,14 @@ def match_page(cfg, lang, m, updated, demo, leagues):
 <section class="pick-card">
   <div class="pc-main"><span class="label">{escape(t["pick"])}</span><span class="pick-main">{escape(MARKETS[lang][pick["market"]])}</span>
   <span><span class="prob">{pct(pick["p"])}</span> <span class="odds">{escape(t["fair_odds"])} {_odds(pick["p"])}</span></span></div>
-  <div class="cta">{cta}</div>
+  <div class="cta">{_slip_btn(m, pick["market"], pick["p"], "+ " + escape(t["add_slip"]), "slip-add big")}{cta}</div>
 </section>
 {f'<section class="card"><h3>{escape(t["key_factors"])}</h3>{flags_html}<p class="hint">{escape(t["ai_note"])}</p></section>' if flags_html else ''}
 <section class="card"><h3>{escape(t["analysis_title"])}</h3><p class="analysis">{escape(m["analysis"][lang])}</p></section>
 {_breakdown(lang, m)}
 <div class="grid2">
 <section class="card"><h3>{escape(t["markets_title"])}</h3><div class="table-wrap"><table class="mk">
-<thead><tr><th></th><th>{escape(t["probability"])}</th><th>{escape(t["fair_odds"])}</th></tr></thead><tbody>{markets}</tbody></table></div></section>
+<thead><tr><th></th><th>{escape(t["probability"])}</th><th>{escape(t["fair_odds"])}</th><th></th></tr></thead><tbody>{markets}</tbody></table></div></section>
 <section class="card"><h3>{escape(t["score_probs"])}</h3><div class="scores">{scores}</div></section>
 </div>
 <section class="card"><h3>{escape(t["odds_title"])} · {escape(t["odds_movement"])}</h3>{_odds_block(lang, m)}</section>
@@ -471,7 +506,9 @@ def match_page(cfg, lang, m, updated, demo, leagues):
 <section class="card"><h3>{escape(t["injuries_title"])}</h3><div class="two">
 <div><h4>{escape(m["home"])}</h4>{_absences(lang, res.get("home"))}</div>
 <div><h4>{escape(m["away"])}</h4>{_absences(lang, res.get("away"))}</div></div></section>
-{lineups}"""
+{lineups}
+<section class="card comments" id="comments" data-match="{m["id"]}"><h3>{escape(t["comments"])}</h3>
+<p class="hint">{escape(t["comment_rules"])}</p><div class="c-body"><p class="muted">{escape(t["comment_login"])}</p></div></section>"""
     title = f'{m["home"]} – {m["away"]}: {t["match_analysis"]}'
     return layout(cfg, lang, f"match-{m['id']}", title, body, updated, demo, leagues, m["competition"])
 

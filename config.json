@@ -1,5 +1,5 @@
 {
-  "site_name": "BetsLike",
+  "site_name": "FormaBet",
   "base_url": "https://kamosfrei-creator.github.io/betslikepage",
   "timezone": "Europe/Warsaw",
   "languages": [
@@ -88,5 +88,9 @@
     ]
   },
   "h2h_per_run": 20,
-  "bookmakers": {}
+  "bookmakers": {},
+  "supabase": {
+    "url": "",
+    "anon_key": ""
+  }
 }

@@ -1,4 +1,4 @@
-// BetsLike - skrypt wspólny + aplikacje "tips" (przegląd typów) i "stats" (statystyki).
+// FormaBet - skrypt wspólny + aplikacje "tips" (przegląd typów) i "stats" (statystyki).
 // Bez bibliotek; dane z <lang>/data.json i data/history.json, teksty z <script id="i18n">.
 (function () {
   "use strict";
@@ -28,7 +28,7 @@
 
   var app = document.getElementById("app");
   var i18nEl = document.getElementById("i18n");
-  if (!app || !i18nEl || !window.fetch) return;
+  if (!i18nEl) return;
   var I = JSON.parse(i18nEl.textContent);
 
   function T(k) { return I.ui[k] || k; }
@@ -59,6 +59,238 @@
     if (!r) return "";
     return '<span class="badge ' + r + '" title="' + esc(T(r)) + '">' + ({ won: "✔", lost: "✘", void: "–" }[r]) + "</span>";
   }
+  // ------------------------------------------------- ulubione, kupon, motyw (wszystkie strony)
+  var Prefs = {
+    favLeagues: store.get("favLeagues", []),
+    favs: store.get("favs", []),
+    slip: store.get("slip", []),
+    listeners: [],
+    save: function () {
+      store.set("favLeagues", this.favLeagues); store.set("favs", this.favs.slice(-300)); store.set("slip", this.slip);
+      this.listeners.forEach(function (f) { f(); });
+      Cloud.push();
+    },
+    onChange: function (f) { this.listeners.push(f); },
+    toggleLeague: function (c) {
+      this.favLeagues = this.favLeagues.indexOf(c) >= 0 ? this.favLeagues.filter(function (x) { return x !== c; }) : this.favLeagues.concat([c]);
+      this.save();
+    },
+    toggleFav: function (id) {
+      this.favs = this.Prefs.favs.indexOf(id) >= 0 ? this.favs.filter(function (x) { return x !== id; }) : this.favs.concat([id]);
+      this.save();
+    },
+    inSlip: function (id, mk) { return this.slip.some(function (s) { return s.id === id && (!mk || s.m === mk); }); },
+    toggleSlip: function (item) {
+      var exists = this.inSlip(item.id, item.m);
+      this.slip = this.slip.filter(function (s) { return s.id !== item.id; });  // jeden typ na mecz
+      if (!exists) this.slip.push(item);
+      this.save();
+    }
+  };
+
+  var slipEl = document.getElementById("slip");
+  function renderSlip() {
+    if (!slipEl) return;
+    var slip = Prefs.slip.filter(function (s) { return !s.utc || new Date(s.utc) > new Date(Date.now() - 3 * 3600e3); });
+    var prob = slip.reduce(function (a, s) { return a * s.p; }, 1);
+    var allOdds = slip.length && slip.every(function (s) { return s.o; });
+    var mo = allOdds ? slip.reduce(function (a, s) { return a * s.o; }, 1) : null;
+    slipEl.classList.toggle("open", store.get("slipOpen", false));
+    slipEl.innerHTML = '<button type="button" class="slip-head" data-slip-act="toggle">' + esc(T("my_slip")) + ' <span class="cnt">' + slip.length + "</span>" +
+      (slip.length ? '<span class="slip-odds">@' + dec(1 / prob) + "</span>" : "") + "</button>" +
+      '<div class="slip-body">' + (slip.length ? "<ol>" + slip.map(function (s, i) {
+        return '<li><span><a href="match-' + s.id + '.html"><b>' + esc(s.home) + " – " + esc(s.away) + "</b></a><small>" + esc(M(s.m)) + " · " +
+          pct(s.p) + " · @" + fair(s.p) + (s.o ? " · " + esc(T("market_odds")) + " " + dec(s.o) : "") +
+          '</small></span><button type="button" class="ib" data-slip-act="rm" data-i="' + i + '" aria-label="' + esc(T("remove")) + '">×</button></li>';
+      }).join("") + "</ol>" +
+        '<div class="slip-sum"><span>' + esc(T("combined_prob")) + " <b>" + pct(prob) + "</b></span><span>" + esc(T("combined_odds")) +
+        " <b>" + dec(1 / prob) + "</b></span>" + (mo ? "<span>" + esc(T("market_odds")) + " <b>" + dec(mo) + "</b></span>" : "") + "</div>" +
+        '<button type="button" class="btn ghost" data-slip-act="clear">' + esc(T("slip_clear")) + "</button>"
+        : '<p class="muted">' + esc(T("slip_empty")) + "</p>") +
+      '<p class="hint">18+ · ' + esc(T("fair_odds_hint")) + "</p></div>";
+    document.querySelectorAll("[data-slip]").forEach(function (b) {
+      var d = JSON.parse(b.getAttribute("data-slip"));
+      b.classList.toggle("on", Prefs.inSlip(d.id, d.m));
+    });
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest("[data-slip],[data-slip-act],[data-fav-league]");
+    if (!b) return;
+    if (b.hasAttribute("data-slip")) { Prefs.toggleSlip(JSON.parse(b.getAttribute("data-slip"))); return; }
+    if (b.hasAttribute("data-fav-league")) { Prefs.toggleLeague(b.getAttribute("data-fav-league")); return; }
+    var act = b.getAttribute("data-slip-act");
+    if (act === "toggle") { store.set("slipOpen", !store.get("slipOpen", false)); renderSlip(); }
+    else if (act === "rm") { Prefs.slip.splice(+b.getAttribute("data-i"), 1); Prefs.save(); }
+    else if (act === "clear") { Prefs.slip = []; Prefs.save(); }
+  });
+
+  // menu lig: gwiazdki i ulubione na górze
+  function renderSidebar() {
+    var favList = document.querySelector(".sidebar .fav-list");
+    if (!favList) return;
+    var list = document.querySelector(".sidebar .lg-list");
+    document.querySelectorAll(".sidebar .lg-item").forEach(function (item) {
+      var c = item.getAttribute("data-code"), on = Prefs.favLeagues.indexOf(c) >= 0;
+      var star = item.querySelector(".lg-star");
+      star.textContent = on ? "★" : "☆"; star.setAttribute("aria-pressed", on);
+      item.classList.toggle("fav", on);
+      (on ? favList : list).appendChild(item);
+    });
+    document.querySelector(".sidebar .fav-title").hidden = !Prefs.favLeagues.length;
+  }
+
+  // jasny / ciemny motyw (domyślnie jasny)
+  var themeBtn = document.getElementById("theme-btn");
+  function applyTheme() {
+    var dark = store.get("theme", "light") === "dark";
+    if (dark) document.documentElement.setAttribute("data-theme", "dark"); else document.documentElement.removeAttribute("data-theme");
+    if (themeBtn) { var l = T(dark ? "theme_light" : "theme_dark"); themeBtn.title = l; themeBtn.setAttribute("aria-label", l); }
+  }
+  if (themeBtn) themeBtn.addEventListener("click", function () { store.set("theme", store.get("theme", "light") === "dark" ? "light" : "dark"); applyTheme(); });
+  applyTheme();
+
+  // ------------------------------------------------- konta (Supabase) i komentarze
+  var CFG = {};
+  try { CFG = JSON.parse(document.getElementById("site-cfg").textContent); } catch (e) {}
+  var Cloud = {
+    sb: null, user: null, nick: null, timer: null,
+    enabled: function () { return !!(CFG.supabase && CFG.supabase.url && CFG.supabase.key); },
+    load: function () {
+      if (!this.enabled()) { Comments.render(); return; }
+      var s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js";
+      s.onload = function () {
+        Cloud.sb = window.supabase.createClient(CFG.supabase.url, CFG.supabase.key);
+        Cloud.sb.auth.onAuthStateChange(function (_ev, session) { Cloud.setUser(session ? session.user : null); });
+        Cloud.sb.auth.getSession().then(function (r) { Cloud.setUser(r.data.session ? r.data.session.user : null); });
+      };
+      s.onerror = function () { Comments.render(); };
+      document.head.appendChild(s);
+    },
+    setUser: function (user) {
+      var changed = (this.user && this.user.id) !== (user && user.id);
+      this.user = user;
+      if (!user) { this.nick = null; updateLoginBtn(); Comments.render(); return; }
+      if (!changed) return;
+      Promise.all([
+        this.sb.from("profiles").select("nick").eq("id", user.id).maybeSingle(),
+        this.sb.from("user_prefs").select("*").eq("user_id", user.id).maybeSingle()
+      ]).then(function (res) {
+        Cloud.nick = res[0].data ? res[0].data.nick : null;
+        var p = res[1].data;
+        if (p) {  // łączymy ustawienia z chmury z lokalnymi
+          Prefs.favLeagues = union(Prefs.favLeagues, p.fav_leagues || []);
+          Prefs.favs = union(Prefs.favs, p.fav_matches || []);
+          var ids = Prefs.slip.map(function (s) { return s.id; });
+          (p.slip || []).forEach(function (s) { if (ids.indexOf(s.id) < 0) Prefs.slip.push(s); });
+        }
+        Prefs.save();
+        updateLoginBtn(); Comments.render();
+      });
+    },
+    push: function () {
+      if (!this.sb || !this.user) return;
+      clearTimeout(this.timer);
+      var uid = this.user.id;
+      this.timer = setTimeout(function () {
+        Cloud.sb.from("user_prefs").upsert({ user_id: uid, fav_leagues: Prefs.favLeagues, fav_matches: Prefs.favs.slice(-300),
+                                             slip: Prefs.slip, updated_at: new Date().toISOString() });
+      }, 800);
+    }
+  };
+  function union(a, b) { return a.concat(b.filter(function (x) { return a.indexOf(x) < 0; })); }
+
+  var loginBtn = document.getElementById("login-btn");
+  function updateLoginBtn() {
+    if (!loginBtn) return;
+    loginBtn.textContent = Cloud.user ? (Cloud.nick || Cloud.user.email.split("@")[0]) + " · " + T("logout") : T("login");
+  }
+  function modal(html) {
+    var d = document.createElement("div");
+    d.className = "modal";
+    d.innerHTML = '<div class="modal-box" role="dialog" aria-modal="true"><button type="button" class="ib modal-x" aria-label="×">×</button>' + html + "</div>";
+    d.addEventListener("click", function (e) { if (e.target === d || e.target.closest(".modal-x")) d.remove(); });
+    document.body.appendChild(d);
+    var f = d.querySelector("input"); if (f) f.focus();
+    return d;
+  }
+  if (loginBtn) loginBtn.addEventListener("click", function () {
+    if (!Cloud.enabled()) { modal("<p>" + esc(T("login_unavailable")) + "</p>"); return; }
+    if (!Cloud.sb) return;
+    if (Cloud.user) { Cloud.sb.auth.signOut(); return; }
+    var d = modal('<h3>' + esc(T("login_title")) + '</h3><form class="login-form">' +
+      '<label>' + esc(T("login_email")) + '<input id="login-email" type="email" required autocomplete="email"></label>' +
+      '<label class="chk"><input id="login-age" type="checkbox" required> ' + esc(T("login_age")) + "</label>" +
+      '<label class="chk"><input id="login-priv" type="checkbox" required> <a href="privacy.html" target="_blank">' + esc(T("login_privacy")) + "</a></label>" +
+      '<button type="submit" class="btn">' + esc(T("login_send")) + '</button><p class="msg" role="status"></p></form>');
+    d.querySelector("form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var msg = d.querySelector(".msg");
+      Cloud.sb.auth.signInWithOtp({ email: d.querySelector("#login-email").value.trim(),
+                                    options: { emailRedirectTo: location.href.split("#")[0] } })
+        .then(function (r) { msg.textContent = r.error ? T("login_error") : T("login_sent"); });
+    });
+  });
+
+  var Comments = {
+    el: document.getElementById("comments"),
+    render: function () {
+      var el = this.el;
+      if (!el) return;
+      var body = el.querySelector(".c-body");
+      if (!Cloud.sb) { body.innerHTML = '<p class="muted">' + esc(T(Cloud.enabled() ? "loading" : "login_unavailable")) + "</p>"; return; }
+      var mid = +el.getAttribute("data-match");
+      Cloud.sb.from("comments").select("id,nick,body,created_at,user_id").eq("match_id", mid).order("created_at").limit(300)
+        .then(function (r) {
+          var rows = r.data || [];
+          var list = rows.length ? '<ol class="c-list">' + rows.map(function (c) {
+            var mine = Cloud.user && c.user_id === Cloud.user.id;
+            return '<li><div class="c-meta"><b>' + esc(c.nick) + "</b><time>" + new Date(c.created_at).toLocaleString(I.lang, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) +
+              "</time>" + (Cloud.user ? '<button type="button" class="link" data-c-act="' + (mine ? "del" : "rep") + '" data-id="' + c.id + '">' +
+              esc(T(mine ? "comment_delete" : "comment_report")) + "</button>" : "") + '</div><p>' + esc(c.body) + "</p></li>";
+          }).join("") + "</ol>" : '<p class="muted">' + esc(T("comments_empty")) + "</p>";
+          var form;
+          if (!Cloud.user) form = '<p><button type="button" class="btn ghost" data-c-act="login">' + esc(T("comment_login")) + "</button></p>";
+          else if (!Cloud.nick) form = '<form class="c-form" data-c-form="nick"><label>' + esc(T("nick_prompt")) +
+            '<input name="nick" required minlength="3" maxlength="24" pattern="[A-Za-z0-9_.\\-]+"></label><button class="btn">' + esc(T("nick_save")) + '</button><p class="msg"></p></form>';
+          else form = '<form class="c-form" data-c-form="comment"><textarea name="body" required maxlength="1000" rows="3" placeholder="' +
+            esc(T("comment_placeholder")) + '"></textarea><button class="btn">' + esc(T("comment_send")) + '</button><p class="msg"></p></form>';
+          body.innerHTML = list + form;
+        });
+    }
+  };
+  if (Comments.el) {
+    Comments.el.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-c-act]");
+      if (!b) return;
+      var act = b.getAttribute("data-c-act"), id = +b.getAttribute("data-id");
+      if (act === "login" && loginBtn) loginBtn.click();
+      else if (act === "del") Cloud.sb.from("comments").delete().eq("id", id).then(function () { Comments.render(); });
+      else if (act === "rep") Cloud.sb.from("reports").insert({ comment_id: id }).then(function () { b.textContent = T("comment_reported"); b.disabled = true; });
+    });
+    Comments.el.addEventListener("submit", function (e) {
+      var f = e.target.closest("[data-c-form]");
+      if (!f) return;
+      e.preventDefault();
+      var msg = f.querySelector(".msg");
+      if (f.getAttribute("data-c-form") === "nick") {
+        var nick = f.nick.value.trim();
+        Cloud.sb.from("profiles").insert({ id: Cloud.user.id, nick: nick }).then(function (r) {
+          if (r.error) { msg.textContent = T("nick_taken"); return; }
+          Cloud.nick = nick; updateLoginBtn(); Comments.render();
+        });
+      } else {
+        Cloud.sb.from("comments").insert({ match_id: +Comments.el.getAttribute("data-match"), nick: Cloud.nick, body: f.body.value.trim() })
+          .then(function (r) { if (r.error) msg.textContent = T("login_error"); else Comments.render(); });
+      }
+    });
+  }
+
+  Prefs.onChange(renderSlip);
+  Prefs.onChange(renderSidebar);
+  renderSlip(); renderSidebar();
+  Cloud.load();
+
   var GROUP = { "1": "1x2", X: "1x2", "2": "1x2", "1X": "1x2", X2: "1x2", "12": "1x2",
                 O15: "goals", O25: "goals", O35: "goals", U25: "goals", U35: "goals", BTTS: "btts", NOBTTS: "btts" };
   function agg(rows) {
@@ -118,20 +350,23 @@
   // ---------------------------------------------------------------- przegląd typów
   function tipsApp() {
     var state = Object.assign({ day: "today", leagues: [], q: "", sort: "time", market: "all", min: 0, value: false,
-                                fav: false, view: "grouped" }, store.get("filters", {}));
+                                fav: false, view: "grouped", mix: 0 }, store.get("filters", {}));
     state.q = ""; state.day = location.hash.slice(1) || state.day;
-    var favs = store.get("favs", []);
-    var slip = store.get("slip", []);
     var open = {};
     var data, hist;
 
     Promise.all([getJSON("data.json"), getJSON("../data/history.json").catch(function () { return { picks: [], coupons: [], leagues: {} }; })])
-      .then(function (res) { data = res[0]; hist = res[1]; if (!data.days.some(function (d) { return d.key === state.day; })) state.day = "today"; render(); })
+      .then(function (res) {
+        data = res[0]; hist = res[1];
+        if (!data.days.some(function (d) { return d.key === state.day; })) state.day = "today";
+        render();
+        Prefs.onChange(function () { render(); });
+      })
       .catch(function () { /* zostaje statyczna wersja strony */ });
 
     function save() {
       store.set("filters", { leagues: state.leagues, sort: state.sort, market: state.market, min: state.min,
-                             value: state.value, fav: state.fav, view: state.view, day: state.day });
+                             value: state.value, fav: state.fav, view: state.view, day: state.day, mix: state.mix });
     }
 
     function filtered() {
@@ -140,10 +375,11 @@
         if (m.day !== state.day) return false;
         if (state.leagues.length && state.leagues.indexOf(m.comp) < 0) return false;
         if (q && (m.home + " " + m.away).toLowerCase().indexOf(q) < 0) return false;
-        if (state.fav && favs.indexOf(m.id) < 0) return false;
+        if (state.fav && Prefs.favs.indexOf(m.id) < 0) return false;
         var pk = m.pick;
         if (state.market !== "all" && (!pk || GROUP[pk.m] !== state.market)) return false;
         if (state.min && (!pk || pk.p * 100 < state.min)) return false;
+        if (state.mix && !(m.ix != null && Math.abs(m.ix) >= state.mix)) return false;
         if (state.value && !(m.odds && Object.keys(m.odds).some(function (k) { return m.odds[k].isv; }))) return false;
         return true;
       });
@@ -158,7 +394,8 @@
         conf: function (a, b) { return (b.pick ? b.pick.p : 0) - (a.pick ? a.pick.p : 0); },
         value: function (a, b) { return valueOf(b) - valueOf(a); },
         league: function (a, b) { return a.comp < b.comp ? -1 : a.comp > b.comp ? 1 : (a.utc < b.utc ? -1 : 1); },
-        goals: function (a, b) { return (b.xg ? b.xg[0] + b.xg[1] : 0) - (a.xg ? a.xg[0] + a.xg[1] : 0); }
+        goals: function (a, b) { return (b.xg ? b.xg[0] + b.xg[1] : 0) - (a.xg ? a.xg[0] + a.xg[1] : 0); },
+        index: function (a, b) { return (b.ix != null ? Math.abs(b.ix) : -1) - (a.ix != null ? Math.abs(a.ix) : -1) || (b.ix || 0) - (a.ix || 0); }
       }[state.sort];
       return list.slice().sort(by);
     }
@@ -168,7 +405,12 @@
       if (m.status === "IN_PLAY" || m.status === "PAUSED") return '<span class="st live">' + esc(T("live")) + "</span>";
       return '<span class="st">' + timeOf(m.utc) + "</span>";
     }
-    function inSlip(id, mk) { return slip.some(function (s) { return s.id === id && (!mk || s.m === mk); }); }
+    function inSlip(id, mk) { return Prefs.inSlip(id, mk); }
+    function ixChip(m) {
+      if (m.ix == null) return "";
+      var v = m.ix, cls = v >= 0 ? "pos" : "neg";
+      return '<span class="ix ' + cls + '" data-tip="' + esc(T("index_hint")) + '">' + (v > 0 ? "+" : "") + dec(v, 1) + "</span>";
+    }
 
     function row(m) {
       var p = m.p, pk = m.pick, isOpen = open[m.id];
@@ -190,7 +432,7 @@
           (od ? '<span class="mo" data-tip="' + esc(T("market_odds")) + '">' + dec(od.now) + "</span>" : "") +
           (od && od.isv ? '<span class="chip value">' + esc(T("value_bet")) + "</span>" : "") + badge(pk.r) + "</span></div>";
       } else tipHtml = '<div class="m-tip muted">–</div>';
-      var fav = favs.indexOf(m.id) >= 0;
+      var fav = Prefs.favs.indexOf(m.id) >= 0;
       var acts = '<div class="m-act">' +
         '<button type="button" class="ib' + (fav ? " on" : "") + '" data-act="fav" aria-pressed="' + fav + '" aria-label="' + esc(T("favourite")) + '">★</button>' +
         (pk && !played && m.status !== "IN_PLAY" ? '<button type="button" class="ib add' + (inSlip(m.id, pk.m) ? " on" : "") + '" data-act="add" data-m="' + pk.m + '" aria-label="' + esc(T("add_slip")) + '">+</button>' : "") +
@@ -202,7 +444,7 @@
       var flags = (m.adj ? '<span class="dot news" data-tip="' + esc(T("adjusted")) + '"></span>' : "") +
                   (m.low ? '<span class="dot low" data-tip="' + esc(T("low_data")) + '"></span>' : "");
       return '<article class="mrow' + (isOpen ? " open" : "") + '" data-id="' + m.id + '">' +
-        '<div class="m-time">' + statusCell(m) + flags + "</div>" + teams + probs + tipHtml + acts +
+        '<div class="m-time">' + statusCell(m) + ixChip(m) + flags + "</div>" + teams + probs + tipHtml + acts +
         (isOpen ? more(m) : "") + "</article>";
     }
 
@@ -286,18 +528,20 @@
 
       html += '<div class="toolbar">' +
         '<input id="f-q" type="search" placeholder="' + esc(T("search_team")) + '" value="' + esc(state.q) + '" aria-label="' + esc(T("search_team")) + '">' +
-        sel("f-sort", T("sort_by"), state.sort, [["time", T("sort_time")], ["conf", T("sort_conf")], ["value", T("sort_value")], ["league", T("sort_league")], ["goals", T("sort_goals")]]) +
+        sel("f-sort", T("sort_by"), state.sort, [["time", T("sort_time")], ["conf", T("sort_conf")], ["value", T("sort_value")], ["league", T("sort_league")], ["goals", T("sort_goals")], ["index", T("sort_index")]]) +
         sel("f-market", T("filter_market"), state.market, [["all", T("m_all")], ["1x2", T("m_1x2")], ["goals", T("m_goals")], ["btts", T("m_btts")]]) +
         sel("f-min", T("min_conf"), String(state.min), [["0", T("all_short")], ["55", "≥ 55%"], ["60", "≥ 60%"], ["65", "≥ 65%"], ["70", "≥ 70%"], ["75", "≥ 75%"]]) +
+        sel("f-mix", T("min_index"), String(state.mix), [["0", T("all_short")], ["2", "±2"], ["3", "±3"], ["4", "±4"], ["5", "±5"], ["6", "±6"], ["7", "±7"]]) +
         toggle("value", T("only_value")) + toggle("fav", T("only_fav")) +
-        '<div class="seg" role="group">' + ["grouped", "list"].map(function (v) {
+        '<div class="seg" role="group">' + ["grouped", "list", "index"].map(function (v) {
           return '<button type="button" data-act="view" data-view="' + v + '" aria-pressed="' + (state.view === v) + '">' + esc(T("view_" + v)) + "</button>";
         }).join("") + "</div></div>";
 
       html += '<div class="lchips"><button type="button" data-act="lg" data-lg="" aria-pressed="' + !state.leagues.length + '">' + esc(T("all_leagues")) + "</button>" +
-        Object.keys(data.leagues).filter(function (c) { return counts[c]; }).map(function (c) {
+        leagueOrder().filter(function (c) { return counts[c]; }).map(function (c) {
           var lg = data.leagues[c];
-          return '<button type="button" data-act="lg" data-lg="' + c + '" aria-pressed="' + (state.leagues.indexOf(c) >= 0) + '">' +
+          return '<button type="button" data-act="lg" data-lg="' + c + '" aria-pressed="' + (state.leagues.indexOf(c) >= 0) + '"' +
+            (Prefs.favLeagues.indexOf(c) >= 0 ? ' class="fav"' : "") + ">" + (Prefs.favLeagues.indexOf(c) >= 0 ? "★ " : "") +
             (lg.emblem ? '<img src="' + esc(lg.emblem) + '" alt="" width="16" height="16" loading="lazy">' : "") + esc(lg.name) + " <i>" + counts[c] + "</i></button>";
         }).join("") + "</div>";
 
@@ -306,10 +550,13 @@
 
       if (!list.length) {
         html += '<div class="emptybox"><p>' + esc(T("no_results_filter")) + '</p><button type="button" class="btn" data-act="reset">' + esc(T("reset_filters")) + "</button></div>";
-      } else if (state.view === "grouped" && state.sort !== "conf" && state.sort !== "value") {
+      } else if (state.view === "index") {
+        var ixList = list.filter(function (m) { return m.ix != null; }).sort(function (a, b) { return Math.abs(b.ix) - Math.abs(a.ix) || b.ix - a.ix; });
+        html += '<p class="hint">' + esc(T("index_hint")) + '</p><section class="lgroup flat">' + ixList.map(row).join("") + "</section>";
+      } else if (state.view === "grouped" && state.sort !== "conf" && state.sort !== "value" && state.sort !== "index") {
         var groups = {};
         list.forEach(function (m) { (groups[m.comp] = groups[m.comp] || []).push(m); });
-        Object.keys(data.leagues).concat(Object.keys(groups)).filter(function (c, i, a) { return groups[c] && a.indexOf(c) === i; }).forEach(function (c) {
+        leagueOrder().concat(Object.keys(groups)).filter(function (c, i, a) { return groups[c] && a.indexOf(c) === i; }).forEach(function (c) {
           var lg = data.leagues[c] || { name: c };
           html += '<section class="lgroup"><header><a href="league-' + c + '.html">' +
             (lg.emblem ? '<img src="' + esc(lg.emblem) + '" alt="" width="20" height="20" loading="lazy">' : '<span class="lg-badge">' + esc(c) + "</span>") +
@@ -319,11 +566,15 @@
       } else {
         html += '<section class="lgroup flat">' + list.map(row).join("") + "</section>";
       }
-      html += slipHtml();
       app.innerHTML = html;
       app.classList.add("ready");
     }
 
+    function leagueOrder() {
+      var all = Object.keys(data.leagues);
+      return all.filter(function (c) { return Prefs.favLeagues.indexOf(c) >= 0; })
+        .concat(all.filter(function (c) { return Prefs.favLeagues.indexOf(c) < 0; }));
+    }
     function sel(id, label, value, opts) {
       return '<label class="sel"><span>' + esc(label) + '</span><select id="' + id + '">' + opts.map(function (o) {
         return '<option value="' + o[0] + '"' + (o[0] === value ? " selected" : "") + ">" + esc(o[1]) + "</option>";
@@ -348,23 +599,14 @@
       }
       else if (act === "tgl") { var k = b.getAttribute("data-key"); state[k] = !state[k]; }
       else if (act === "view") state.view = b.getAttribute("data-view");
-      else if (act === "reset") { state.leagues = []; state.q = ""; state.market = "all"; state.min = 0; state.value = false; state.fav = false; }
+      else if (act === "reset") { state.leagues = []; state.q = ""; state.market = "all"; state.min = 0; state.mix = 0; state.value = false; state.fav = false; }
       else if (act === "open") open[m.id] = !open[m.id];
-      else if (act === "fav") {
-        favs = favs.indexOf(m.id) >= 0 ? favs.filter(function (x) { return x !== m.id; }) : favs.concat([m.id]);
-        store.set("favs", favs.slice(-300));
-      }
+      else if (act === "fav") Prefs.toggleFav(m.id);
       else if (act === "add") {
         var mk = b.getAttribute("data-m");
-        var exists = inSlip(m.id, mk);
-        slip = slip.filter(function (s) { return s.id !== m.id; });  // jeden typ na mecz
-        if (!exists) slip.push({ id: m.id, home: m.home, away: m.away, m: mk, p: m.p ? m.p[mk] : m.pick.p,
-                                 o: m.odds && m.odds[mk] ? m.odds[mk].now : null });
-        store.set("slip", slip);
+        Prefs.toggleSlip({ id: m.id, home: m.home, away: m.away, m: mk, p: m.p ? m.p[mk] : m.pick.p, utc: m.utc,
+                           o: m.odds && m.odds[mk] ? m.odds[mk].now : null });
       }
-      else if (act === "rm") { slip.splice(+b.getAttribute("data-i"), 1); store.set("slip", slip); }
-      else if (act === "clear") { slip = []; store.set("slip", slip); }
-      else if (act === "slip") { store.set("slipOpen", !store.get("slipOpen", false)); }
       save(); render();
     });
     app.addEventListener("change", function (e) {
@@ -372,6 +614,7 @@
       if (id === "f-sort") state.sort = e.target.value;
       else if (id === "f-market") state.market = e.target.value;
       else if (id === "f-min") state.min = +e.target.value;
+      else if (id === "f-mix") state.mix = +e.target.value;
       else return;
       save(); render();
     });
@@ -457,6 +700,15 @@
         '<p class="hint">' + esc(T("calibration_hint")) + "</p>";
     }
 
+    function byIndex(rows) {
+      var g = {};
+      rows.forEach(function (r) {
+        if (r.ix == null) return;
+        var a = Math.abs(r.ix), k = a >= 6 ? "±6+" : a >= 4 ? "±4–6" : a >= 2 ? "±2–4" : "±0–2";
+        (g[k] = g[k] || []).push(r);
+      });
+      return g;
+    }
     function rankTable(groups, labelFn, title) {
       var rows = Object.keys(groups).map(function (k) { return { k: k, a: agg(groups[k]) }; })
         .filter(function (x) { return x.a.n; }).sort(function (a, b) { return b.a.rate - a.a.rate || b.a.n - a.a.n; });
@@ -494,7 +746,8 @@
       html += '<div class="grid2"><section class="card"><h3>' + esc(T("daily_chart")) + "</h3>" + dailyChart(all.filter(function (r) { return r.d >= addDays(today, -30); })) +
         '</section><section class="card"><h3>' + esc(T("calibration")) + "</h3>" + calibration(rows) + "</section></div>";
       html += rankTable(byLeague, function (c) { return hist.leagues[c] || c; }, T("leagues_ranking")) +
-        rankTable(byMarket, M, T("markets_ranking"));
+        rankTable(byMarket, M, T("markets_ranking")) +
+        rankTable(byIndex(rows), function (k) { return T("index") + " " + k; }, T("by_index"));
 
       // kupony
       var cp = { safe: [], standard: [], bold: [] };
@@ -568,6 +821,6 @@
     });
   }
 
-  if (app.getAttribute("data-kind") === "tips") tipsApp();
-  else if (app.getAttribute("data-kind") === "stats") statsApp();
+  if (app && window.fetch && app.getAttribute("data-kind") === "tips") tipsApp();
+  else if (app && window.fetch && app.getAttribute("data-kind") === "stats") statsApp();
 })();
