@@ -103,10 +103,7 @@
   },
   "h2h_per_run": 20,
   "bookmakers": {},
-  "supabase": {
-    "url": "",
-    "anon_key": ""
-  },
+  "supabase": {"url": "https://uokhnntvmahivnmacafl.supabase.co", "anon_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVva2hubnR2bWFoaXZubWFjYWZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1ODU0OTIsImV4cCI6MjEwNzE2MTQ5Mn0.3iXIYnYA2TPMY3GyBtgxQ38t8yFiNaMi1W6_ETT5fVU"},
   "extra_leagues": [
     "E2",
     "D2",

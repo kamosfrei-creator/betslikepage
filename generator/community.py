@@ -27,6 +27,13 @@ def rows(matches):
     return out
 
 
+def _headers(key):
+    h = {"apikey": key, "Content-Type": "application/json", "Prefer": "resolution=merge-duplicates,return=minimal"}
+    if key.startswith("eyJ"):  # stary klucz JWT service_role; nowe klucze sb_secret_ idą tylko w apikey
+        h["Authorization"] = f"Bearer {key}"
+    return h
+
+
 def sync(url, key, matches, log=print):
     data = rows(matches)
     if not (url and key and data):
@@ -45,8 +52,7 @@ def sync(url, key, matches, log=print):
             req = urllib.request.Request(
                 url.rstrip("/") + "/rest/v1/matches?on_conflict=id", method="POST",
                 data=json.dumps(group[i:i + BATCH]).encode(),
-                headers={"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json",
-                         "Prefer": "resolution=merge-duplicates,return=minimal"})
+                headers=_headers(key))
             try:
                 urllib.request.urlopen(req, timeout=30).close()
                 sent += len(group[i:i + BATCH])
