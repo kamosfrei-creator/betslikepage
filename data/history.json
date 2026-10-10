@@ -133,8 +133,26 @@
   },
   "2026-10-10": {
    "bold": {
-    "fair_odds": 11.34,
+    "avg_p": 0.6177,
+    "exp": 3.09,
+    "fair_odds": 11.12,
     "legs": [
+     {
+      "away": "Amedspor",
+      "home": "Genclerbirligi",
+      "id": 1373564444414,
+      "market": "U35",
+      "p": 0.6195,
+      "utc": "2026-10-10T10:30:00Z"
+     },
+     {
+      "away": "Blackpool",
+      "home": "Cambridge",
+      "id": 1031144895854,
+      "market": "O25",
+      "p": 0.6181,
+      "utc": "2026-10-10T14:00:00Z"
+     },
      {
       "away": "Atleti",
       "home": "Alavés",
@@ -144,42 +162,29 @@
       "utc": "2026-10-10T14:15:00Z"
      },
      {
+      "away": "Lech Poznan",
+      "home": "Slask Wroclaw",
+      "id": 1622672228731,
+      "market": "O25",
+      "p": 0.6168,
+      "utc": "2026-10-10T15:30:00Z"
+     },
+     {
       "away": "Stoke",
       "home": "Bolton",
       "id": 561866,
       "market": "U35",
       "p": 0.6163,
       "utc": "2026-10-10T14:00:00Z"
-     },
-     {
-      "away": "Birmingham",
-      "home": "West Brom",
-      "id": 561857,
-      "market": "O15",
-      "p": 0.616,
-      "utc": "2026-10-10T11:30:00Z"
-     },
-     {
-      "away": "Bristol City",
-      "home": "Charlton",
-      "id": 561863,
-      "market": "NOBTTS",
-      "p": 0.6146,
-      "utc": "2026-10-10T11:30:00Z"
-     },
-     {
-      "away": "Athletic",
-      "home": "Rayo Vallecano",
-      "id": 564698,
-      "market": "X2",
-      "p": 0.6116,
-      "utc": "2026-10-10T12:00:00Z"
      }
     ],
-    "p": 0.0882
+    "p": 0.09,
+    "p1miss": 0.3683
    },
-   "safe": {
-    "fair_odds": 1.83,
+   "c10": {
+    "avg_p": 0.8169,
+    "exp": 8.17,
+    "fair_odds": 7.56,
     "legs": [
      {
       "away": "Angers SCO",
@@ -198,19 +203,241 @@
       "utc": "2026-10-10T18:45:00Z"
      },
      {
+      "away": "Kortrijk",
+      "home": "Genk",
+      "id": 1884060128855,
+      "market": "1",
+      "p": 0.8176,
+      "utc": "2026-10-10T18:45:00Z"
+     },
+     {
+      "away": "Palermo",
+      "home": "Empoli",
+      "id": 1502899369116,
+      "market": "U35",
+      "p": 0.8175,
+      "utc": "2026-10-10T13:00:00Z"
+     },
+     {
+      "away": "Lech Poznan",
+      "home": "Slask Wroclaw",
+      "id": 1622672228731,
+      "market": "X2",
+      "p": 0.8173,
+      "utc": "2026-10-10T15:30:00Z"
+     },
+     {
       "away": "Stuttgart",
       "home": "SC Paderborn",
       "id": 565813,
       "market": "1X",
       "p": 0.8168,
       "utc": "2026-10-10T13:30:00Z"
+     },
+     {
+      "away": "Kilmarnock",
+      "home": "Rangers",
+      "id": 1790833014709,
+      "market": "O15",
+      "p": 0.8168,
+      "utc": "2026-10-10T14:00:00Z"
+     },
+     {
+      "away": "Barnsley",
+      "home": "Stockport",
+      "id": 1261137938804,
+      "market": "1X",
+      "p": 0.8163,
+      "utc": "2026-10-10T14:00:00Z"
+     },
+     {
+      "away": "Parma",
+      "home": "Inter",
+      "id": 558582,
+      "market": "1",
+      "p": 0.8157,
+      "utc": "2026-10-10T16:00:00Z"
+     },
+     {
+      "away": "Burnley",
+      "home": "Watford",
+      "id": 561861,
+      "market": "O15",
+      "p": 0.8131,
+      "utc": "2026-10-10T14:00:00Z"
      }
     ],
-    "p": 0.5478
+    "p": 0.1323,
+    "p1miss": 0.429
+   },
+   "c8": {
+    "avg_p": 0.8175,
+    "exp": 6.54,
+    "fair_odds": 5.01,
+    "legs": [
+     {
+      "away": "Angers SCO",
+      "home": "Brest",
+      "id": 559666,
+      "market": "U35",
+      "p": 0.8192,
+      "utc": "2026-10-10T18:45:00Z"
+     },
+     {
+      "away": "Frosinone",
+      "home": "Napoli",
+      "id": 558586,
+      "market": "U35",
+      "p": 0.8187,
+      "utc": "2026-10-10T18:45:00Z"
+     },
+     {
+      "away": "Kortrijk",
+      "home": "Genk",
+      "id": 1884060128855,
+      "market": "1",
+      "p": 0.8176,
+      "utc": "2026-10-10T18:45:00Z"
+     },
+     {
+      "away": "Palermo",
+      "home": "Empoli",
+      "id": 1502899369116,
+      "market": "U35",
+      "p": 0.8175,
+      "utc": "2026-10-10T13:00:00Z"
+     },
+     {
+      "away": "Lech Poznan",
+      "home": "Slask Wroclaw",
+      "id": 1622672228731,
+      "market": "X2",
+      "p": 0.8173,
+      "utc": "2026-10-10T15:30:00Z"
+     },
+     {
+      "away": "Stuttgart",
+      "home": "SC Paderborn",
+      "id": 565813,
+      "market": "1X",
+      "p": 0.8168,
+      "utc": "2026-10-10T13:30:00Z"
+     },
+     {
+      "away": "Kilmarnock",
+      "home": "Rangers",
+      "id": 1790833014709,
+      "market": "O15",
+      "p": 0.8168,
+      "utc": "2026-10-10T14:00:00Z"
+     },
+     {
+      "away": "Barnsley",
+      "home": "Stockport",
+      "id": 1261137938804,
+      "market": "1X",
+      "p": 0.8163,
+      "utc": "2026-10-10T14:00:00Z"
+     }
+    ],
+    "p": 0.1995,
+    "p1miss": 0.5558
+   },
+   "range": {
+    "avg_p": 0.6884,
+    "exp": 2.75,
+    "fair_odds": 4.45,
+    "legs": [
+     {
+      "away": "AZ",
+      "home": "Feyenoord",
+      "id": 558879,
+      "market": "O25",
+      "p": 0.6895,
+      "utc": "2026-10-10T16:45:00Z"
+     },
+     {
+      "away": "Brommapojkarna",
+      "home": "AIK",
+      "id": 1381352089424,
+      "market": "BTTS",
+      "p": 0.6891,
+      "utc": "2026-10-10T13:00:00Z"
+     },
+     {
+      "away": "Cremonese",
+      "home": "Arezzo",
+      "id": 1296392387030,
+      "market": "O25",
+      "p": 0.6884,
+      "utc": "2026-10-10T17:30:00Z"
+     },
+     {
+      "away": "Erzurumspor",
+      "home": "Alanyaspor",
+      "id": 1787403398818,
+      "market": "1",
+      "p": 0.6866,
+      "utc": "2026-10-10T13:00:00Z"
+     }
+    ],
+    "p": 0.2246,
+    "p1miss": 0.6312
+   },
+   "safe": {
+    "avg_p": 0.8185,
+    "exp": 2.46,
+    "fair_odds": 1.82,
+    "legs": [
+     {
+      "away": "Angers SCO",
+      "home": "Brest",
+      "id": 559666,
+      "market": "U35",
+      "p": 0.8192,
+      "utc": "2026-10-10T18:45:00Z"
+     },
+     {
+      "away": "Frosinone",
+      "home": "Napoli",
+      "id": 558586,
+      "market": "U35",
+      "p": 0.8187,
+      "utc": "2026-10-10T18:45:00Z"
+     },
+     {
+      "away": "Kortrijk",
+      "home": "Genk",
+      "id": 1884060128855,
+      "market": "1",
+      "p": 0.8176,
+      "utc": "2026-10-10T18:45:00Z"
+     }
+    ],
+    "p": 0.5484,
+    "p1miss": 0.9131
    },
    "standard": {
-    "fair_odds": 3.24,
+    "avg_p": 0.7481,
+    "exp": 2.99,
+    "fair_odds": 3.19,
     "legs": [
+     {
+      "away": "Rodez",
+      "home": "St Etienne",
+      "id": 1464259305694,
+      "market": "1",
+      "p": 0.75,
+      "utc": "2026-10-10T18:00:00Z"
+     },
+     {
+      "away": "Cottbus",
+      "home": "Darmstadt",
+      "id": 1598876597734,
+      "market": "BTTS",
+      "p": 0.7487,
+      "utc": "2026-10-10T11:00:00Z"
+     },
      {
       "away": "Paris FC",
       "home": "Lorient",
@@ -220,36 +447,23 @@
       "utc": "2026-10-10T18:45:00Z"
      },
      {
-      "away": "Bayern",
-      "home": "Augsburg",
-      "id": 565819,
-      "market": "U35",
-      "p": 0.7447,
-      "utc": "2026-10-10T13:30:00Z"
-     },
-     {
-      "away": "Angers SCO",
-      "home": "Brest",
-      "id": 559666,
-      "market": "X2",
-      "p": 0.7446,
-      "utc": "2026-10-10T18:45:00Z"
-     },
-     {
-      "away": "Athletic",
-      "home": "Rayo Vallecano",
-      "id": 564698,
-      "market": "O15",
-      "p": 0.7441,
-      "utc": "2026-10-10T12:00:00Z"
+      "away": "Ascoli",
+      "home": "Sudtirol",
+      "id": 1448572485649,
+      "market": "U25",
+      "p": 0.7465,
+      "utc": "2026-10-10T13:00:00Z"
      }
     ],
-    "p": 0.3083
+    "p": 0.3132,
+    "p1miss": 0.7351
    }
   },
   "2026-10-11": {
    "bold": {
-    "fair_odds": 11.3,
+    "avg_p": 0.618,
+    "exp": 3.09,
+    "fair_odds": 11.1,
     "legs": [
      {
       "away": "Den Haag",
@@ -258,6 +472,14 @@
       "market": "X2",
       "p": 0.6195,
       "utc": "2026-10-11T12:30:00Z"
+     },
+     {
+      "away": "Castellon",
+      "home": "Andorra",
+      "id": 1548722249910,
+      "market": "O25",
+      "p": 0.6193,
+      "utc": "2026-10-11T12:00:00Z"
      },
      {
       "away": "Fluminense",
@@ -276,25 +498,223 @@
       "utc": "2026-10-11T20:30:00Z"
      },
      {
-      "away": "Bologna",
-      "home": "Lecce",
-      "id": 558581,
-      "market": "O15",
-      "p": 0.6136,
+      "away": "St Johnstone",
+      "home": "Aberdeen",
+      "id": 1821224406725,
+      "market": "NOBTTS",
+      "p": 0.6153,
       "utc": "2026-10-11T13:00:00Z"
+     }
+    ],
+    "p": 0.0901,
+    "p1miss": 0.3687
+   },
+   "c10": {
+    "avg_p": 0.8131,
+    "exp": 8.13,
+    "fair_odds": 7.92,
+    "legs": [
+     {
+      "away": "Valencia",
+      "home": "Santander",
+      "id": 564705,
+      "market": "O15",
+      "p": 0.819,
+      "utc": "2026-10-11T19:00:00Z"
+     },
+     {
+      "away": "M'gladbach",
+      "home": "1. FC Köln",
+      "id": 565814,
+      "market": "O25",
+      "p": 0.8173,
+      "utc": "2026-10-11T13:30:00Z"
+     },
+     {
+      "away": "Celtic",
+      "home": "Motherwell",
+      "id": 1498941879016,
+      "market": "X2",
+      "p": 0.8172,
+      "utc": "2026-10-11T11:00:00Z"
+     },
+     {
+      "away": "Corinthians",
+      "home": "Palmeiras",
+      "id": 555037,
+      "market": "U35",
+      "p": 0.8157,
+      "utc": "2026-10-11T20:30:00Z"
+     },
+     {
+      "away": "Basel",
+      "home": "Vaduz",
+      "id": 1330148155734,
+      "market": "BTTS",
+      "p": 0.8136,
+      "utc": "2026-10-11T14:30:00Z"
+     },
+     {
+      "away": "Willem II",
+      "home": "Utrecht",
+      "id": 558876,
+      "market": "BTTS",
+      "p": 0.8121,
+      "utc": "2026-10-11T10:15:00Z"
+     },
+     {
+      "away": "Amadora",
+      "home": "Arouca",
+      "id": 567324,
+      "market": "O25",
+      "p": 0.8112,
+      "utc": "2026-10-11T19:30:00Z"
      },
      {
       "away": "Internacional",
       "home": "Grêmio",
       "id": 555036,
-      "market": "U25",
-      "p": 0.6099,
+      "market": "U35",
+      "p": 0.8099,
+      "utc": "2026-10-11T20:30:00Z"
+     },
+     {
+      "away": "Strasbourg",
+      "home": "Nice",
+      "id": 559670,
+      "market": "O15",
+      "p": 0.8075,
+      "utc": "2026-10-11T13:00:00Z"
+     },
+     {
+      "away": "Tromso",
+      "home": "Fredrikstad",
+      "id": 1578321526211,
+      "market": "O15",
+      "p": 0.8075,
+      "utc": "2026-10-11T12:30:00Z"
+     }
+    ],
+    "p": 0.1263,
+    "p1miss": 0.4166
+   },
+   "c8": {
+    "avg_p": 0.8145,
+    "exp": 6.52,
+    "fair_odds": 5.16,
+    "legs": [
+     {
+      "away": "Valencia",
+      "home": "Santander",
+      "id": 564705,
+      "market": "O15",
+      "p": 0.819,
+      "utc": "2026-10-11T19:00:00Z"
+     },
+     {
+      "away": "M'gladbach",
+      "home": "1. FC Köln",
+      "id": 565814,
+      "market": "O25",
+      "p": 0.8173,
+      "utc": "2026-10-11T13:30:00Z"
+     },
+     {
+      "away": "Celtic",
+      "home": "Motherwell",
+      "id": 1498941879016,
+      "market": "X2",
+      "p": 0.8172,
+      "utc": "2026-10-11T11:00:00Z"
+     },
+     {
+      "away": "Corinthians",
+      "home": "Palmeiras",
+      "id": 555037,
+      "market": "U35",
+      "p": 0.8157,
+      "utc": "2026-10-11T20:30:00Z"
+     },
+     {
+      "away": "Basel",
+      "home": "Vaduz",
+      "id": 1330148155734,
+      "market": "BTTS",
+      "p": 0.8136,
+      "utc": "2026-10-11T14:30:00Z"
+     },
+     {
+      "away": "Willem II",
+      "home": "Utrecht",
+      "id": 558876,
+      "market": "BTTS",
+      "p": 0.8121,
+      "utc": "2026-10-11T10:15:00Z"
+     },
+     {
+      "away": "Amadora",
+      "home": "Arouca",
+      "id": 567324,
+      "market": "O25",
+      "p": 0.8112,
+      "utc": "2026-10-11T19:30:00Z"
+     },
+     {
+      "away": "Internacional",
+      "home": "Grêmio",
+      "id": 555036,
+      "market": "U35",
+      "p": 0.8099,
       "utc": "2026-10-11T20:30:00Z"
      }
     ],
-    "p": 0.0885
+    "p": 0.1937,
+    "p1miss": 0.5466
+   },
+   "range": {
+    "avg_p": 0.6891,
+    "exp": 2.76,
+    "fair_odds": 4.43,
+    "legs": [
+     {
+      "away": "Karlsruhe",
+      "home": "St Pauli",
+      "id": 1392686859419,
+      "market": "O15",
+      "p": 0.6899,
+      "utc": "2026-10-11T11:30:00Z"
+     },
+     {
+      "away": "Celta",
+      "home": "Elche",
+      "id": 564703,
+      "market": "O15",
+      "p": 0.6896,
+      "utc": "2026-10-11T12:00:00Z"
+     },
+     {
+      "away": "Groningen",
+      "home": "Excelsior",
+      "id": 558873,
+      "market": "BTTS",
+      "p": 0.6887,
+      "utc": "2026-10-11T14:45:00Z"
+     },
+     {
+      "away": "Monza",
+      "home": "Lazio",
+      "id": 558583,
+      "market": "O25",
+      "p": 0.6883,
+      "utc": "2026-10-11T13:00:00Z"
+     }
+    ],
+    "p": 0.2255,
+    "p1miss": 0.6324
    },
    "safe": {
+    "avg_p": 0.8178,
+    "exp": 2.45,
     "fair_odds": 1.83,
     "legs": [
      {
@@ -314,19 +734,46 @@
       "utc": "2026-10-11T13:30:00Z"
      },
      {
-      "away": "Corinthians",
-      "home": "Palmeiras",
-      "id": 555037,
-      "market": "U35",
-      "p": 0.8157,
-      "utc": "2026-10-11T20:30:00Z"
+      "away": "Celtic",
+      "home": "Motherwell",
+      "id": 1498941879016,
+      "market": "X2",
+      "p": 0.8172,
+      "utc": "2026-10-11T11:00:00Z"
      }
     ],
-    "p": 0.546
+    "p": 0.547,
+    "p1miss": 0.9125
    },
    "standard": {
-    "fair_odds": 3.32,
+    "avg_p": 0.7478,
+    "exp": 2.99,
+    "fair_odds": 3.2,
     "legs": [
+     {
+      "away": "Verona",
+      "home": "Modena",
+      "id": 1448798670365,
+      "market": "1X",
+      "p": 0.7497,
+      "utc": "2026-10-11T17:30:00Z"
+     },
+     {
+      "away": "Wolfsberger AC",
+      "home": "Altach",
+      "id": 1014684638389,
+      "market": "1X",
+      "p": 0.7487,
+      "utc": "2026-10-11T12:30:00Z"
+     },
+     {
+      "away": "Viborg",
+      "home": "Randers FC",
+      "id": 1391066109857,
+      "market": "X2",
+      "p": 0.7466,
+      "utc": "2026-10-11T12:00:00Z"
+     },
      {
       "away": "Marseille",
       "home": "Troyes",
@@ -334,38 +781,17 @@
       "market": "U35",
       "p": 0.7463,
       "utc": "2026-10-11T18:45:00Z"
-     },
-     {
-      "away": "Nottingham",
-      "home": "Crystal Palace",
-      "id": 560596,
-      "market": "X2",
-      "p": 0.7435,
-      "utc": "2026-10-11T13:00:00Z"
-     },
-     {
-      "away": "Juventus",
-      "home": "Cagliari",
-      "id": 558584,
-      "market": "1X",
-      "p": 0.7369,
-      "utc": "2026-10-11T18:45:00Z"
-     },
-     {
-      "away": "Bologna",
-      "home": "Lecce",
-      "id": 558581,
-      "market": "1X",
-      "p": 0.7359,
-      "utc": "2026-10-11T13:00:00Z"
      }
     ],
-    "p": 0.3009
+    "p": 0.3127,
+    "p1miss": 0.7346
    }
   },
   "2026-10-12": {
    "bold": {
-    "fair_odds": 13.75,
+    "avg_p": 0.6124,
+    "exp": 3.06,
+    "fair_odds": 11.61,
     "legs": [
      {
       "away": "Newcastle",
@@ -376,6 +802,22 @@
       "utc": "2026-10-12T19:00:00Z"
      },
      {
+      "away": "Albacete",
+      "home": "Valladolid",
+      "id": 1157675707744,
+      "market": "NOBTTS",
+      "p": 0.6134,
+      "utc": "2026-10-12T12:00:00Z"
+     },
+     {
+      "away": "Sonderjyske",
+      "home": "Aarhus",
+      "id": 1016400756861,
+      "market": "O25",
+      "p": 0.6116,
+      "utc": "2026-10-12T17:00:00Z"
+     },
+     {
       "away": "Venezia FC",
       "home": "Atalanta",
       "id": 558579,
@@ -384,35 +826,54 @@
       "utc": "2026-10-12T16:30:00Z"
      },
      {
-      "away": "Alverca",
-      "home": "Famalicão",
-      "id": 567325,
-      "market": "X2",
-      "p": 0.5987,
-      "utc": "2026-10-12T19:15:00Z"
-     },
-     {
-      "away": "Botafogo",
-      "home": "Coritiba",
-      "id": 555034,
+      "away": "Goztep",
+      "home": "Eyupspor",
+      "id": 1674409822126,
       "market": "BTTS",
-      "p": 0.5926,
-      "utc": "2026-10-12T19:00:00Z"
-     },
-     {
-      "away": "Mirassol",
-      "home": "Bahia",
-      "id": 555031,
-      "market": "U25",
-      "p": 0.5435,
-      "utc": "2026-10-11T22:30:00Z"
+      "p": 0.6081,
+      "utc": "2026-10-12T17:00:00Z"
      }
     ],
-    "p": 0.0728
+    "p": 0.0861,
+    "p1miss": 0.3586
    },
-   "safe": {
-    "fair_odds": 1.99,
+   "c10": {
+    "avg_p": 0.7972,
+    "exp": 7.97,
+    "fair_odds": 9.66,
     "legs": [
+     {
+      "away": "Eibar",
+      "home": "Oviedo",
+      "id": 1367215833613,
+      "market": "U25",
+      "p": 0.8106,
+      "utc": "2026-10-12T16:30:00Z"
+     },
+     {
+      "away": "Goztep",
+      "home": "Eyupspor",
+      "id": 1674409822126,
+      "market": "O15",
+      "p": 0.8098,
+      "utc": "2026-10-12T17:00:00Z"
+     },
+     {
+      "away": "Wieczysta Krakow",
+      "home": "GKS Katowice",
+      "id": 1027112785370,
+      "market": "1",
+      "p": 0.8041,
+      "utc": "2026-10-12T18:30:00Z"
+     },
+     {
+      "away": "Sonderjyske",
+      "home": "Aarhus",
+      "id": 1016400756861,
+      "market": "1X",
+      "p": 0.8028,
+      "utc": "2026-10-12T17:00:00Z"
+     },
      {
       "away": "Botafogo",
       "home": "Coritiba",
@@ -436,12 +897,186 @@
       "market": "1X",
       "p": 0.789,
       "utc": "2026-10-11T22:30:00Z"
+     },
+     {
+      "away": "Alverca",
+      "home": "Famalicão",
+      "id": 567325,
+      "market": "U35",
+      "p": 0.7875,
+      "utc": "2026-10-12T19:15:00Z"
+     },
+     {
+      "away": "Motor Lublin",
+      "home": "Radomiak Radom",
+      "id": 1095522054079,
+      "market": "O15",
+      "p": 0.7857,
+      "utc": "2026-10-12T16:00:00Z"
+     },
+     {
+      "away": "Metz",
+      "home": "Dijon",
+      "id": 1721814902418,
+      "market": "U35",
+      "p": 0.7855,
+      "utc": "2026-10-12T18:45:00Z"
      }
     ],
-    "p": 0.5028
+    "p": 0.1036,
+    "p1miss": 0.3673
+   },
+   "c8": {
+    "avg_p": 0.8001,
+    "exp": 6.4,
+    "fair_odds": 5.96,
+    "legs": [
+     {
+      "away": "Eibar",
+      "home": "Oviedo",
+      "id": 1367215833613,
+      "market": "U25",
+      "p": 0.8106,
+      "utc": "2026-10-12T16:30:00Z"
+     },
+     {
+      "away": "Goztep",
+      "home": "Eyupspor",
+      "id": 1674409822126,
+      "market": "O15",
+      "p": 0.8098,
+      "utc": "2026-10-12T17:00:00Z"
+     },
+     {
+      "away": "Wieczysta Krakow",
+      "home": "GKS Katowice",
+      "id": 1027112785370,
+      "market": "1",
+      "p": 0.8041,
+      "utc": "2026-10-12T18:30:00Z"
+     },
+     {
+      "away": "Sonderjyske",
+      "home": "Aarhus",
+      "id": 1016400756861,
+      "market": "1X",
+      "p": 0.8028,
+      "utc": "2026-10-12T17:00:00Z"
+     },
+     {
+      "away": "Botafogo",
+      "home": "Coritiba",
+      "id": 555034,
+      "market": "O15",
+      "p": 0.8024,
+      "utc": "2026-10-12T19:00:00Z"
+     },
+     {
+      "away": "Venezia FC",
+      "home": "Atalanta",
+      "id": 558579,
+      "market": "O15",
+      "p": 0.7942,
+      "utc": "2026-10-12T16:30:00Z"
+     },
+     {
+      "away": "Mirassol",
+      "home": "Bahia",
+      "id": 555031,
+      "market": "1X",
+      "p": 0.789,
+      "utc": "2026-10-11T22:30:00Z"
+     },
+     {
+      "away": "Alverca",
+      "home": "Famalicão",
+      "id": 567325,
+      "market": "U35",
+      "p": 0.7875,
+      "utc": "2026-10-12T19:15:00Z"
+     }
+    ],
+    "p": 0.1678,
+    "p1miss": 0.5035
+   },
+   "range": {
+    "avg_p": 0.6839,
+    "exp": 2.74,
+    "fair_odds": 4.57,
+    "legs": [
+     {
+      "away": "Udinese",
+      "home": "Torino",
+      "id": 558587,
+      "market": "X2",
+      "p": 0.6876,
+      "utc": "2026-10-12T18:45:00Z"
+     },
+     {
+      "away": "Newcastle",
+      "home": "Coventry City",
+      "id": 560597,
+      "market": "2",
+      "p": 0.6845,
+      "utc": "2026-10-12T19:00:00Z"
+     },
+     {
+      "away": "Motor Lublin",
+      "home": "Radomiak Radom",
+      "id": 1095522054079,
+      "market": "U35",
+      "p": 0.6821,
+      "utc": "2026-10-12T16:00:00Z"
+     },
+     {
+      "away": "Granada",
+      "home": "Burgos",
+      "id": 1625238876038,
+      "market": "U35",
+      "p": 0.6813,
+      "utc": "2026-10-12T14:15:00Z"
+     }
+    ],
+    "p": 0.2188,
+    "p1miss": 0.6232
+   },
+   "safe": {
+    "avg_p": 0.8082,
+    "exp": 2.42,
+    "fair_odds": 1.89,
+    "legs": [
+     {
+      "away": "Eibar",
+      "home": "Oviedo",
+      "id": 1367215833613,
+      "market": "U25",
+      "p": 0.8106,
+      "utc": "2026-10-12T16:30:00Z"
+     },
+     {
+      "away": "Goztep",
+      "home": "Eyupspor",
+      "id": 1674409822126,
+      "market": "O15",
+      "p": 0.8098,
+      "utc": "2026-10-12T17:00:00Z"
+     },
+     {
+      "away": "Wieczysta Krakow",
+      "home": "GKS Katowice",
+      "id": 1027112785370,
+      "market": "1",
+      "p": 0.8041,
+      "utc": "2026-10-12T18:30:00Z"
+     }
+    ],
+    "p": 0.5278,
+    "p1miss": 0.9037
    },
    "standard": {
-    "fair_odds": 3.65,
+    "avg_p": 0.7246,
+    "exp": 2.9,
+    "fair_odds": 3.63,
     "legs": [
      {
       "away": "Udinese",
@@ -452,11 +1087,19 @@
       "utc": "2026-10-12T18:45:00Z"
      },
      {
+      "away": "Girona",
+      "home": "Tenerife",
+      "id": 1387191580996,
+      "market": "X2",
+      "p": 0.7253,
+      "utc": "2026-10-12T19:00:00Z"
+     },
+     {
       "away": "Mirassol",
       "home": "Bahia",
       "id": 555031,
       "market": "O15",
-      "p": 0.7224,
+      "p": 0.7225,
       "utc": "2026-10-11T22:30:00Z"
      },
      {
@@ -466,21 +1109,2712 @@
       "market": "1X",
       "p": 0.7202,
       "utc": "2026-10-12T19:00:00Z"
-     },
-     {
-      "away": "Sevilla FC",
-      "home": "Levante",
-      "id": 564704,
-      "market": "X2",
-      "p": 0.7201,
-      "utc": "2026-10-12T19:00:00Z"
      }
     ],
-    "p": 0.2737
+    "p": 0.2757,
+    "p1miss": 0.6948
    }
   }
  },
  "picks": {
+  "1001769596718": {
+   "adjusted": false,
+   "away": "Sirius",
+   "competition": "SWE",
+   "date": "2026-10-10",
+   "home": "GAIS",
+   "ix": 0.2,
+   "market": "1X",
+   "p": 0.6725,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1001769596718:r": {
+   "adjusted": false,
+   "away": "Sirius",
+   "competition": "SWE",
+   "date": "2026-10-10",
+   "home": "GAIS",
+   "ix": 0.2,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1001769596718,
+   "p": 0.6725,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1005715789825": {
+   "adjusted": false,
+   "away": "Thun",
+   "competition": "SWZ",
+   "date": "2026-10-10",
+   "home": "Zurich",
+   "ix": -1.5,
+   "market": "O25",
+   "p": 0.7284,
+   "result": null,
+   "utc": "2026-10-10T16:00:00Z"
+  },
+  "1005715789825:r": {
+   "adjusted": false,
+   "away": "Thun",
+   "competition": "SWZ",
+   "date": "2026-10-10",
+   "home": "Zurich",
+   "ix": -1.5,
+   "kind": "range",
+   "market": "X2",
+   "mid": 1005715789825,
+   "p": 0.6841,
+   "result": null,
+   "utc": "2026-10-10T16:00:00Z"
+  },
+  "1007115978285": {
+   "adjusted": false,
+   "away": "Wolfsburg",
+   "competition": "D2",
+   "date": "2026-10-10",
+   "home": "Nurnberg",
+   "ix": 3.0,
+   "market": "1X",
+   "p": 0.7711,
+   "result": null,
+   "utc": "2026-10-10T18:30:00Z"
+  },
+  "1007115978285:r": {
+   "adjusted": false,
+   "away": "Wolfsburg",
+   "competition": "D2",
+   "date": "2026-10-10",
+   "home": "Nurnberg",
+   "ix": 3.0,
+   "kind": "range",
+   "market": "U35",
+   "mid": 1007115978285,
+   "p": 0.6294,
+   "result": null,
+   "utc": "2026-10-10T18:30:00Z"
+  },
+  "1008122798081": {
+   "adjusted": false,
+   "away": "Horsens",
+   "competition": "DNK",
+   "date": "2026-10-11",
+   "home": "Silkeborg",
+   "ix": -1.2,
+   "market": "X2",
+   "p": 0.6832,
+   "result": null,
+   "utc": "2026-10-11T12:00:00Z"
+  },
+  "1008122798081:r": {
+   "adjusted": false,
+   "away": "Horsens",
+   "competition": "DNK",
+   "date": "2026-10-11",
+   "home": "Silkeborg",
+   "ix": -1.2,
+   "kind": "range",
+   "market": "X2",
+   "mid": 1008122798081,
+   "p": 0.6832,
+   "result": null,
+   "utc": "2026-10-11T12:00:00Z"
+  },
+  "1014684638389": {
+   "adjusted": false,
+   "away": "Wolfsberger AC",
+   "competition": "AUT",
+   "date": "2026-10-11",
+   "home": "Altach",
+   "ix": 2.3,
+   "market": "1X",
+   "p": 0.7487,
+   "result": null,
+   "utc": "2026-10-11T12:30:00Z"
+  },
+  "1014684638389:r": {
+   "adjusted": false,
+   "away": "Wolfsberger AC",
+   "competition": "AUT",
+   "date": "2026-10-11",
+   "home": "Altach",
+   "ix": 2.3,
+   "kind": "range",
+   "market": "X2",
+   "mid": 1014684638389,
+   "p": 0.5177,
+   "result": null,
+   "utc": "2026-10-11T12:30:00Z"
+  },
+  "1014822543168": {
+   "adjusted": false,
+   "away": "Degerfors",
+   "competition": "SWE",
+   "date": "2026-10-10",
+   "home": "Mjallby",
+   "ix": 1.4,
+   "market": "1X",
+   "p": 0.7258,
+   "result": null,
+   "utc": "2026-10-10T15:30:00Z"
+  },
+  "1014822543168:r": {
+   "adjusted": false,
+   "away": "Degerfors",
+   "competition": "SWE",
+   "date": "2026-10-10",
+   "home": "Mjallby",
+   "ix": 1.4,
+   "kind": "range",
+   "market": "U25",
+   "mid": 1014822543168,
+   "p": 0.6412,
+   "result": null,
+   "utc": "2026-10-10T15:30:00Z"
+  },
+  "1015306213980": {
+   "adjusted": false,
+   "away": "Cordoba",
+   "competition": "SP2",
+   "date": "2026-10-10",
+   "home": "Eldense",
+   "ix": 3.1,
+   "market": "1X",
+   "p": 0.7566,
+   "result": null,
+   "utc": "2026-10-10T16:30:00Z"
+  },
+  "1015306213980:r": {
+   "adjusted": false,
+   "away": "Cordoba",
+   "competition": "SP2",
+   "date": "2026-10-10",
+   "home": "Eldense",
+   "ix": 3.1,
+   "kind": "range",
+   "market": "1",
+   "mid": 1015306213980,
+   "odds": 2.3,
+   "p": 0.5495,
+   "result": null,
+   "utc": "2026-10-10T16:30:00Z"
+  },
+  "1016400756861": {
+   "adjusted": false,
+   "away": "Sonderjyske",
+   "competition": "DNK",
+   "date": "2026-10-12",
+   "home": "Aarhus",
+   "ix": 3.8,
+   "market": "1X",
+   "p": 0.8028,
+   "result": null,
+   "utc": "2026-10-12T17:00:00Z"
+  },
+  "1016400756861:r": {
+   "adjusted": false,
+   "away": "Sonderjyske",
+   "competition": "DNK",
+   "date": "2026-10-12",
+   "home": "Aarhus",
+   "ix": 3.8,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1016400756861,
+   "p": 0.6116,
+   "result": null,
+   "utc": "2026-10-12T17:00:00Z"
+  },
+  "1021109873838": {
+   "adjusted": false,
+   "away": "Bromley",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Mansfield",
+   "ix": 5.7,
+   "market": "1",
+   "odds": 1.77,
+   "p": 0.7184,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1022947415150": {
+   "adjusted": false,
+   "away": "Gent",
+   "competition": "B1",
+   "date": "2026-10-10",
+   "home": "Waregem",
+   "ix": 0.8,
+   "market": "U35",
+   "p": 0.7535,
+   "result": null,
+   "utc": "2026-10-10T18:45:00Z"
+  },
+  "1022947415150:r": {
+   "adjusted": false,
+   "away": "Gent",
+   "competition": "B1",
+   "date": "2026-10-10",
+   "home": "Waregem",
+   "ix": 0.8,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1022947415150,
+   "p": 0.6854,
+   "result": null,
+   "utc": "2026-10-10T18:45:00Z"
+  },
+  "1027112785370": {
+   "adjusted": false,
+   "away": "Wieczysta Krakow",
+   "competition": "POL",
+   "date": "2026-10-12",
+   "home": "GKS Katowice",
+   "ix": 6.9,
+   "market": "1",
+   "odds": 2.11,
+   "p": 0.8041,
+   "result": null,
+   "utc": "2026-10-12T18:30:00Z"
+  },
+  "1027112785370:r": {
+   "adjusted": false,
+   "away": "Wieczysta Krakow",
+   "competition": "POL",
+   "date": "2026-10-12",
+   "home": "GKS Katowice",
+   "ix": 6.9,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 1027112785370,
+   "p": 0.6603,
+   "result": null,
+   "utc": "2026-10-12T18:30:00Z"
+  },
+  "1031144895854": {
+   "adjusted": false,
+   "away": "Blackpool",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Cambridge",
+   "ix": 2.9,
+   "market": "1X",
+   "p": 0.7618,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1031144895854:r": {
+   "adjusted": false,
+   "away": "Blackpool",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Cambridge",
+   "ix": 2.9,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1031144895854,
+   "p": 0.6181,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1033679906797": {
+   "adjusted": false,
+   "away": "Valerenga",
+   "competition": "NOR",
+   "date": "2026-10-12",
+   "home": "KFUM Oslo",
+   "ix": 1.9,
+   "market": "1X",
+   "p": 0.7148,
+   "result": null,
+   "utc": "2026-10-12T17:00:00Z"
+  },
+  "1033679906797:r": {
+   "adjusted": false,
+   "away": "Valerenga",
+   "competition": "NOR",
+   "date": "2026-10-12",
+   "home": "KFUM Oslo",
+   "ix": 1.9,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 1033679906797,
+   "p": 0.6542,
+   "result": null,
+   "utc": "2026-10-12T17:00:00Z"
+  },
+  "1041245898598": {
+   "adjusted": false,
+   "away": "Lausanne",
+   "competition": "SWZ",
+   "date": "2026-10-11",
+   "home": "St. Gallen",
+   "ix": 3.8,
+   "market": "U35",
+   "p": 0.7769,
+   "result": null,
+   "utc": "2026-10-11T14:30:00Z"
+  },
+  "1041245898598:r": {
+   "adjusted": false,
+   "away": "Lausanne",
+   "competition": "SWZ",
+   "date": "2026-10-11",
+   "home": "St. Gallen",
+   "ix": 3.8,
+   "kind": "range",
+   "market": "U25",
+   "mid": 1041245898598,
+   "p": 0.5674,
+   "result": null,
+   "utc": "2026-10-11T14:30:00Z"
+  },
+  "1042492807272": {
+   "adjusted": false,
+   "away": "Carrarese",
+   "competition": "I2",
+   "date": "2026-10-11",
+   "home": "Padova",
+   "ix": 3.4,
+   "market": "U25",
+   "p": 0.7234,
+   "result": null,
+   "utc": "2026-10-11T15:15:00Z"
+  },
+  "1042492807272:r": {
+   "adjusted": false,
+   "away": "Carrarese",
+   "competition": "I2",
+   "date": "2026-10-11",
+   "home": "Padova",
+   "ix": 3.4,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 1042492807272,
+   "p": 0.6777,
+   "result": null,
+   "utc": "2026-10-11T15:15:00Z"
+  },
+  "1061712958738": {
+   "adjusted": false,
+   "away": "Reading",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Milton Keynes Dons",
+   "ix": -0.6,
+   "market": "X2",
+   "p": 0.6941,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1061712958738:r": {
+   "adjusted": false,
+   "away": "Reading",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Milton Keynes Dons",
+   "ix": -0.6,
+   "kind": "range",
+   "market": "U25",
+   "mid": 1061712958738,
+   "p": 0.6798,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1079298835269": {
+   "adjusted": false,
+   "away": "Sarpsborg 08",
+   "competition": "NOR",
+   "date": "2026-10-11",
+   "home": "Aalesund",
+   "ix": 0.8,
+   "market": "BTTS",
+   "p": 0.6667,
+   "result": null,
+   "utc": "2026-10-11T15:00:00Z"
+  },
+  "1079298835269:r": {
+   "adjusted": false,
+   "away": "Sarpsborg 08",
+   "competition": "NOR",
+   "date": "2026-10-11",
+   "home": "Aalesund",
+   "ix": 0.8,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 1079298835269,
+   "p": 0.6667,
+   "result": null,
+   "utc": "2026-10-11T15:00:00Z"
+  },
+  "1079541240762": {
+   "adjusted": false,
+   "away": "Reims",
+   "competition": "F2",
+   "date": "2026-10-10",
+   "home": "Nantes",
+   "ix": -5.0,
+   "market": "2",
+   "odds": 3.22,
+   "p": 0.6613,
+   "result": null,
+   "utc": "2026-10-10T12:00:00Z"
+  },
+  "1079541240762:r": {
+   "adjusted": false,
+   "away": "Reims",
+   "competition": "F2",
+   "date": "2026-10-10",
+   "home": "Nantes",
+   "ix": -5.0,
+   "kind": "range",
+   "market": "2",
+   "mid": 1079541240762,
+   "odds": 3.22,
+   "p": 0.6613,
+   "result": null,
+   "utc": "2026-10-10T12:00:00Z"
+  },
+  "1081023475302": {
+   "adjusted": false,
+   "away": "HamKam",
+   "competition": "NOR",
+   "date": "2026-10-11",
+   "home": "Start",
+   "ix": 2.3,
+   "market": "O15",
+   "p": 0.7988,
+   "result": null,
+   "utc": "2026-10-11T15:00:00Z"
+  },
+  "1081023475302:r": {
+   "adjusted": false,
+   "away": "HamKam",
+   "competition": "NOR",
+   "date": "2026-10-11",
+   "home": "Start",
+   "ix": 2.3,
+   "kind": "range",
+   "market": "U35",
+   "mid": 1081023475302,
+   "p": 0.6629,
+   "result": null,
+   "utc": "2026-10-11T15:00:00Z"
+  },
+  "1094568275388": {
+   "adjusted": false,
+   "away": "Sion",
+   "competition": "SWZ",
+   "date": "2026-10-10",
+   "home": "Servette",
+   "ix": -3.1,
+   "market": "O15",
+   "p": 0.813,
+   "result": null,
+   "utc": "2026-10-10T16:00:00Z"
+  },
+  "1094568275388:r": {
+   "adjusted": false,
+   "away": "Sion",
+   "competition": "SWZ",
+   "date": "2026-10-10",
+   "home": "Servette",
+   "ix": -3.1,
+   "kind": "range",
+   "market": "U35",
+   "mid": 1094568275388,
+   "p": 0.6412,
+   "result": null,
+   "utc": "2026-10-10T16:00:00Z"
+  },
+  "1095522054079": {
+   "adjusted": false,
+   "away": "Motor Lublin",
+   "competition": "POL",
+   "date": "2026-10-12",
+   "home": "Radomiak Radom",
+   "ix": 0.6,
+   "market": "O15",
+   "p": 0.7857,
+   "result": null,
+   "utc": "2026-10-12T16:00:00Z"
+  },
+  "1095522054079:r": {
+   "adjusted": false,
+   "away": "Motor Lublin",
+   "competition": "POL",
+   "date": "2026-10-12",
+   "home": "Radomiak Radom",
+   "ix": 0.6,
+   "kind": "range",
+   "market": "U35",
+   "mid": 1095522054079,
+   "p": 0.6821,
+   "result": null,
+   "utc": "2026-10-12T16:00:00Z"
+  },
+  "1125192730196": {
+   "adjusted": false,
+   "away": "Sociedad B",
+   "competition": "SP2",
+   "date": "2026-10-10",
+   "home": "Celta B",
+   "ix": -1.1,
+   "market": "O25",
+   "p": 0.7188,
+   "result": null,
+   "utc": "2026-10-10T19:00:00Z"
+  },
+  "1125192730196:r": {
+   "adjusted": false,
+   "away": "Sociedad B",
+   "competition": "SP2",
+   "date": "2026-10-10",
+   "home": "Celta B",
+   "ix": -1.1,
+   "kind": "range",
+   "market": "X2",
+   "mid": 1125192730196,
+   "p": 0.6628,
+   "result": null,
+   "utc": "2026-10-10T19:00:00Z"
+  },
+  "1125507518753": {
+   "adjusted": false,
+   "away": "Kristiansund",
+   "competition": "NOR",
+   "date": "2026-10-10",
+   "home": "Bodo/Glimt",
+   "ix": 9.1,
+   "market": "NOBTTS",
+   "p": 0.6267,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1125507518753:r": {
+   "adjusted": false,
+   "away": "Kristiansund",
+   "competition": "NOR",
+   "date": "2026-10-10",
+   "home": "Bodo/Glimt",
+   "ix": 9.1,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 1125507518753,
+   "p": 0.6267,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1141681948096": {
+   "adjusted": false,
+   "away": "Wisla",
+   "competition": "POL",
+   "date": "2026-10-11",
+   "home": "Legia",
+   "ix": 4.6,
+   "market": "O25",
+   "p": 0.6406,
+   "result": null,
+   "utc": "2026-10-11T18:15:00Z"
+  },
+  "1141681948096:r": {
+   "adjusted": false,
+   "away": "Wisla",
+   "competition": "POL",
+   "date": "2026-10-11",
+   "home": "Legia",
+   "ix": 4.6,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1141681948096,
+   "p": 0.6406,
+   "result": null,
+   "utc": "2026-10-11T18:15:00Z"
+  },
+  "1157675707744": {
+   "adjusted": false,
+   "away": "Albacete",
+   "competition": "SP2",
+   "date": "2026-10-12",
+   "home": "Valladolid",
+   "ix": 2.1,
+   "market": "1X",
+   "p": 0.7629,
+   "result": null,
+   "utc": "2026-10-12T12:00:00Z"
+  },
+  "1157675707744:r": {
+   "adjusted": false,
+   "away": "Albacete",
+   "competition": "SP2",
+   "date": "2026-10-12",
+   "home": "Valladolid",
+   "ix": 2.1,
+   "kind": "range",
+   "market": "U25",
+   "mid": 1157675707744,
+   "p": 0.6776,
+   "result": null,
+   "utc": "2026-10-12T12:00:00Z"
+  },
+  "1166784959364": {
+   "adjusted": false,
+   "away": "Charleroi",
+   "competition": "B1",
+   "date": "2026-10-11",
+   "home": "Standard",
+   "ix": -2.2,
+   "market": "X2",
+   "p": 0.7655,
+   "result": null,
+   "utc": "2026-10-11T11:30:00Z"
+  },
+  "1166784959364:r": {
+   "adjusted": false,
+   "away": "Charleroi",
+   "competition": "B1",
+   "date": "2026-10-11",
+   "home": "Standard",
+   "ix": -2.2,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 1166784959364,
+   "p": 0.6394,
+   "result": null,
+   "utc": "2026-10-11T11:30:00Z"
+  },
+  "1188552632378": {
+   "adjusted": false,
+   "away": "Greuther Furth",
+   "competition": "D2",
+   "date": "2026-10-11",
+   "home": "Hertha",
+   "ix": 4.8,
+   "market": "O25",
+   "p": 0.6373,
+   "result": null,
+   "utc": "2026-10-11T11:30:00Z"
+  },
+  "1188552632378:r": {
+   "adjusted": false,
+   "away": "Greuther Furth",
+   "competition": "D2",
+   "date": "2026-10-11",
+   "home": "Hertha",
+   "ix": 4.8,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1188552632378,
+   "p": 0.6373,
+   "result": null,
+   "utc": "2026-10-11T11:30:00Z"
+  },
+  "1204314316450": {
+   "adjusted": false,
+   "away": "Mantova",
+   "competition": "I2",
+   "date": "2026-10-11",
+   "home": "Catanzaro",
+   "ix": 0.4,
+   "market": "1X",
+   "p": 0.6476,
+   "result": null,
+   "utc": "2026-10-11T13:00:00Z"
+  },
+  "1204314316450:r": {
+   "adjusted": false,
+   "away": "Mantova",
+   "competition": "I2",
+   "date": "2026-10-11",
+   "home": "Catanzaro",
+   "ix": 0.4,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1204314316450,
+   "p": 0.6476,
+   "result": null,
+   "utc": "2026-10-11T13:00:00Z"
+  },
+  "1204368518868": {
+   "adjusted": false,
+   "away": "Anderlecht",
+   "competition": "B1",
+   "date": "2026-10-10",
+   "home": "Cercle Brugge",
+   "ix": -0.9,
+   "market": "O15",
+   "p": 0.7902,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1204368518868:r": {
+   "adjusted": false,
+   "away": "Anderlecht",
+   "competition": "B1",
+   "date": "2026-10-10",
+   "home": "Cercle Brugge",
+   "ix": -0.9,
+   "kind": "range",
+   "market": "X2",
+   "mid": 1204368518868,
+   "p": 0.676,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1206783498500": {
+   "adjusted": false,
+   "away": "Buyuksehyr",
+   "competition": "T1",
+   "date": "2026-10-11",
+   "home": "Konyaspor",
+   "ix": 0.3,
+   "market": "U35",
+   "p": 0.7954,
+   "result": null,
+   "utc": "2026-10-11T10:30:00Z"
+  },
+  "1206783498500:r": {
+   "adjusted": false,
+   "away": "Buyuksehyr",
+   "competition": "T1",
+   "date": "2026-10-11",
+   "home": "Konyaspor",
+   "ix": 0.3,
+   "kind": "range",
+   "market": "O15",
+   "mid": 1206783498500,
+   "p": 0.684,
+   "result": null,
+   "utc": "2026-10-11T10:30:00Z"
+  },
+  "1215574308624": {
+   "adjusted": false,
+   "away": "Antwerp",
+   "competition": "B1",
+   "date": "2026-10-11",
+   "home": "Westerlo",
+   "ix": 1.7,
+   "market": "1X",
+   "p": 0.7004,
+   "result": null,
+   "utc": "2026-10-11T16:30:00Z"
+  },
+  "1215574308624:r": {
+   "adjusted": false,
+   "away": "Antwerp",
+   "competition": "B1",
+   "date": "2026-10-11",
+   "home": "Westerlo",
+   "ix": 1.7,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1215574308624,
+   "p": 0.6847,
+   "result": null,
+   "utc": "2026-10-11T16:30:00Z"
+  },
+  "1255130564167": {
+   "adjusted": false,
+   "away": "Lyngby",
+   "competition": "DNK",
+   "date": "2026-10-11",
+   "home": "Brondby",
+   "ix": 1.4,
+   "market": "U35",
+   "p": 0.7407,
+   "result": null,
+   "utc": "2026-10-11T14:00:00Z"
+  },
+  "1255130564167:r": {
+   "adjusted": false,
+   "away": "Lyngby",
+   "competition": "DNK",
+   "date": "2026-10-11",
+   "home": "Brondby",
+   "ix": 1.4,
+   "kind": "range",
+   "market": "X2",
+   "mid": 1255130564167,
+   "p": 0.5708,
+   "result": null,
+   "utc": "2026-10-11T14:00:00Z"
+  },
+  "1261137938804": {
+   "adjusted": false,
+   "away": "Barnsley",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Stockport",
+   "ix": 4.2,
+   "market": "1X",
+   "p": 0.8163,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1261137938804:r": {
+   "adjusted": false,
+   "away": "Barnsley",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Stockport",
+   "ix": 4.2,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1261137938804,
+   "p": 0.6529,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1281561169032": {
+   "adjusted": false,
+   "away": "Las Palmas",
+   "competition": "SP2",
+   "date": "2026-10-11",
+   "home": "Mallorca",
+   "ix": 4.2,
+   "market": "U35",
+   "p": 0.7992,
+   "result": null,
+   "utc": "2026-10-11T16:30:00Z"
+  },
+  "1281561169032:r": {
+   "adjusted": false,
+   "away": "Las Palmas",
+   "competition": "SP2",
+   "date": "2026-10-11",
+   "home": "Mallorca",
+   "ix": 4.2,
+   "kind": "range",
+   "market": "O15",
+   "mid": 1281561169032,
+   "p": 0.6768,
+   "result": null,
+   "utc": "2026-10-11T16:30:00Z"
+  },
+  "1283156217105": {
+   "adjusted": false,
+   "away": "Widzew Lodz",
+   "competition": "POL",
+   "date": "2026-10-11",
+   "home": "Piast Gliwice",
+   "ix": 0.8,
+   "market": "O15",
+   "p": 0.7763,
+   "result": null,
+   "utc": "2026-10-11T12:45:00Z"
+  },
+  "1283156217105:r": {
+   "adjusted": false,
+   "away": "Widzew Lodz",
+   "competition": "POL",
+   "date": "2026-10-11",
+   "home": "Piast Gliwice",
+   "ix": 0.8,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1283156217105,
+   "p": 0.6785,
+   "result": null,
+   "utc": "2026-10-11T12:45:00Z"
+  },
+  "1291435242156": {
+   "adjusted": false,
+   "away": "Oud-Heverlee Leuven",
+   "competition": "B1",
+   "date": "2026-10-11",
+   "home": "St. Gilloise",
+   "ix": 8.8,
+   "market": "NOBTTS",
+   "p": 0.7924,
+   "result": null,
+   "utc": "2026-10-11T14:00:00Z"
+  },
+  "1291435242156:r": {
+   "adjusted": false,
+   "away": "Oud-Heverlee Leuven",
+   "competition": "B1",
+   "date": "2026-10-11",
+   "home": "St. Gilloise",
+   "ix": 8.8,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1291435242156,
+   "p": 0.6616,
+   "result": null,
+   "utc": "2026-10-11T14:00:00Z"
+  },
+  "1296392387030": {
+   "adjusted": false,
+   "away": "Cremonese",
+   "competition": "I2",
+   "date": "2026-10-10",
+   "home": "Arezzo",
+   "ix": -1.4,
+   "market": "O25",
+   "p": 0.6884,
+   "result": null,
+   "utc": "2026-10-10T17:30:00Z"
+  },
+  "1296392387030:r": {
+   "adjusted": false,
+   "away": "Cremonese",
+   "competition": "I2",
+   "date": "2026-10-10",
+   "home": "Arezzo",
+   "ix": -1.4,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1296392387030,
+   "p": 0.6884,
+   "result": null,
+   "utc": "2026-10-10T17:30:00Z"
+  },
+  "1318579099150": {
+   "adjusted": false,
+   "away": "Juve Stabia",
+   "competition": "I2",
+   "date": "2026-10-10",
+   "home": "Virtus Entella",
+   "ix": 1.3,
+   "market": "U35",
+   "p": 0.7946,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1318579099150:r": {
+   "adjusted": false,
+   "away": "Juve Stabia",
+   "competition": "I2",
+   "date": "2026-10-10",
+   "home": "Virtus Entella",
+   "ix": 1.3,
+   "kind": "range",
+   "market": "O15",
+   "mid": 1318579099150,
+   "p": 0.6848,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1326843190023": {
+   "adjusted": false,
+   "away": "Luton",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Wycombe",
+   "ix": 1.5,
+   "market": "BTTS",
+   "p": 0.7985,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1326843190023:r": {
+   "adjusted": false,
+   "away": "Luton",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Wycombe",
+   "ix": 1.5,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1326843190023,
+   "p": 0.6733,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1330148155734": {
+   "adjusted": false,
+   "away": "Basel",
+   "competition": "SWZ",
+   "date": "2026-10-11",
+   "home": "Vaduz",
+   "ix": 1.2,
+   "market": "BTTS",
+   "p": 0.8136,
+   "result": null,
+   "utc": "2026-10-11T14:30:00Z"
+  },
+  "1330148155734:r": {
+   "adjusted": false,
+   "away": "Basel",
+   "competition": "SWZ",
+   "date": "2026-10-11",
+   "home": "Vaduz",
+   "ix": 1.2,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1330148155734,
+   "p": 0.6569,
+   "result": null,
+   "utc": "2026-10-11T14:30:00Z"
+  },
+  "1349141613749": {
+   "adjusted": false,
+   "away": "Cesena",
+   "competition": "I2",
+   "date": "2026-10-10",
+   "home": "Benevento",
+   "ix": 2.8,
+   "market": "1X",
+   "p": 0.7815,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1349141613749:r": {
+   "adjusted": false,
+   "away": "Cesena",
+   "competition": "I2",
+   "date": "2026-10-10",
+   "home": "Benevento",
+   "ix": 2.8,
+   "kind": "range",
+   "market": "U25",
+   "mid": 1349141613749,
+   "p": 0.5652,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1353965138361": {
+   "adjusted": false,
+   "away": "AFC Wimbledon",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Plymouth",
+   "ix": 5.1,
+   "market": "O15",
+   "p": 0.7773,
+   "result": null,
+   "utc": "2026-10-10T11:30:00Z"
+  },
+  "1353965138361:r": {
+   "adjusted": false,
+   "away": "AFC Wimbledon",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Plymouth",
+   "ix": 5.1,
+   "kind": "range",
+   "market": "1",
+   "mid": 1353965138361,
+   "odds": 1.5,
+   "p": 0.6428,
+   "result": null,
+   "utc": "2026-10-10T11:30:00Z"
+  },
+  "1354102884579": {
+   "adjusted": false,
+   "away": "Kalmar",
+   "competition": "SWE",
+   "date": "2026-10-12",
+   "home": "Malmo FF",
+   "ix": 5.3,
+   "market": "O15",
+   "p": 0.7728,
+   "result": null,
+   "utc": "2026-10-12T17:00:00Z"
+  },
+  "1354102884579:r": {
+   "adjusted": false,
+   "away": "Kalmar",
+   "competition": "SWE",
+   "date": "2026-10-12",
+   "home": "Malmo FF",
+   "ix": 5.3,
+   "kind": "range",
+   "market": "1",
+   "mid": 1354102884579,
+   "odds": 1.75,
+   "p": 0.6605,
+   "result": null,
+   "utc": "2026-10-12T17:00:00Z"
+  },
+  "1356753643004": {
+   "adjusted": false,
+   "away": "FC Copenhagen",
+   "competition": "DNK",
+   "date": "2026-10-11",
+   "home": "Midtjylland",
+   "ix": -1.3,
+   "market": "O25",
+   "p": 0.6874,
+   "result": null,
+   "utc": "2026-10-11T16:00:00Z"
+  },
+  "1356753643004:r": {
+   "adjusted": false,
+   "away": "FC Copenhagen",
+   "competition": "DNK",
+   "date": "2026-10-11",
+   "home": "Midtjylland",
+   "ix": -1.3,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1356753643004,
+   "p": 0.6874,
+   "result": null,
+   "utc": "2026-10-11T16:00:00Z"
+  },
+  "1363868510401": {
+   "adjusted": false,
+   "away": "St Truiden",
+   "competition": "B1",
+   "date": "2026-10-11",
+   "home": "Mechelen",
+   "ix": -4.1,
+   "market": "X2",
+   "p": 0.8046,
+   "result": null,
+   "utc": "2026-10-11T17:15:00Z"
+  },
+  "1363868510401:r": {
+   "adjusted": false,
+   "away": "St Truiden",
+   "competition": "B1",
+   "date": "2026-10-11",
+   "home": "Mechelen",
+   "ix": -4.1,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1363868510401,
+   "p": 0.6582,
+   "result": null,
+   "utc": "2026-10-11T17:15:00Z"
+  },
+  "1367215833613": {
+   "adjusted": false,
+   "away": "Eibar",
+   "competition": "SP2",
+   "date": "2026-10-12",
+   "home": "Oviedo",
+   "ix": -3.0,
+   "market": "U25",
+   "p": 0.8106,
+   "result": null,
+   "utc": "2026-10-12T16:30:00Z"
+  },
+  "1367215833613:r": {
+   "adjusted": false,
+   "away": "Eibar",
+   "competition": "SP2",
+   "date": "2026-10-12",
+   "home": "Oviedo",
+   "ix": -3.0,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1367215833613,
+   "p": 0.529,
+   "result": null,
+   "utc": "2026-10-12T16:30:00Z"
+  },
+  "1373564444414": {
+   "adjusted": false,
+   "away": "Amedspor",
+   "competition": "T1",
+   "date": "2026-10-10",
+   "home": "Genclerbirligi",
+   "ix": -2.0,
+   "market": "X2",
+   "p": 0.7216,
+   "result": null,
+   "utc": "2026-10-10T10:30:00Z"
+  },
+  "1373564444414:r": {
+   "adjusted": false,
+   "away": "Amedspor",
+   "competition": "T1",
+   "date": "2026-10-10",
+   "home": "Genclerbirligi",
+   "ix": -2.0,
+   "kind": "range",
+   "market": "U35",
+   "mid": 1373564444414,
+   "p": 0.6195,
+   "result": null,
+   "utc": "2026-10-10T10:30:00Z"
+  },
+  "1377195710348": {
+   "adjusted": false,
+   "away": "Peterboro",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Leicester",
+   "ix": 3.3,
+   "market": "1X",
+   "p": 0.8005,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1377195710348:r": {
+   "adjusted": false,
+   "away": "Peterboro",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Leicester",
+   "ix": 3.3,
+   "kind": "range",
+   "market": "U25",
+   "mid": 1377195710348,
+   "p": 0.5428,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1381352089424": {
+   "adjusted": true,
+   "away": "Brommapojkarna",
+   "competition": "SWE",
+   "date": "2026-10-10",
+   "home": "AIK",
+   "ix": 1.2,
+   "market": "BTTS",
+   "p": 0.6891,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1381352089424:r": {
+   "adjusted": true,
+   "away": "Brommapojkarna",
+   "competition": "SWE",
+   "date": "2026-10-10",
+   "home": "AIK",
+   "ix": 1.2,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 1381352089424,
+   "p": 0.6891,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1387191580996": {
+   "adjusted": false,
+   "away": "Girona",
+   "competition": "SP2",
+   "date": "2026-10-12",
+   "home": "Tenerife",
+   "ix": -1.4,
+   "market": "X2",
+   "p": 0.7253,
+   "result": null,
+   "utc": "2026-10-12T19:00:00Z"
+  },
+  "1387191580996:r": {
+   "adjusted": false,
+   "away": "Girona",
+   "competition": "SP2",
+   "date": "2026-10-12",
+   "home": "Tenerife",
+   "ix": -1.4,
+   "kind": "range",
+   "market": "U25",
+   "mid": 1387191580996,
+   "p": 0.6463,
+   "result": null,
+   "utc": "2026-10-12T19:00:00Z"
+  },
+  "1391066109857": {
+   "adjusted": false,
+   "away": "Viborg",
+   "competition": "DNK",
+   "date": "2026-10-11",
+   "home": "Randers FC",
+   "ix": -2.3,
+   "market": "O15",
+   "p": 0.768,
+   "result": null,
+   "utc": "2026-10-11T12:00:00Z"
+  },
+  "1391066109857:r": {
+   "adjusted": false,
+   "away": "Viborg",
+   "competition": "DNK",
+   "date": "2026-10-11",
+   "home": "Randers FC",
+   "ix": -2.3,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 1391066109857,
+   "p": 0.5493,
+   "result": null,
+   "utc": "2026-10-11T12:00:00Z"
+  },
+  "1392686859419": {
+   "adjusted": false,
+   "away": "Karlsruhe",
+   "competition": "D2",
+   "date": "2026-10-11",
+   "home": "St Pauli",
+   "ix": 3.1,
+   "market": "1X",
+   "p": 0.7959,
+   "result": null,
+   "utc": "2026-10-11T11:30:00Z"
+  },
+  "1392686859419:r": {
+   "adjusted": false,
+   "away": "Karlsruhe",
+   "competition": "D2",
+   "date": "2026-10-11",
+   "home": "St Pauli",
+   "ix": 3.1,
+   "kind": "range",
+   "market": "O15",
+   "mid": 1392686859419,
+   "p": 0.6899,
+   "result": null,
+   "utc": "2026-10-11T11:30:00Z"
+  },
+  "1446878010335": {
+   "adjusted": false,
+   "away": "SK Rapid",
+   "competition": "AUT",
+   "date": "2026-10-11",
+   "home": "LASK",
+   "ix": 5.5,
+   "market": "O25",
+   "p": 0.7149,
+   "result": null,
+   "utc": "2026-10-11T15:00:00Z"
+  },
+  "1446878010335:r": {
+   "adjusted": false,
+   "away": "SK Rapid",
+   "competition": "AUT",
+   "date": "2026-10-11",
+   "home": "LASK",
+   "ix": 5.5,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 1446878010335,
+   "p": 0.6029,
+   "result": null,
+   "utc": "2026-10-11T15:00:00Z"
+  },
+  "1448572485649": {
+   "adjusted": false,
+   "away": "Ascoli",
+   "competition": "I2",
+   "date": "2026-10-10",
+   "home": "Sudtirol",
+   "ix": 0.5,
+   "market": "U25",
+   "p": 0.7465,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1448572485649:r": {
+   "adjusted": false,
+   "away": "Ascoli",
+   "competition": "I2",
+   "date": "2026-10-10",
+   "home": "Sudtirol",
+   "ix": 0.5,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 1448572485649,
+   "p": 0.653,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1448798670365": {
+   "adjusted": false,
+   "away": "Verona",
+   "competition": "I2",
+   "date": "2026-10-11",
+   "home": "Modena",
+   "ix": 2.4,
+   "market": "O15",
+   "p": 0.7669,
+   "result": null,
+   "utc": "2026-10-11T17:30:00Z"
+  },
+  "1448798670365:r": {
+   "adjusted": false,
+   "away": "Verona",
+   "competition": "I2",
+   "date": "2026-10-11",
+   "home": "Modena",
+   "ix": 2.4,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 1448798670365,
+   "p": 0.5429,
+   "result": null,
+   "utc": "2026-10-11T17:30:00Z"
+  },
+  "1452671393864": {
+   "adjusted": false,
+   "away": "Burton",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Doncaster",
+   "ix": 0.3,
+   "market": "U35",
+   "p": 0.8122,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1452671393864:r": {
+   "adjusted": false,
+   "away": "Burton",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Doncaster",
+   "ix": 0.3,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1452671393864,
+   "p": 0.6676,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1464259305694": {
+   "adjusted": false,
+   "away": "Rodez",
+   "competition": "F2",
+   "date": "2026-10-10",
+   "home": "St Etienne",
+   "ix": 6.1,
+   "market": "1",
+   "odds": 1.38,
+   "p": 0.75,
+   "result": null,
+   "utc": "2026-10-10T18:00:00Z"
+  },
+  "1464259305694:r": {
+   "adjusted": false,
+   "away": "Rodez",
+   "competition": "F2",
+   "date": "2026-10-10",
+   "home": "St Etienne",
+   "ix": 6.1,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 1464259305694,
+   "p": 0.6574,
+   "result": null,
+   "utc": "2026-10-10T18:00:00Z"
+  },
+  "1479452121204": {
+   "adjusted": false,
+   "away": "Bielefeld",
+   "competition": "D2",
+   "date": "2026-10-11",
+   "home": "Bochum",
+   "ix": 2.9,
+   "market": "1X",
+   "p": 0.779,
+   "result": null,
+   "utc": "2026-10-11T11:30:00Z"
+  },
+  "1479452121204:r": {
+   "adjusted": false,
+   "away": "Bielefeld",
+   "competition": "D2",
+   "date": "2026-10-11",
+   "home": "Bochum",
+   "ix": 2.9,
+   "kind": "range",
+   "market": "U25",
+   "mid": 1479452121204,
+   "p": 0.5261,
+   "result": null,
+   "utc": "2026-10-11T11:30:00Z"
+  },
+  "1480226348475": {
+   "adjusted": false,
+   "away": "Kocaelispor",
+   "competition": "T1",
+   "date": "2026-10-11",
+   "home": "Besiktas",
+   "ix": 5.1,
+   "market": "U35",
+   "p": 0.7807,
+   "result": null,
+   "utc": "2026-10-11T16:00:00Z"
+  },
+  "1480226348475:r": {
+   "adjusted": false,
+   "away": "Kocaelispor",
+   "competition": "T1",
+   "date": "2026-10-11",
+   "home": "Besiktas",
+   "ix": 5.1,
+   "kind": "range",
+   "market": "1",
+   "mid": 1480226348475,
+   "odds": 1.26,
+   "p": 0.6402,
+   "result": null,
+   "utc": "2026-10-11T16:00:00Z"
+  },
+  "1482164868112": {
+   "adjusted": false,
+   "away": "Hannover",
+   "competition": "D2",
+   "date": "2026-10-10",
+   "home": "Magdeburg",
+   "ix": 0.9,
+   "market": "O15",
+   "p": 0.791,
+   "result": null,
+   "utc": "2026-10-10T11:00:00Z"
+  },
+  "1482164868112:r": {
+   "adjusted": false,
+   "away": "Hannover",
+   "competition": "D2",
+   "date": "2026-10-10",
+   "home": "Magdeburg",
+   "ix": 0.9,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1482164868112,
+   "p": 0.6793,
+   "result": null,
+   "utc": "2026-10-10T11:00:00Z"
+  },
+  "1482318636645": {
+   "adjusted": false,
+   "away": "Orgryte",
+   "competition": "SWE",
+   "date": "2026-10-11",
+   "home": "Hacken",
+   "ix": 5.8,
+   "market": "1",
+   "odds": 1.3,
+   "p": 0.7016,
+   "result": null,
+   "utc": "2026-10-11T14:30:00Z"
+  },
+  "1482318636645:r": {
+   "adjusted": false,
+   "away": "Orgryte",
+   "competition": "SWE",
+   "date": "2026-10-11",
+   "home": "Hacken",
+   "ix": 5.8,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1482318636645,
+   "p": 0.6536,
+   "result": null,
+   "utc": "2026-10-11T14:30:00Z"
+  },
+  "1498941879016": {
+   "adjusted": false,
+   "away": "Celtic",
+   "competition": "SC0",
+   "date": "2026-10-11",
+   "home": "Motherwell",
+   "ix": -4.2,
+   "market": "X2",
+   "p": 0.8172,
+   "result": null,
+   "utc": "2026-10-11T11:00:00Z"
+  },
+  "1498941879016:r": {
+   "adjusted": false,
+   "away": "Celtic",
+   "competition": "SC0",
+   "date": "2026-10-11",
+   "home": "Motherwell",
+   "ix": -4.2,
+   "kind": "range",
+   "market": "U35",
+   "mid": 1498941879016,
+   "p": 0.6362,
+   "result": null,
+   "utc": "2026-10-11T11:00:00Z"
+  },
+  "1502899369116": {
+   "adjusted": false,
+   "away": "Palermo",
+   "competition": "I2",
+   "date": "2026-10-10",
+   "home": "Empoli",
+   "ix": -2.1,
+   "market": "U35",
+   "p": 0.8175,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1502899369116:r": {
+   "adjusted": false,
+   "away": "Palermo",
+   "competition": "I2",
+   "date": "2026-10-10",
+   "home": "Empoli",
+   "ix": -2.1,
+   "kind": "range",
+   "market": "O15",
+   "mid": 1502899369116,
+   "p": 0.6582,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1523107179392": {
+   "adjusted": false,
+   "away": "Korona Kielce",
+   "competition": "POL",
+   "date": "2026-10-11",
+   "home": "Pogon Szczecin",
+   "ix": 1.5,
+   "market": "1X",
+   "p": 0.7333,
+   "result": null,
+   "utc": "2026-10-11T15:30:00Z"
+  },
+  "1523107179392:r": {
+   "adjusted": false,
+   "away": "Korona Kielce",
+   "competition": "POL",
+   "date": "2026-10-11",
+   "home": "Pogon Szczecin",
+   "ix": 1.5,
+   "kind": "range",
+   "market": "O15",
+   "mid": 1523107179392,
+   "p": 0.6432,
+   "result": null,
+   "utc": "2026-10-11T15:30:00Z"
+  },
+  "1531556550840": {
+   "adjusted": false,
+   "away": "Ried",
+   "competition": "AUT",
+   "date": "2026-10-10",
+   "home": "Tirol",
+   "ix": 0.9,
+   "market": "O15",
+   "p": 0.7925,
+   "result": null,
+   "utc": "2026-10-10T15:00:00Z"
+  },
+  "1531556550840:r": {
+   "adjusted": false,
+   "away": "Ried",
+   "competition": "AUT",
+   "date": "2026-10-10",
+   "home": "Tirol",
+   "ix": 0.9,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1531556550840,
+   "p": 0.679,
+   "result": null,
+   "utc": "2026-10-10T15:00:00Z"
+  },
+  "1534714239863": {
+   "adjusted": false,
+   "away": "Hibernian",
+   "competition": "SC0",
+   "date": "2026-10-10",
+   "home": "Dundee United",
+   "ix": -0.5,
+   "market": "U35",
+   "p": 0.7622,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1534714239863:r": {
+   "adjusted": false,
+   "away": "Hibernian",
+   "competition": "SC0",
+   "date": "2026-10-10",
+   "home": "Dundee United",
+   "ix": -0.5,
+   "kind": "range",
+   "market": "X2",
+   "mid": 1534714239863,
+   "p": 0.67,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1536573681295": {
+   "adjusted": false,
+   "away": "Dresden",
+   "competition": "D2",
+   "date": "2026-10-10",
+   "home": "Osnabruck",
+   "ix": 1.2,
+   "market": "O25",
+   "p": 0.7751,
+   "result": null,
+   "utc": "2026-10-10T11:00:00Z"
+  },
+  "1536573681295:r": {
+   "adjusted": false,
+   "away": "Dresden",
+   "competition": "D2",
+   "date": "2026-10-10",
+   "home": "Osnabruck",
+   "ix": 1.2,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1536573681295,
+   "p": 0.6653,
+   "result": null,
+   "utc": "2026-10-10T11:00:00Z"
+  },
+  "1548722249910": {
+   "adjusted": false,
+   "away": "Castellon",
+   "competition": "SP2",
+   "date": "2026-10-11",
+   "home": "Andorra",
+   "ix": -4.8,
+   "market": "2",
+   "odds": 2.2,
+   "p": 0.6407,
+   "result": null,
+   "utc": "2026-10-11T12:00:00Z"
+  },
+  "1548722249910:r": {
+   "adjusted": false,
+   "away": "Castellon",
+   "competition": "SP2",
+   "date": "2026-10-11",
+   "home": "Andorra",
+   "ix": -4.8,
+   "kind": "range",
+   "market": "2",
+   "mid": 1548722249910,
+   "odds": 2.2,
+   "p": 0.6407,
+   "result": null,
+   "utc": "2026-10-11T12:00:00Z"
+  },
+  "1549959521203": {
+   "adjusted": false,
+   "away": "Zaglebie",
+   "competition": "POL",
+   "date": "2026-10-10",
+   "home": "Cracovia",
+   "ix": -1.4,
+   "market": "X2",
+   "p": 0.7266,
+   "result": null,
+   "utc": "2026-10-10T12:45:00Z"
+  },
+  "1549959521203:r": {
+   "adjusted": false,
+   "away": "Zaglebie",
+   "competition": "POL",
+   "date": "2026-10-10",
+   "home": "Cracovia",
+   "ix": -1.4,
+   "kind": "range",
+   "market": "O15",
+   "mid": 1549959521203,
+   "p": 0.6402,
+   "result": null,
+   "utc": "2026-10-10T12:45:00Z"
+  },
+  "1564972579293": {
+   "adjusted": false,
+   "away": "Sandefjord",
+   "competition": "NOR",
+   "date": "2026-10-10",
+   "home": "Rosenborg",
+   "ix": 5.9,
+   "market": "O25",
+   "p": 0.7275,
+   "result": null,
+   "utc": "2026-10-10T16:00:00Z"
+  },
+  "1564972579293:r": {
+   "adjusted": false,
+   "away": "Sandefjord",
+   "competition": "NOR",
+   "date": "2026-10-10",
+   "home": "Rosenborg",
+   "ix": 5.9,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 1564972579293,
+   "p": 0.5723,
+   "result": null,
+   "utc": "2026-10-10T16:00:00Z"
+  },
+  "1578321526211": {
+   "adjusted": false,
+   "away": "Tromso",
+   "competition": "NOR",
+   "date": "2026-10-11",
+   "home": "Fredrikstad",
+   "ix": -0.1,
+   "market": "O15",
+   "p": 0.8075,
+   "result": null,
+   "utc": "2026-10-11T12:30:00Z"
+  },
+  "1578321526211:r": {
+   "adjusted": false,
+   "away": "Tromso",
+   "competition": "NOR",
+   "date": "2026-10-11",
+   "home": "Fredrikstad",
+   "ix": -0.1,
+   "kind": "range",
+   "market": "U35",
+   "mid": 1578321526211,
+   "p": 0.6508,
+   "result": null,
+   "utc": "2026-10-11T12:30:00Z"
+  },
+  "1581251748421": {
+   "adjusted": false,
+   "away": "Luzern",
+   "competition": "SWZ",
+   "date": "2026-10-10",
+   "home": "Lugano",
+   "ix": 6.0,
+   "market": "1",
+   "odds": 1.57,
+   "p": 0.7176,
+   "result": null,
+   "utc": "2026-10-10T16:00:00Z"
+  },
+  "1581251748421:r": {
+   "adjusted": false,
+   "away": "Luzern",
+   "competition": "SWZ",
+   "date": "2026-10-10",
+   "home": "Lugano",
+   "ix": 6.0,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1581251748421,
+   "p": 0.6592,
+   "result": null,
+   "utc": "2026-10-10T16:00:00Z"
+  },
+  "1584277584540": {
+   "adjusted": false,
+   "away": "A. Lustenau",
+   "competition": "AUT",
+   "date": "2026-10-11",
+   "home": "Hartberg",
+   "ix": 0.7,
+   "market": "1X",
+   "p": 0.6632,
+   "result": null,
+   "utc": "2026-10-11T12:30:00Z"
+  },
+  "1584277584540:r": {
+   "adjusted": false,
+   "away": "A. Lustenau",
+   "competition": "AUT",
+   "date": "2026-10-11",
+   "home": "Hartberg",
+   "ix": 0.7,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1584277584540,
+   "p": 0.6632,
+   "result": null,
+   "utc": "2026-10-11T12:30:00Z"
+  },
+  "1598876597734": {
+   "adjusted": false,
+   "away": "Cottbus",
+   "competition": "D2",
+   "date": "2026-10-10",
+   "home": "Darmstadt",
+   "ix": -1.4,
+   "market": "O25",
+   "p": 0.766,
+   "result": null,
+   "utc": "2026-10-10T11:00:00Z"
+  },
+  "1598876597734:r": {
+   "adjusted": false,
+   "away": "Cottbus",
+   "competition": "D2",
+   "date": "2026-10-10",
+   "home": "Darmstadt",
+   "ix": -1.4,
+   "kind": "range",
+   "market": "X2",
+   "mid": 1598876597734,
+   "p": 0.6786,
+   "result": null,
+   "utc": "2026-10-10T11:00:00Z"
+  },
+  "1611398878049": {
+   "adjusted": false,
+   "away": "Pisa",
+   "competition": "I2",
+   "date": "2026-10-10",
+   "home": "Vicenza",
+   "ix": -1.2,
+   "market": "O25",
+   "p": 0.7262,
+   "result": null,
+   "utc": "2026-10-10T15:15:00Z"
+  },
+  "1611398878049:r": {
+   "adjusted": false,
+   "away": "Pisa",
+   "competition": "I2",
+   "date": "2026-10-10",
+   "home": "Vicenza",
+   "ix": -1.2,
+   "kind": "range",
+   "market": "X2",
+   "mid": 1611398878049,
+   "p": 0.668,
+   "result": null,
+   "utc": "2026-10-10T15:15:00Z"
+  },
+  "1622672228731": {
+   "adjusted": false,
+   "away": "Lech Poznan",
+   "competition": "POL",
+   "date": "2026-10-10",
+   "home": "Slask Wroclaw",
+   "ix": -4.2,
+   "market": "X2",
+   "p": 0.8173,
+   "result": null,
+   "utc": "2026-10-10T15:30:00Z"
+  },
+  "1622672228731:r": {
+   "adjusted": false,
+   "away": "Lech Poznan",
+   "competition": "POL",
+   "date": "2026-10-10",
+   "home": "Slask Wroclaw",
+   "ix": -4.2,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1622672228731,
+   "p": 0.6168,
+   "result": null,
+   "utc": "2026-10-10T15:30:00Z"
+  },
+  "1625238876038": {
+   "adjusted": false,
+   "away": "Granada",
+   "competition": "SP2",
+   "date": "2026-10-12",
+   "home": "Burgos",
+   "ix": 4.3,
+   "market": "O15",
+   "p": 0.7852,
+   "result": null,
+   "utc": "2026-10-12T14:15:00Z"
+  },
+  "1625238876038:r": {
+   "adjusted": false,
+   "away": "Granada",
+   "competition": "SP2",
+   "date": "2026-10-12",
+   "home": "Burgos",
+   "ix": 4.3,
+   "kind": "range",
+   "market": "U35",
+   "mid": 1625238876038,
+   "p": 0.6813,
+   "result": null,
+   "utc": "2026-10-12T14:15:00Z"
+  },
+  "1632597488530": {
+   "adjusted": false,
+   "away": "Sp Gijon",
+   "competition": "SP2",
+   "date": "2026-10-11",
+   "home": "Cadiz",
+   "ix": -1.2,
+   "market": "U35",
+   "p": 0.784,
+   "result": null,
+   "utc": "2026-10-11T19:00:00Z"
+  },
+  "1632597488530:r": {
+   "adjusted": false,
+   "away": "Sp Gijon",
+   "competition": "SP2",
+   "date": "2026-10-11",
+   "home": "Cadiz",
+   "ix": -1.2,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1632597488530,
+   "p": 0.5869,
+   "result": null,
+   "utc": "2026-10-11T19:00:00Z"
+  },
+  "1640060268489": {
+   "adjusted": false,
+   "away": "Dundee",
+   "competition": "SC0",
+   "date": "2026-10-10",
+   "home": "Falkirk",
+   "ix": 0.2,
+   "market": "O15",
+   "p": 0.7835,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1640060268489:r": {
+   "adjusted": false,
+   "away": "Dundee",
+   "competition": "SC0",
+   "date": "2026-10-10",
+   "home": "Falkirk",
+   "ix": 0.2,
+   "kind": "range",
+   "market": "U35",
+   "mid": 1640060268489,
+   "p": 0.6851,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1674409822126": {
+   "adjusted": false,
+   "away": "Goztep",
+   "competition": "T1",
+   "date": "2026-10-12",
+   "home": "Eyupspor",
+   "ix": -0.9,
+   "market": "O15",
+   "p": 0.8098,
+   "result": null,
+   "utc": "2026-10-12T17:00:00Z"
+  },
+  "1674409822126:r": {
+   "adjusted": false,
+   "away": "Goztep",
+   "competition": "T1",
+   "date": "2026-10-12",
+   "home": "Eyupspor",
+   "ix": -0.9,
+   "kind": "range",
+   "market": "X2",
+   "mid": 1674409822126,
+   "p": 0.6734,
+   "result": null,
+   "utc": "2026-10-12T17:00:00Z"
+  },
+  "1675360954694": {
+   "adjusted": false,
+   "away": "Gornik Zabrze",
+   "competition": "POL",
+   "date": "2026-10-10",
+   "home": "Jagiellonia",
+   "ix": -3.4,
+   "market": "X2",
+   "p": 0.8044,
+   "result": null,
+   "utc": "2026-10-10T18:15:00Z"
+  },
+  "1675360954694:r": {
+   "adjusted": false,
+   "away": "Gornik Zabrze",
+   "competition": "POL",
+   "date": "2026-10-10",
+   "home": "Jagiellonia",
+   "ix": -3.4,
+   "kind": "range",
+   "market": "O15",
+   "mid": 1675360954694,
+   "p": 0.6519,
+   "result": null,
+   "utc": "2026-10-10T18:15:00Z"
+  },
+  "1678099676711": {
+   "adjusted": false,
+   "away": "St Mirren",
+   "competition": "SC0",
+   "date": "2026-10-10",
+   "home": "Hearts",
+   "ix": 5.7,
+   "market": "U35",
+   "p": 0.7798,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1678099676711:r": {
+   "adjusted": false,
+   "away": "St Mirren",
+   "competition": "SC0",
+   "date": "2026-10-10",
+   "home": "Hearts",
+   "ix": 5.7,
+   "kind": "range",
+   "market": "1",
+   "mid": 1678099676711,
+   "odds": 1.45,
+   "p": 0.6743,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1680800142572": {
+   "adjusted": false,
+   "away": "Wigan",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Stevenage",
+   "ix": 4.0,
+   "market": "U25",
+   "p": 0.6431,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1680800142572:r": {
+   "adjusted": false,
+   "away": "Wigan",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Stevenage",
+   "ix": 4.0,
+   "kind": "range",
+   "market": "U25",
+   "mid": 1680800142572,
+   "p": 0.6431,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1681867220070": {
+   "adjusted": false,
+   "away": "Fenerbahce",
+   "competition": "T1",
+   "date": "2026-10-10",
+   "home": "Rizespor",
+   "ix": -3.9,
+   "market": "X2",
+   "p": 0.8118,
+   "result": null,
+   "utc": "2026-10-10T16:00:00Z"
+  },
+  "1681867220070:r": {
+   "adjusted": false,
+   "away": "Fenerbahce",
+   "competition": "T1",
+   "date": "2026-10-10",
+   "home": "Rizespor",
+   "ix": -3.9,
+   "kind": "range",
+   "market": "2",
+   "mid": 1681867220070,
+   "odds": 1.67,
+   "p": 0.5756,
+   "result": null,
+   "utc": "2026-10-10T16:00:00Z"
+  },
+  "1701952429028": {
+   "adjusted": false,
+   "away": "Salzburg",
+   "competition": "AUT",
+   "date": "2026-10-10",
+   "home": "Grazer AK",
+   "ix": -2.5,
+   "market": "X2",
+   "p": 0.7603,
+   "result": null,
+   "utc": "2026-10-10T15:00:00Z"
+  },
+  "1701952429028:r": {
+   "adjusted": false,
+   "away": "Salzburg",
+   "competition": "AUT",
+   "date": "2026-10-10",
+   "home": "Grazer AK",
+   "ix": -2.5,
+   "kind": "range",
+   "market": "U25",
+   "mid": 1701952429028,
+   "p": 0.5441,
+   "result": null,
+   "utc": "2026-10-10T15:00:00Z"
+  },
+  "1721814902418": {
+   "adjusted": false,
+   "away": "Metz",
+   "competition": "F2",
+   "date": "2026-10-12",
+   "home": "Dijon",
+   "ix": 0.4,
+   "market": "U35",
+   "p": 0.7855,
+   "result": null,
+   "utc": "2026-10-12T18:45:00Z"
+  },
+  "1721814902418:r": {
+   "adjusted": false,
+   "away": "Metz",
+   "competition": "F2",
+   "date": "2026-10-12",
+   "home": "Dijon",
+   "ix": 0.4,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1721814902418,
+   "p": 0.6699,
+   "result": null,
+   "utc": "2026-10-12T18:45:00Z"
+  },
+  "1736522468204": {
+   "adjusted": false,
+   "away": "Molde",
+   "competition": "NOR",
+   "date": "2026-10-11",
+   "home": "Lillestrom",
+   "ix": -3.0,
+   "market": "O25",
+   "p": 0.7593,
+   "result": null,
+   "utc": "2026-10-11T17:15:00Z"
+  },
+  "1736522468204:r": {
+   "adjusted": false,
+   "away": "Molde",
+   "competition": "NOR",
+   "date": "2026-10-11",
+   "home": "Lillestrom",
+   "ix": -3.0,
+   "kind": "range",
+   "market": "2",
+   "mid": 1736522468204,
+   "odds": 2.06,
+   "p": 0.5547,
+   "result": null,
+   "utc": "2026-10-11T17:15:00Z"
+  },
+  "1772214033040": {
+   "adjusted": false,
+   "away": "Sturm Graz",
+   "competition": "AUT",
+   "date": "2026-10-10",
+   "home": "Austria Vienna",
+   "ix": -1.9,
+   "market": "O15",
+   "p": 0.753,
+   "result": null,
+   "utc": "2026-10-10T17:30:00Z"
+  },
+  "1772214033040:r": {
+   "adjusted": false,
+   "away": "Sturm Graz",
+   "competition": "AUT",
+   "date": "2026-10-10",
+   "home": "Austria Vienna",
+   "ix": -1.9,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1772214033040,
+   "p": 0.5427,
+   "result": null,
+   "utc": "2026-10-10T17:30:00Z"
+  },
+  "1780947463275": {
+   "adjusted": false,
+   "away": "Sheffield Weds",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Huddersfield",
+   "ix": -0.2,
+   "market": "O15",
+   "p": 0.791,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1780947463275:r": {
+   "adjusted": false,
+   "away": "Sheffield Weds",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Huddersfield",
+   "ix": -0.2,
+   "kind": "range",
+   "market": "U35",
+   "mid": 1780947463275,
+   "p": 0.6747,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1786607007398": {
+   "adjusted": false,
+   "away": "Sabadell",
+   "competition": "SP2",
+   "date": "2026-10-10",
+   "home": "Ceuta",
+   "ix": -0.1,
+   "market": "U25",
+   "p": 0.7989,
+   "result": null,
+   "utc": "2026-10-10T14:15:00Z"
+  },
+  "1786607007398:r": {
+   "adjusted": false,
+   "away": "Sabadell",
+   "competition": "SP2",
+   "date": "2026-10-10",
+   "home": "Ceuta",
+   "ix": -0.1,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1786607007398,
+   "p": 0.6856,
+   "result": null,
+   "utc": "2026-10-10T14:15:00Z"
+  },
+  "1787403398818": {
+   "adjusted": false,
+   "away": "Erzurumspor",
+   "competition": "T1",
+   "date": "2026-10-10",
+   "home": "Alanyaspor",
+   "ix": 5.5,
+   "market": "O15",
+   "p": 0.7577,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1787403398818:r": {
+   "adjusted": false,
+   "away": "Erzurumspor",
+   "competition": "T1",
+   "date": "2026-10-10",
+   "home": "Alanyaspor",
+   "ix": 5.5,
+   "kind": "range",
+   "market": "1",
+   "mid": 1787403398818,
+   "odds": 1.96,
+   "p": 0.6866,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1790833014709": {
+   "adjusted": false,
+   "away": "Kilmarnock",
+   "competition": "SC0",
+   "date": "2026-10-10",
+   "home": "Rangers",
+   "ix": 5.4,
+   "market": "O15",
+   "p": 0.8168,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1790833014709:r": {
+   "adjusted": false,
+   "away": "Kilmarnock",
+   "competition": "SC0",
+   "date": "2026-10-10",
+   "home": "Rangers",
+   "ix": 5.4,
+   "kind": "range",
+   "market": "1",
+   "mid": 1790833014709,
+   "odds": 1.14,
+   "p": 0.6668,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1800024949893": {
+   "adjusted": false,
+   "away": "Djurgarden",
+   "competition": "SWE",
+   "date": "2026-10-11",
+   "home": "Hammarby",
+   "ix": 2.1,
+   "market": "1X",
+   "p": 0.7619,
+   "result": null,
+   "utc": "2026-10-11T12:00:00Z"
+  },
+  "1800024949893:r": {
+   "adjusted": false,
+   "away": "Djurgarden",
+   "competition": "SWE",
+   "date": "2026-10-11",
+   "home": "Hammarby",
+   "ix": 2.1,
+   "kind": "range",
+   "market": "U25",
+   "mid": 1800024949893,
+   "p": 0.6546,
+   "result": null,
+   "utc": "2026-10-11T12:00:00Z"
+  },
+  "1821224406725": {
+   "adjusted": false,
+   "away": "St Johnstone",
+   "competition": "SC0",
+   "date": "2026-10-11",
+   "home": "Aberdeen",
+   "ix": 1.4,
+   "market": "1X",
+   "p": 0.7324,
+   "result": null,
+   "utc": "2026-10-11T13:00:00Z"
+  },
+  "1821224406725:r": {
+   "adjusted": false,
+   "away": "St Johnstone",
+   "competition": "SC0",
+   "date": "2026-10-11",
+   "home": "Aberdeen",
+   "ix": 1.4,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 1821224406725,
+   "p": 0.6153,
+   "result": null,
+   "utc": "2026-10-11T13:00:00Z"
+  },
+  "1831944280200": {
+   "adjusted": false,
+   "away": "Trabzonspor",
+   "competition": "T1",
+   "date": "2026-10-10",
+   "home": "Samsunspor",
+   "ix": -3.8,
+   "market": "X2",
+   "p": 0.7936,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1831944280200:r": {
+   "adjusted": false,
+   "away": "Trabzonspor",
+   "competition": "T1",
+   "date": "2026-10-10",
+   "home": "Samsunspor",
+   "ix": -3.8,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1831944280200,
+   "p": 0.6412,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
+  "1884060128855": {
+   "adjusted": false,
+   "away": "Kortrijk",
+   "competition": "B1",
+   "date": "2026-10-10",
+   "home": "Genk",
+   "ix": 7.4,
+   "market": "1",
+   "odds": 1.42,
+   "p": 0.8176,
+   "result": null,
+   "utc": "2026-10-10T18:45:00Z"
+  },
+  "1884060128855:r": {
+   "adjusted": false,
+   "away": "Kortrijk",
+   "competition": "B1",
+   "date": "2026-10-10",
+   "home": "Genk",
+   "ix": 7.4,
+   "kind": "range",
+   "market": "U35",
+   "mid": 1884060128855,
+   "p": 0.6724,
+   "result": null,
+   "utc": "2026-10-10T18:45:00Z"
+  },
+  "1886831612792": {
+   "adjusted": false,
+   "away": "Leganes",
+   "competition": "SP2",
+   "date": "2026-10-11",
+   "home": "Almeria",
+   "ix": 7.6,
+   "market": "NOBTTS",
+   "p": 0.6572,
+   "result": null,
+   "utc": "2026-10-11T14:15:00Z"
+  },
+  "1886831612792:r": {
+   "adjusted": false,
+   "away": "Leganes",
+   "competition": "SP2",
+   "date": "2026-10-11",
+   "home": "Almeria",
+   "ix": 7.6,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 1886831612792,
+   "p": 0.6572,
+   "result": null,
+   "utc": "2026-10-11T14:15:00Z"
+  },
+  "1892672589511": {
+   "adjusted": false,
+   "away": "Corum",
+   "competition": "T1",
+   "date": "2026-10-11",
+   "home": "Gaziantep",
+   "ix": -2.0,
+   "market": "O25",
+   "p": 0.7383,
+   "result": null,
+   "utc": "2026-10-11T13:00:00Z"
+  },
+  "1892672589511:r": {
+   "adjusted": false,
+   "away": "Corum",
+   "competition": "T1",
+   "date": "2026-10-11",
+   "home": "Gaziantep",
+   "ix": -2.0,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1892672589511,
+   "p": 0.508,
+   "result": null,
+   "utc": "2026-10-11T13:00:00Z"
+  },
+  "1898986795918": {
+   "adjusted": false,
+   "away": "Leyton Orient",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Bradford",
+   "ix": 1.4,
+   "market": "1X",
+   "p": 0.742,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1898986795918:r": {
+   "adjusted": false,
+   "away": "Leyton Orient",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Bradford",
+   "ix": 1.4,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 1898986795918,
+   "p": 0.6347,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "1912786737042": {
+   "adjusted": false,
+   "away": "Oxford",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Notts County",
+   "ix": -3.0,
+   "market": "O15",
+   "p": 0.7726,
+   "result": null,
+   "utc": "2026-10-10T11:30:00Z"
+  },
+  "1912786737042:r": {
+   "adjusted": false,
+   "away": "Oxford",
+   "competition": "E2",
+   "date": "2026-10-10",
+   "home": "Notts County",
+   "ix": -3.0,
+   "kind": "range",
+   "market": "2",
+   "mid": 1912786737042,
+   "odds": 2.64,
+   "p": 0.5315,
+   "result": null,
+   "utc": "2026-10-10T11:30:00Z"
+  },
+  "1928920722271": {
+   "adjusted": false,
+   "away": "Red Star",
+   "competition": "F2",
+   "date": "2026-10-10",
+   "home": "Clermont",
+   "ix": -2.2,
+   "market": "U25",
+   "p": 0.7921,
+   "result": null,
+   "utc": "2026-10-10T12:00:00Z"
+  },
+  "1928920722271:r": {
+   "adjusted": false,
+   "away": "Red Star",
+   "competition": "F2",
+   "date": "2026-10-10",
+   "home": "Clermont",
+   "ix": -2.2,
+   "kind": "range",
+   "market": "1X",
+   "mid": 1928920722271,
+   "p": 0.5737,
+   "result": null,
+   "utc": "2026-10-10T12:00:00Z"
+  },
+  "1929176553235": {
+   "adjusted": false,
+   "away": "Young Boys",
+   "competition": "SWZ",
+   "date": "2026-10-11",
+   "home": "Grasshoppers",
+   "ix": -6.6,
+   "market": "2",
+   "odds": 1.52,
+   "p": 0.7775,
+   "result": null,
+   "utc": "2026-10-11T12:00:00Z"
+  },
+  "1938585260943": {
+   "adjusted": false,
+   "away": "Club Brugge",
+   "competition": "B1",
+   "date": "2026-10-10",
+   "home": "RAAL La Louviere",
+   "ix": -5.8,
+   "market": "2",
+   "odds": 1.38,
+   "p": 0.699,
+   "result": null,
+   "utc": "2026-10-10T16:15:00Z"
+  },
+  "1938585260943:r": {
+   "adjusted": false,
+   "away": "Club Brugge",
+   "competition": "B1",
+   "date": "2026-10-10",
+   "home": "RAAL La Louviere",
+   "ix": -5.8,
+   "kind": "range",
+   "market": "O25",
+   "mid": 1938585260943,
+   "p": 0.637,
+   "result": null,
+   "utc": "2026-10-10T16:15:00Z"
+  },
+  "1987253372156": {
+   "adjusted": false,
+   "away": "Halmstad",
+   "competition": "SWE",
+   "date": "2026-10-12",
+   "home": "Elfsborg",
+   "ix": 6.3,
+   "market": "U35",
+   "p": 0.7752,
+   "result": null,
+   "utc": "2026-10-12T17:00:00Z"
+  },
+  "1987253372156:r": {
+   "adjusted": false,
+   "away": "Halmstad",
+   "competition": "SWE",
+   "date": "2026-10-12",
+   "home": "Elfsborg",
+   "ix": 6.3,
+   "kind": "range",
+   "market": "U25",
+   "mid": 1987253372156,
+   "p": 0.5653,
+   "result": null,
+   "utc": "2026-10-12T17:00:00Z"
+  },
   "555020": {
    "adjusted": false,
    "away": "Mineiro",
@@ -541,6 +3875,20 @@
    "result": null,
    "utc": "2026-10-11T19:00:00Z"
   },
+  "555030:r": {
+   "adjusted": false,
+   "away": "Santos",
+   "competition": "BSA",
+   "date": "2026-10-11",
+   "home": "Mineiro",
+   "ix": 0.8,
+   "kind": "range",
+   "market": "U35",
+   "mid": 555030,
+   "p": 0.6818,
+   "result": null,
+   "utc": "2026-10-11T19:00:00Z"
+  },
   "555031": {
    "adjusted": false,
    "away": "Mirassol",
@@ -550,6 +3898,20 @@
    "ix": 3.1,
    "market": "1X",
    "p": 0.789,
+   "result": null,
+   "utc": "2026-10-11T22:30:00Z"
+  },
+  "555031:r": {
+   "adjusted": false,
+   "away": "Mirassol",
+   "competition": "BSA",
+   "date": "2026-10-12",
+   "home": "Bahia",
+   "ix": 3.1,
+   "kind": "range",
+   "market": "U25",
+   "mid": 555031,
+   "p": 0.5435,
    "result": null,
    "utc": "2026-10-11T22:30:00Z"
   },
@@ -565,6 +3927,20 @@
    "result": null,
    "utc": "2026-10-12T19:00:00Z"
   },
+  "555034:r": {
+   "adjusted": false,
+   "away": "Botafogo",
+   "competition": "BSA",
+   "date": "2026-10-12",
+   "home": "Coritiba",
+   "ix": 1.8,
+   "kind": "range",
+   "market": "U35",
+   "mid": 555034,
+   "p": 0.658,
+   "result": null,
+   "utc": "2026-10-12T19:00:00Z"
+  },
   "555035": {
    "adjusted": false,
    "away": "Fluminense",
@@ -573,6 +3949,20 @@
    "home": "Flamengo",
    "ix": 4.5,
    "market": "1",
+   "p": 0.6232,
+   "result": null,
+   "utc": "2026-10-11T20:30:00Z"
+  },
+  "555035:r": {
+   "adjusted": false,
+   "away": "Fluminense",
+   "competition": "BSA",
+   "date": "2026-10-11",
+   "home": "Flamengo",
+   "ix": 4.5,
+   "kind": "range",
+   "market": "1",
+   "mid": 555035,
    "p": 0.6232,
    "result": null,
    "utc": "2026-10-11T20:30:00Z"
@@ -589,6 +3979,20 @@
    "result": null,
    "utc": "2026-10-11T20:30:00Z"
   },
+  "555036:r": {
+   "adjusted": false,
+   "away": "Internacional",
+   "competition": "BSA",
+   "date": "2026-10-11",
+   "home": "Grêmio",
+   "ix": 1.2,
+   "kind": "range",
+   "market": "O15",
+   "mid": 555036,
+   "p": 0.6674,
+   "result": null,
+   "utc": "2026-10-11T20:30:00Z"
+  },
   "555037": {
    "adjusted": false,
    "away": "Corinthians",
@@ -598,6 +4002,20 @@
    "ix": 5.7,
    "market": "U35",
    "p": 0.8157,
+   "result": null,
+   "utc": "2026-10-11T20:30:00Z"
+  },
+  "555037:r": {
+   "adjusted": false,
+   "away": "Corinthians",
+   "competition": "BSA",
+   "date": "2026-10-11",
+   "home": "Palmeiras",
+   "ix": 5.7,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 555037,
+   "p": 0.6758,
    "result": null,
    "utc": "2026-10-11T20:30:00Z"
   },
@@ -613,6 +4031,20 @@
    "result": null,
    "utc": "2026-10-11T00:00:00Z"
   },
+  "555038:r": {
+   "adjusted": false,
+   "away": "Vitória",
+   "competition": "BSA",
+   "date": "2026-10-11",
+   "home": "São Paulo",
+   "ix": 3.3,
+   "kind": "range",
+   "market": "U25",
+   "mid": 555038,
+   "p": 0.5823,
+   "result": null,
+   "utc": "2026-10-11T00:00:00Z"
+  },
   "555039": {
    "adjusted": false,
    "away": "Clube do Remo",
@@ -621,7 +4053,21 @@
    "home": "Vasco da Gama",
    "ix": 5.2,
    "market": "1",
-   "p": 0.6718,
+   "p": 0.6717,
+   "result": null,
+   "utc": "2026-10-10T21:00:00Z"
+  },
+  "555039:r": {
+   "adjusted": false,
+   "away": "Clube do Remo",
+   "competition": "BSA",
+   "date": "2026-10-10",
+   "home": "Vasco da Gama",
+   "ix": 5.2,
+   "kind": "range",
+   "market": "1",
+   "mid": 555039,
+   "p": 0.6717,
    "result": null,
    "utc": "2026-10-10T21:00:00Z"
   },
@@ -637,6 +4083,20 @@
    "result": null,
    "utc": "2026-10-12T16:30:00Z"
   },
+  "558579:r": {
+   "adjusted": false,
+   "away": "Venezia FC",
+   "competition": "SA",
+   "date": "2026-10-12",
+   "home": "Atalanta",
+   "ix": 4.4,
+   "kind": "range",
+   "market": "U35",
+   "mid": 558579,
+   "p": 0.6682,
+   "result": null,
+   "utc": "2026-10-12T16:30:00Z"
+  },
   "558580": {
    "adjusted": false,
    "away": "Milan",
@@ -646,6 +4106,20 @@
    "ix": -0.7,
    "market": "BTTS",
    "p": 0.6933,
+   "result": null,
+   "utc": "2026-10-11T16:00:00Z"
+  },
+  "558580:r": {
+   "adjusted": false,
+   "away": "Milan",
+   "competition": "SA",
+   "date": "2026-10-11",
+   "home": "Sassuolo",
+   "ix": -0.7,
+   "kind": "range",
+   "market": "O25",
+   "mid": 558580,
+   "p": 0.687,
    "result": null,
    "utc": "2026-10-11T16:00:00Z"
   },
@@ -661,6 +4135,20 @@
    "result": null,
    "utc": "2026-10-11T13:00:00Z"
   },
+  "558581:r": {
+   "adjusted": false,
+   "away": "Bologna",
+   "competition": "SA",
+   "date": "2026-10-11",
+   "home": "Lecce",
+   "ix": 1.5,
+   "kind": "range",
+   "market": "U25",
+   "mid": 558581,
+   "p": 0.6676,
+   "result": null,
+   "utc": "2026-10-11T13:00:00Z"
+  },
   "558582": {
    "adjusted": false,
    "away": "Parma",
@@ -670,6 +4158,20 @@
    "ix": 7.1,
    "market": "1",
    "p": 0.8157,
+   "result": null,
+   "utc": "2026-10-10T16:00:00Z"
+  },
+  "558582:r": {
+   "adjusted": false,
+   "away": "Parma",
+   "competition": "SA",
+   "date": "2026-10-10",
+   "home": "Inter",
+   "ix": 7.1,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 558582,
+   "p": 0.6091,
    "result": null,
    "utc": "2026-10-10T16:00:00Z"
   },
@@ -685,6 +4187,20 @@
    "result": null,
    "utc": "2026-10-11T13:00:00Z"
   },
+  "558583:r": {
+   "adjusted": false,
+   "away": "Monza",
+   "competition": "SA",
+   "date": "2026-10-11",
+   "home": "Lazio",
+   "ix": 5.6,
+   "kind": "range",
+   "market": "O25",
+   "mid": 558583,
+   "p": 0.6883,
+   "result": null,
+   "utc": "2026-10-11T13:00:00Z"
+  },
   "558584": {
    "adjusted": false,
    "away": "Juventus",
@@ -694,6 +4210,20 @@
    "ix": 1.0,
    "market": "U25",
    "p": 0.7828,
+   "result": null,
+   "utc": "2026-10-11T18:45:00Z"
+  },
+  "558584:r": {
+   "adjusted": false,
+   "away": "Juventus",
+   "competition": "SA",
+   "date": "2026-10-11",
+   "home": "Cagliari",
+   "ix": 1.0,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 558584,
+   "p": 0.6882,
    "result": null,
    "utc": "2026-10-11T18:45:00Z"
   },
@@ -709,6 +4239,20 @@
    "result": null,
    "utc": "2026-10-11T10:30:00Z"
   },
+  "558585:r": {
+   "adjusted": false,
+   "away": "Roma",
+   "competition": "SA",
+   "date": "2026-10-11",
+   "home": "Como 1907",
+   "ix": -4.0,
+   "kind": "range",
+   "market": "U35",
+   "mid": 558585,
+   "p": 0.6772,
+   "result": null,
+   "utc": "2026-10-11T10:30:00Z"
+  },
   "558586": {
    "adjusted": false,
    "away": "Frosinone",
@@ -718,6 +4262,20 @@
    "ix": -2.4,
    "market": "U35",
    "p": 0.8187,
+   "result": null,
+   "utc": "2026-10-10T18:45:00Z"
+  },
+  "558586:r": {
+   "adjusted": false,
+   "away": "Frosinone",
+   "competition": "SA",
+   "date": "2026-10-10",
+   "home": "Napoli",
+   "ix": -2.4,
+   "kind": "range",
+   "market": "O15",
+   "mid": 558586,
+   "p": 0.6557,
    "result": null,
    "utc": "2026-10-10T18:45:00Z"
   },
@@ -733,6 +4291,20 @@
    "result": null,
    "utc": "2026-10-12T18:45:00Z"
   },
+  "558587:r": {
+   "adjusted": false,
+   "away": "Udinese",
+   "competition": "SA",
+   "date": "2026-10-12",
+   "home": "Torino",
+   "ix": -1.7,
+   "kind": "range",
+   "market": "X2",
+   "mid": 558587,
+   "p": 0.6876,
+   "result": null,
+   "utc": "2026-10-12T18:45:00Z"
+  },
   "558588": {
    "adjusted": false,
    "away": "Fiorentina",
@@ -745,6 +4317,20 @@
    "result": null,
    "utc": "2026-10-10T13:00:00Z"
   },
+  "558588:r": {
+   "adjusted": false,
+   "away": "Fiorentina",
+   "competition": "SA",
+   "date": "2026-10-10",
+   "home": "Genoa",
+   "ix": -2.7,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 558588,
+   "p": 0.6592,
+   "result": null,
+   "utc": "2026-10-10T13:00:00Z"
+  },
   "558873": {
    "adjusted": false,
    "away": "Groningen",
@@ -753,6 +4339,20 @@
    "home": "Excelsior",
    "ix": 0.9,
    "market": "BTTS",
+   "p": 0.6887,
+   "result": null,
+   "utc": "2026-10-11T14:45:00Z"
+  },
+  "558873:r": {
+   "adjusted": false,
+   "away": "Groningen",
+   "competition": "DED",
+   "date": "2026-10-11",
+   "home": "Excelsior",
+   "ix": 0.9,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 558873,
    "p": 0.6887,
    "result": null,
    "utc": "2026-10-11T14:45:00Z"
@@ -769,6 +4369,20 @@
    "result": null,
    "utc": "2026-10-11T12:30:00Z"
   },
+  "558874:r": {
+   "adjusted": false,
+   "away": "Cambuur",
+   "competition": "DED",
+   "date": "2026-10-11",
+   "home": "Zwolle",
+   "ix": -4.6,
+   "kind": "range",
+   "market": "2",
+   "mid": 558874,
+   "p": 0.6592,
+   "result": null,
+   "utc": "2026-10-11T12:30:00Z"
+  },
   "558875": {
    "adjusted": false,
    "away": "Den Haag",
@@ -778,6 +4392,20 @@
    "ix": 0.6,
    "market": "U35",
    "p": 0.7745,
+   "result": null,
+   "utc": "2026-10-11T12:30:00Z"
+  },
+  "558875:r": {
+   "adjusted": false,
+   "away": "Den Haag",
+   "competition": "DED",
+   "date": "2026-10-11",
+   "home": "Telstar",
+   "ix": 0.6,
+   "kind": "range",
+   "market": "1X",
+   "mid": 558875,
+   "p": 0.6766,
    "result": null,
    "utc": "2026-10-11T12:30:00Z"
   },
@@ -793,6 +4421,20 @@
    "result": null,
    "utc": "2026-10-11T10:15:00Z"
   },
+  "558876:r": {
+   "adjusted": false,
+   "away": "Willem II",
+   "competition": "DED",
+   "date": "2026-10-11",
+   "home": "Utrecht",
+   "ix": 2.4,
+   "kind": "range",
+   "market": "1",
+   "mid": 558876,
+   "p": 0.5235,
+   "result": null,
+   "utc": "2026-10-11T10:15:00Z"
+  },
   "558877": {
    "adjusted": false,
    "away": "Twente",
@@ -802,6 +4444,20 @@
    "ix": -4.4,
    "market": "X2",
    "p": 0.797,
+   "result": null,
+   "utc": "2026-10-10T18:00:00Z"
+  },
+  "558877:r": {
+   "adjusted": false,
+   "away": "Twente",
+   "competition": "DED",
+   "date": "2026-10-10",
+   "home": "Sittard",
+   "ix": -4.4,
+   "kind": "range",
+   "market": "2",
+   "mid": 558877,
+   "p": 0.644,
    "result": null,
    "utc": "2026-10-10T18:00:00Z"
   },
@@ -817,6 +4473,20 @@
    "result": null,
    "utc": "2026-10-10T19:00:00Z"
   },
+  "558878:r": {
+   "adjusted": true,
+   "away": "NEC",
+   "competition": "DED",
+   "date": "2026-10-10",
+   "home": "Ajax",
+   "ix": 3.4,
+   "kind": "range",
+   "market": "1",
+   "mid": 558878,
+   "p": 0.5753,
+   "result": null,
+   "utc": "2026-10-10T19:00:00Z"
+  },
   "558879": {
    "adjusted": true,
    "away": "AZ",
@@ -829,6 +4499,20 @@
    "result": null,
    "utc": "2026-10-10T16:45:00Z"
   },
+  "558879:r": {
+   "adjusted": true,
+   "away": "AZ",
+   "competition": "DED",
+   "date": "2026-10-10",
+   "home": "Feyenoord",
+   "ix": 0.7,
+   "kind": "range",
+   "market": "O25",
+   "mid": 558879,
+   "p": 0.6895,
+   "result": null,
+   "utc": "2026-10-10T16:45:00Z"
+  },
   "558880": {
    "adjusted": false,
    "away": "Sparta",
@@ -838,6 +4522,20 @@
    "ix": 5.6,
    "market": "O25",
    "p": 0.8009,
+   "result": null,
+   "utc": "2026-10-10T14:30:00Z"
+  },
+  "558880:r": {
+   "adjusted": false,
+   "away": "Sparta",
+   "competition": "DED",
+   "date": "2026-10-10",
+   "home": "Go Ahead",
+   "ix": 5.6,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 558880,
+   "p": 0.6594,
    "result": null,
    "utc": "2026-10-10T14:30:00Z"
   },
@@ -865,6 +4563,20 @@
    "result": null,
    "utc": "2026-10-10T18:45:00Z"
   },
+  "559666:r": {
+   "adjusted": false,
+   "away": "Angers SCO",
+   "competition": "FL1",
+   "date": "2026-10-10",
+   "home": "Brest",
+   "ix": -2.0,
+   "kind": "range",
+   "market": "O15",
+   "mid": 559666,
+   "p": 0.6554,
+   "result": null,
+   "utc": "2026-10-10T18:45:00Z"
+  },
   "559667": {
    "adjusted": false,
    "away": "Auxerre",
@@ -886,6 +4598,20 @@
    "ix": -2.8,
    "market": "X2",
    "p": 0.7654,
+   "result": null,
+   "utc": "2026-10-10T18:45:00Z"
+  },
+  "559668:r": {
+   "adjusted": false,
+   "away": "Paris FC",
+   "competition": "FL1",
+   "date": "2026-10-10",
+   "home": "Lorient",
+   "ix": -2.8,
+   "kind": "range",
+   "market": "2",
+   "mid": 559668,
+   "p": 0.5134,
    "result": null,
    "utc": "2026-10-10T18:45:00Z"
   },
@@ -913,6 +4639,20 @@
    "result": null,
    "utc": "2026-10-11T13:00:00Z"
   },
+  "559670:r": {
+   "adjusted": false,
+   "away": "Strasbourg",
+   "competition": "FL1",
+   "date": "2026-10-11",
+   "home": "Nice",
+   "ix": 0.4,
+   "kind": "range",
+   "market": "1X",
+   "mid": 559670,
+   "p": 0.6522,
+   "result": null,
+   "utc": "2026-10-11T13:00:00Z"
+  },
   "559671": {
    "adjusted": false,
    "away": "Marseille",
@@ -922,6 +4662,20 @@
    "ix": -0.2,
    "market": "U35",
    "p": 0.7463,
+   "result": null,
+   "utc": "2026-10-11T18:45:00Z"
+  },
+  "559671:r": {
+   "adjusted": false,
+   "away": "Marseille",
+   "competition": "FL1",
+   "date": "2026-10-11",
+   "home": "Troyes",
+   "ix": -0.2,
+   "kind": "range",
+   "market": "X2",
+   "mid": 559671,
+   "p": 0.6506,
    "result": null,
    "utc": "2026-10-11T18:45:00Z"
   },
@@ -937,6 +4691,20 @@
    "result": null,
    "utc": "2026-10-10T18:45:00Z"
   },
+  "559672:r": {
+   "adjusted": false,
+   "away": "Le Mans",
+   "competition": "FL1",
+   "date": "2026-10-10",
+   "home": "PSG",
+   "ix": 1.6,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 559672,
+   "p": 0.6745,
+   "result": null,
+   "utc": "2026-10-10T18:45:00Z"
+  },
   "559673": {
    "adjusted": false,
    "away": "Toulouse",
@@ -945,6 +4713,20 @@
    "home": "Monaco",
    "ix": 5.4,
    "market": "1",
+   "p": 0.683,
+   "result": null,
+   "utc": "2026-10-10T18:45:00Z"
+  },
+  "559673:r": {
+   "adjusted": false,
+   "away": "Toulouse",
+   "competition": "FL1",
+   "date": "2026-10-10",
+   "home": "Monaco",
+   "ix": 5.4,
+   "kind": "range",
+   "market": "1",
+   "mid": 559673,
    "p": 0.683,
    "result": null,
    "utc": "2026-10-10T18:45:00Z"
@@ -961,6 +4743,20 @@
    "result": null,
    "utc": "2026-10-10T15:15:00Z"
   },
+  "559674:r": {
+   "adjusted": false,
+   "away": "Le Havre",
+   "competition": "FL1",
+   "date": "2026-10-10",
+   "home": "Lille",
+   "ix": 5.2,
+   "kind": "range",
+   "market": "1",
+   "mid": 559674,
+   "p": 0.6629,
+   "result": null,
+   "utc": "2026-10-10T15:15:00Z"
+  },
   "560592": {
    "adjusted": false,
    "away": "Brighton Hove",
@@ -970,6 +4766,20 @@
    "ix": -5.5,
    "market": "O25",
    "p": 0.8127,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "560592:r": {
+   "adjusted": false,
+   "away": "Brighton Hove",
+   "competition": "PL",
+   "date": "2026-10-10",
+   "home": "Sunderland",
+   "ix": -5.5,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 560592,
+   "p": 0.6062,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
@@ -985,6 +4795,20 @@
    "result": null,
    "utc": "2026-10-10T11:30:00Z"
   },
+  "560593:r": {
+   "adjusted": false,
+   "away": "Leeds United",
+   "competition": "PL",
+   "date": "2026-10-10",
+   "home": "Arsenal",
+   "ix": 1.8,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 560593,
+   "p": 0.6335,
+   "result": null,
+   "utc": "2026-10-10T11:30:00Z"
+  },
   "560594": {
    "adjusted": false,
    "away": "Everton",
@@ -993,7 +4817,21 @@
    "home": "Hull City",
    "ix": 1.1,
    "market": "NOBTTS",
-   "p": 0.8038,
+   "p": 0.8037,
+   "result": null,
+   "utc": "2026-10-11T13:00:00Z"
+  },
+  "560594:r": {
+   "adjusted": false,
+   "away": "Everton",
+   "competition": "PL",
+   "date": "2026-10-11",
+   "home": "Hull City",
+   "ix": 1.1,
+   "kind": "range",
+   "market": "X2",
+   "mid": 560594,
+   "p": 0.6677,
    "result": null,
    "utc": "2026-10-11T13:00:00Z"
   },
@@ -1009,6 +4847,20 @@
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
+  "560595:r": {
+   "adjusted": true,
+   "away": "Bournemouth",
+   "competition": "PL",
+   "date": "2026-10-10",
+   "home": "Chelsea",
+   "ix": 3.0,
+   "kind": "range",
+   "market": "1",
+   "mid": 560595,
+   "p": 0.5565,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
   "560596": {
    "adjusted": false,
    "away": "Nottingham",
@@ -1021,6 +4873,20 @@
    "result": null,
    "utc": "2026-10-11T13:00:00Z"
   },
+  "560596:r": {
+   "adjusted": false,
+   "away": "Nottingham",
+   "competition": "PL",
+   "date": "2026-10-11",
+   "home": "Crystal Palace",
+   "ix": -2.9,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 560596,
+   "p": 0.6465,
+   "result": null,
+   "utc": "2026-10-11T13:00:00Z"
+  },
   "560597": {
    "adjusted": false,
    "away": "Newcastle",
@@ -1029,7 +4895,21 @@
    "home": "Coventry City",
    "ix": -5.2,
    "market": "2",
-   "p": 0.6846,
+   "p": 0.6845,
+   "result": null,
+   "utc": "2026-10-12T19:00:00Z"
+  },
+  "560597:r": {
+   "adjusted": false,
+   "away": "Newcastle",
+   "competition": "PL",
+   "date": "2026-10-12",
+   "home": "Coventry City",
+   "ix": -5.2,
+   "kind": "range",
+   "market": "2",
+   "mid": 560597,
+   "p": 0.6845,
    "result": null,
    "utc": "2026-10-12T19:00:00Z"
   },
@@ -1045,6 +4925,20 @@
    "result": null,
    "utc": "2026-10-11T15:30:00Z"
   },
+  "560598:r": {
+   "adjusted": false,
+   "away": "Man City",
+   "competition": "PL",
+   "date": "2026-10-11",
+   "home": "Liverpool",
+   "ix": -2.7,
+   "kind": "range",
+   "market": "U25",
+   "mid": 560598,
+   "p": 0.5643,
+   "result": null,
+   "utc": "2026-10-11T15:30:00Z"
+  },
   "560599": {
    "adjusted": false,
    "away": "Fulham",
@@ -1054,6 +4948,20 @@
    "ix": 1.3,
    "market": "1X",
    "p": 0.7308,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "560599:r": {
+   "adjusted": false,
+   "away": "Fulham",
+   "competition": "PL",
+   "date": "2026-10-10",
+   "home": "Ipswich Town",
+   "ix": 1.3,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 560599,
+   "p": 0.6095,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
@@ -1069,6 +4977,20 @@
    "result": null,
    "utc": "2026-10-10T16:30:00Z"
   },
+  "560600:r": {
+   "adjusted": false,
+   "away": "Tottenham",
+   "competition": "PL",
+   "date": "2026-10-10",
+   "home": "Man United",
+   "ix": 5.3,
+   "kind": "range",
+   "market": "1",
+   "mid": 560600,
+   "p": 0.6638,
+   "result": null,
+   "utc": "2026-10-10T16:30:00Z"
+  },
   "560601": {
    "adjusted": false,
    "away": "Brentford",
@@ -1078,6 +5000,20 @@
    "ix": -3.6,
    "market": "X2",
    "p": 0.7957,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "560601:r": {
+   "adjusted": false,
+   "away": "Brentford",
+   "competition": "PL",
+   "date": "2026-10-10",
+   "home": "Aston Villa",
+   "ix": -3.6,
+   "kind": "range",
+   "market": "2",
+   "mid": 560601,
+   "p": 0.5675,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
@@ -1093,6 +5029,20 @@
    "result": null,
    "utc": "2026-10-10T11:30:00Z"
   },
+  "561857:r": {
+   "adjusted": false,
+   "away": "Birmingham",
+   "competition": "ELC",
+   "date": "2026-10-10",
+   "home": "West Brom",
+   "ix": 1.4,
+   "kind": "range",
+   "market": "U25",
+   "mid": 561857,
+   "p": 0.6652,
+   "result": null,
+   "utc": "2026-10-10T11:30:00Z"
+  },
   "561858": {
    "adjusted": false,
    "away": "Lincoln City",
@@ -1102,6 +5052,20 @@
    "ix": -2.0,
    "market": "X2",
    "p": 0.7726,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "561858:r": {
+   "adjusted": false,
+   "away": "Lincoln City",
+   "competition": "ELC",
+   "date": "2026-10-10",
+   "home": "Sheffield Utd",
+   "ix": -2.0,
+   "kind": "range",
+   "market": "1X",
+   "mid": 561858,
+   "p": 0.5695,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
@@ -1117,6 +5081,20 @@
    "result": null,
    "utc": "2026-10-11T11:00:00Z"
   },
+  "561859:r": {
+   "adjusted": false,
+   "away": "Portsmouth",
+   "competition": "ELC",
+   "date": "2026-10-11",
+   "home": "Southampton",
+   "ix": 5.3,
+   "kind": "range",
+   "market": "1",
+   "mid": 561859,
+   "p": 0.6847,
+   "result": null,
+   "utc": "2026-10-11T11:00:00Z"
+  },
   "561860": {
    "adjusted": false,
    "away": "Norwich",
@@ -1129,6 +5107,20 @@
    "result": null,
    "utc": "2026-10-10T11:30:00Z"
   },
+  "561860:r": {
+   "adjusted": false,
+   "away": "Norwich",
+   "competition": "ELC",
+   "date": "2026-10-10",
+   "home": "Swansea",
+   "ix": 5.4,
+   "kind": "range",
+   "market": "1",
+   "mid": 561860,
+   "p": 0.6772,
+   "result": null,
+   "utc": "2026-10-10T11:30:00Z"
+  },
   "561861": {
    "adjusted": false,
    "away": "Burnley",
@@ -1138,6 +5130,20 @@
    "ix": 3.9,
    "market": "O15",
    "p": 0.8131,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "561861:r": {
+   "adjusted": false,
+   "away": "Burnley",
+   "competition": "ELC",
+   "date": "2026-10-10",
+   "home": "Watford",
+   "ix": 3.9,
+   "kind": "range",
+   "market": "U35",
+   "mid": 561861,
+   "p": 0.6402,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
@@ -1165,6 +5171,20 @@
    "result": null,
    "utc": "2026-10-10T11:30:00Z"
   },
+  "561863:r": {
+   "adjusted": false,
+   "away": "Bristol City",
+   "competition": "ELC",
+   "date": "2026-10-10",
+   "home": "Charlton",
+   "ix": 0.6,
+   "kind": "range",
+   "market": "X2",
+   "mid": 561863,
+   "p": 0.6419,
+   "result": null,
+   "utc": "2026-10-10T11:30:00Z"
+  },
   "561864": {
    "adjusted": false,
    "away": "Wrexham",
@@ -1174,6 +5194,20 @@
    "ix": -1.8,
    "market": "U35",
    "p": 0.7781,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "561864:r": {
+   "adjusted": false,
+   "away": "Wrexham",
+   "competition": "ELC",
+   "date": "2026-10-10",
+   "home": "Derby County",
+   "ix": -1.8,
+   "kind": "range",
+   "market": "U25",
+   "mid": 561864,
+   "p": 0.5689,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
@@ -1189,6 +5223,20 @@
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
+  "561865:r": {
+   "adjusted": false,
+   "away": "Cardiff",
+   "competition": "ELC",
+   "date": "2026-10-10",
+   "home": "Blackburn",
+   "ix": 3.2,
+   "kind": "range",
+   "market": "U35",
+   "mid": 561865,
+   "p": 0.6805,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
   "561866": {
    "adjusted": false,
    "away": "Stoke",
@@ -1197,6 +5245,20 @@
    "home": "Bolton",
    "ix": 0.4,
    "market": "1X",
+   "p": 0.6449,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "561866:r": {
+   "adjusted": false,
+   "away": "Stoke",
+   "competition": "ELC",
+   "date": "2026-10-10",
+   "home": "Bolton",
+   "ix": 0.4,
+   "kind": "range",
+   "market": "1X",
+   "mid": 561866,
    "p": 0.6449,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
@@ -1213,6 +5275,20 @@
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
   },
+  "561867:r": {
+   "adjusted": false,
+   "away": "Millwall",
+   "competition": "ELC",
+   "date": "2026-10-10",
+   "home": "Preston NE",
+   "ix": -1.5,
+   "kind": "range",
+   "market": "X2",
+   "mid": 561867,
+   "p": 0.6865,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
   "561868": {
    "adjusted": false,
    "away": "Wolverhampton",
@@ -1221,6 +5297,20 @@
    "home": "Middlesbrough",
    "ix": 1.1,
    "market": "1X",
+   "p": 0.6549,
+   "result": null,
+   "utc": "2026-10-10T14:00:00Z"
+  },
+  "561868:r": {
+   "adjusted": false,
+   "away": "Wolverhampton",
+   "competition": "ELC",
+   "date": "2026-10-10",
+   "home": "Middlesbrough",
+   "ix": 1.1,
+   "kind": "range",
+   "market": "1X",
+   "mid": 561868,
    "p": 0.6549,
    "result": null,
    "utc": "2026-10-10T14:00:00Z"
@@ -1237,6 +5327,20 @@
    "result": null,
    "utc": "2026-10-10T12:00:00Z"
   },
+  "564698:r": {
+   "adjusted": false,
+   "away": "Athletic",
+   "competition": "PD",
+   "date": "2026-10-10",
+   "home": "Rayo Vallecano",
+   "ix": 0.6,
+   "kind": "range",
+   "market": "1X",
+   "mid": 564698,
+   "p": 0.6715,
+   "result": null,
+   "utc": "2026-10-10T12:00:00Z"
+  },
   "564699": {
    "adjusted": false,
    "away": "Atleti",
@@ -1246,6 +5350,20 @@
    "ix": 0.4,
    "market": "O15",
    "p": 0.7696,
+   "result": null,
+   "utc": "2026-10-10T14:15:00Z"
+  },
+  "564699:r": {
+   "adjusted": false,
+   "away": "Atleti",
+   "competition": "PD",
+   "date": "2026-10-10",
+   "home": "Alavés",
+   "ix": 0.4,
+   "kind": "range",
+   "market": "1X",
+   "mid": 564699,
+   "p": 0.6563,
    "result": null,
    "utc": "2026-10-10T14:15:00Z"
   },
@@ -1273,6 +5391,20 @@
    "result": null,
    "utc": "2026-10-11T16:30:00Z"
   },
+  "564701:r": {
+   "adjusted": false,
+   "away": "Osasuna",
+   "competition": "PD",
+   "date": "2026-10-11",
+   "home": "Real Betis",
+   "ix": 6.3,
+   "kind": "range",
+   "market": "O25",
+   "mid": 564701,
+   "p": 0.5011,
+   "result": null,
+   "utc": "2026-10-11T16:30:00Z"
+  },
   "564702": {
    "adjusted": false,
    "away": "Villarreal",
@@ -1282,6 +5414,20 @@
    "ix": 5.7,
    "market": "O25",
    "p": 0.8074,
+   "result": null,
+   "utc": "2026-10-10T19:00:00Z"
+  },
+  "564702:r": {
+   "adjusted": false,
+   "away": "Villarreal",
+   "competition": "PD",
+   "date": "2026-10-10",
+   "home": "Real Madrid",
+   "ix": 5.7,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 564702,
+   "p": 0.6498,
    "result": null,
    "utc": "2026-10-10T19:00:00Z"
   },
@@ -1297,6 +5443,20 @@
    "result": null,
    "utc": "2026-10-11T12:00:00Z"
   },
+  "564703:r": {
+   "adjusted": false,
+   "away": "Celta",
+   "competition": "PD",
+   "date": "2026-10-11",
+   "home": "Elche",
+   "ix": -2.8,
+   "kind": "range",
+   "market": "O15",
+   "mid": 564703,
+   "p": 0.6896,
+   "result": null,
+   "utc": "2026-10-11T12:00:00Z"
+  },
   "564704": {
    "adjusted": false,
    "away": "Sevilla FC",
@@ -1309,6 +5469,20 @@
    "result": null,
    "utc": "2026-10-12T19:00:00Z"
   },
+  "564704:r": {
+   "adjusted": false,
+   "away": "Sevilla FC",
+   "competition": "PD",
+   "date": "2026-10-12",
+   "home": "Levante",
+   "ix": -2.3,
+   "kind": "range",
+   "market": "2",
+   "mid": 564704,
+   "p": 0.5095,
+   "result": null,
+   "utc": "2026-10-12T19:00:00Z"
+  },
   "564705": {
    "adjusted": false,
    "away": "Valencia",
@@ -1318,6 +5492,20 @@
    "ix": 3.5,
    "market": "O15",
    "p": 0.819,
+   "result": null,
+   "utc": "2026-10-11T19:00:00Z"
+  },
+  "564705:r": {
+   "adjusted": false,
+   "away": "Valencia",
+   "competition": "PD",
+   "date": "2026-10-11",
+   "home": "Santander",
+   "ix": 3.5,
+   "kind": "range",
+   "market": "U35",
+   "mid": 564705,
+   "p": 0.6314,
    "result": null,
    "utc": "2026-10-11T19:00:00Z"
   },
@@ -1345,6 +5533,20 @@
    "result": null,
    "utc": "2026-10-11T14:15:00Z"
   },
+  "564707:r": {
+   "adjusted": false,
+   "away": "Deportivo",
+   "competition": "PD",
+   "date": "2026-10-11",
+   "home": "Real Sociedad",
+   "ix": -1.9,
+   "kind": "range",
+   "market": "U25",
+   "mid": 564707,
+   "p": 0.5511,
+   "result": null,
+   "utc": "2026-10-11T14:15:00Z"
+  },
   "565812": {
    "adjusted": false,
    "away": "Leverkusen",
@@ -1353,6 +5555,20 @@
    "home": "Mainz",
    "ix": -0.2,
    "market": "BTTS",
+   "p": 0.6645,
+   "result": null,
+   "utc": "2026-10-10T13:30:00Z"
+  },
+  "565812:r": {
+   "adjusted": false,
+   "away": "Leverkusen",
+   "competition": "BL1",
+   "date": "2026-10-10",
+   "home": "Mainz",
+   "ix": -0.2,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 565812,
    "p": 0.6645,
    "result": null,
    "utc": "2026-10-10T13:30:00Z"
@@ -1369,6 +5585,20 @@
    "result": null,
    "utc": "2026-10-10T13:30:00Z"
   },
+  "565813:r": {
+   "adjusted": false,
+   "away": "Stuttgart",
+   "competition": "BL1",
+   "date": "2026-10-10",
+   "home": "SC Paderborn",
+   "ix": 4.2,
+   "kind": "range",
+   "market": "U35",
+   "mid": 565813,
+   "p": 0.6672,
+   "result": null,
+   "utc": "2026-10-10T13:30:00Z"
+  },
   "565814": {
    "adjusted": false,
    "away": "M'gladbach",
@@ -1378,6 +5608,20 @@
    "ix": 6.6,
    "market": "O25",
    "p": 0.8173,
+   "result": null,
+   "utc": "2026-10-11T13:30:00Z"
+  },
+  "565814:r": {
+   "adjusted": false,
+   "away": "M'gladbach",
+   "competition": "BL1",
+   "date": "2026-10-11",
+   "home": "1. FC Köln",
+   "ix": 6.6,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 565814,
+   "p": 0.5478,
    "result": null,
    "utc": "2026-10-11T13:30:00Z"
   },
@@ -1393,6 +5637,20 @@
    "result": null,
    "utc": "2026-10-10T16:30:00Z"
   },
+  "565815:r": {
+   "adjusted": false,
+   "away": "Frankfurt",
+   "competition": "BL1",
+   "date": "2026-10-10",
+   "home": "RB Leipzig",
+   "ix": 5.6,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 565815,
+   "p": 0.632,
+   "result": null,
+   "utc": "2026-10-10T16:30:00Z"
+  },
   "565816": {
    "adjusted": false,
    "away": "Schalke",
@@ -1402,6 +5660,20 @@
    "ix": 6.7,
    "market": "1",
    "p": 0.787,
+   "result": null,
+   "utc": "2026-10-11T15:30:00Z"
+  },
+  "565816:r": {
+   "adjusted": false,
+   "away": "Schalke",
+   "competition": "BL1",
+   "date": "2026-10-11",
+   "home": "Freiburg",
+   "ix": 6.7,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 565816,
+   "p": 0.5844,
    "result": null,
    "utc": "2026-10-11T15:30:00Z"
   },
@@ -1417,6 +5689,20 @@
    "result": null,
    "utc": "2026-10-10T13:30:00Z"
   },
+  "565817:r": {
+   "adjusted": false,
+   "away": "Elversberg",
+   "competition": "BL1",
+   "date": "2026-10-10",
+   "home": "Union Berlin",
+   "ix": -4.7,
+   "kind": "range",
+   "market": "2",
+   "mid": 565817,
+   "p": 0.6681,
+   "result": null,
+   "utc": "2026-10-10T13:30:00Z"
+  },
   "565818": {
    "adjusted": false,
    "away": "HSV",
@@ -1429,6 +5715,20 @@
    "result": null,
    "utc": "2026-10-10T13:30:00Z"
   },
+  "565818:r": {
+   "adjusted": false,
+   "away": "HSV",
+   "competition": "BL1",
+   "date": "2026-10-10",
+   "home": "Hoffenheim",
+   "ix": 6.4,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 565818,
+   "p": 0.5445,
+   "result": null,
+   "utc": "2026-10-10T13:30:00Z"
+  },
   "565819": {
    "adjusted": false,
    "away": "Bayern",
@@ -1438,6 +5738,20 @@
    "ix": -1.4,
    "market": "U35",
    "p": 0.7447,
+   "result": null,
+   "utc": "2026-10-10T13:30:00Z"
+  },
+  "565819:r": {
+   "adjusted": false,
+   "away": "Bayern",
+   "competition": "BL1",
+   "date": "2026-10-10",
+   "home": "Augsburg",
+   "ix": -1.4,
+   "kind": "range",
+   "market": "1X",
+   "mid": 565819,
+   "p": 0.566,
    "result": null,
    "utc": "2026-10-10T13:30:00Z"
   },
@@ -1465,6 +5779,20 @@
    "result": null,
    "utc": "2026-10-11T17:00:00Z"
   },
+  "567320:r": {
+   "adjusted": false,
+   "away": "Vitória SC",
+   "competition": "PPL",
+   "date": "2026-10-11",
+   "home": "SL Benfica",
+   "ix": 6.7,
+   "kind": "range",
+   "market": "BTTS",
+   "mid": 567320,
+   "p": 0.5128,
+   "result": null,
+   "utc": "2026-10-11T17:00:00Z"
+  },
   "567321": {
    "adjusted": false,
    "away": "Santa Clara",
@@ -1474,6 +5802,20 @@
    "ix": -7.0,
    "market": "2",
    "p": 0.8129,
+   "result": null,
+   "utc": "2026-10-10T14:30:00Z"
+  },
+  "567321:r": {
+   "adjusted": false,
+   "away": "Santa Clara",
+   "competition": "PPL",
+   "date": "2026-10-10",
+   "home": "Casa Pia",
+   "ix": -7.0,
+   "kind": "range",
+   "market": "U35",
+   "mid": 567321,
+   "p": 0.5229,
    "result": null,
    "utc": "2026-10-10T14:30:00Z"
   },
@@ -1489,6 +5831,20 @@
    "result": null,
    "utc": "2026-10-10T19:30:00Z"
   },
+  "567322:r": {
+   "adjusted": false,
+   "away": "Estoril Praia",
+   "competition": "PPL",
+   "date": "2026-10-10",
+   "home": "Acad. Viseu",
+   "ix": 3.7,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 567322,
+   "p": 0.6805,
+   "result": null,
+   "utc": "2026-10-10T19:30:00Z"
+  },
   "567323": {
    "adjusted": false,
    "away": "Porto",
@@ -1498,6 +5854,20 @@
    "ix": -7.2,
    "market": "O25",
    "p": 0.7776,
+   "result": null,
+   "utc": "2026-10-10T17:00:00Z"
+  },
+  "567323:r": {
+   "adjusted": false,
+   "away": "Porto",
+   "competition": "PPL",
+   "date": "2026-10-10",
+   "home": "Marítimo",
+   "ix": -7.2,
+   "kind": "range",
+   "market": "NOBTTS",
+   "mid": 567323,
+   "p": 0.6651,
    "result": null,
    "utc": "2026-10-10T17:00:00Z"
   },
@@ -1513,6 +5883,20 @@
    "result": null,
    "utc": "2026-10-11T19:30:00Z"
   },
+  "567324:r": {
+   "adjusted": false,
+   "away": "Amadora",
+   "competition": "PPL",
+   "date": "2026-10-11",
+   "home": "Arouca",
+   "ix": 2.4,
+   "kind": "range",
+   "market": "1",
+   "mid": 567324,
+   "p": 0.5227,
+   "result": null,
+   "utc": "2026-10-11T19:30:00Z"
+  },
   "567325": {
    "adjusted": false,
    "away": "Alverca",
@@ -1522,6 +5906,20 @@
    "ix": 1.0,
    "market": "U35",
    "p": 0.7875,
+   "result": null,
+   "utc": "2026-10-12T19:15:00Z"
+  },
+  "567325:r": {
+   "adjusted": false,
+   "away": "Alverca",
+   "competition": "PPL",
+   "date": "2026-10-12",
+   "home": "Famalicão",
+   "ix": 1.0,
+   "kind": "range",
+   "market": "X2",
+   "mid": 567325,
+   "p": 0.5987,
    "result": null,
    "utc": "2026-10-12T19:15:00Z"
   },
@@ -1558,6 +5956,20 @@
    "ix": -0.0,
    "market": "O15",
    "p": 0.7988,
+   "result": null,
+   "utc": "2026-10-11T14:30:00Z"
+  },
+  "567328:r": {
+   "adjusted": false,
+   "away": "CD Nacional",
+   "competition": "PPL",
+   "date": "2026-10-11",
+   "home": "Rio Ave",
+   "ix": -0.0,
+   "kind": "range",
+   "market": "U35",
+   "mid": 567328,
+   "p": 0.6636,
    "result": null,
    "utc": "2026-10-11T14:30:00Z"
   }
