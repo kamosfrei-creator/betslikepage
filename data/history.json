@@ -9404,6 +9404,172 @@
     "p1miss": 0.7353,
     "result": "won"
    }
+  },
+  "2026-11-19": {
+   "bold": {
+    "avg_p": 0.5955,
+    "exp": 2.98,
+    "fair_odds": 13.39,
+    "legs": [
+     {
+      "away": "Bahia",
+      "home": "Grêmio",
+      "id": 555084,
+      "market": "BTTS",
+      "p": 0.6197,
+      "utc": "2026-11-19T00:30:00Z"
+     },
+     {
+      "away": "Palmeiras",
+      "home": "Cruzeiro",
+      "id": 555082,
+      "market": "O15",
+      "p": 0.6133,
+      "utc": "2026-11-18T23:30:00Z"
+     },
+     {
+      "away": "Chapecoense",
+      "home": "Clube do Remo",
+      "id": 555086,
+      "market": "1",
+      "p": 0.5936,
+      "utc": "2026-11-18T23:00:00Z"
+     },
+     {
+      "away": "Botafogo",
+      "home": "Corinthians",
+      "id": 555080,
+      "market": "NOBTTS",
+      "p": 0.5815,
+      "utc": "2026-11-19T00:30:00Z"
+     },
+     {
+      "away": "Bragantino",
+      "home": "Vitória",
+      "id": 555089,
+      "market": "NOBTTS",
+      "p": 0.5693,
+      "utc": "2026-11-19T22:30:00Z"
+     }
+    ],
+    "p": 0.0747,
+    "p1miss": 0.329
+   },
+   "range": {
+    "avg_p": 0.6708,
+    "exp": 2.68,
+    "fair_odds": 4.94,
+    "legs": [
+     {
+      "away": "Internacional",
+      "home": "Vasco da Gama",
+      "id": 555088,
+      "market": "U35",
+      "p": 0.6864,
+      "utc": "2026-11-19T22:30:00Z"
+     },
+     {
+      "away": "Paranaense",
+      "home": "Flamengo",
+      "id": 555083,
+      "market": "O25",
+      "p": 0.6767,
+      "utc": "2026-11-18T23:30:00Z"
+     },
+     {
+      "away": "Palmeiras",
+      "home": "Cruzeiro",
+      "id": 555082,
+      "market": "U25",
+      "p": 0.6678,
+      "utc": "2026-11-18T23:30:00Z"
+     },
+     {
+      "away": "Bragantino",
+      "home": "Vitória",
+      "id": 555089,
+      "market": "U25",
+      "p": 0.6524,
+      "utc": "2026-11-19T22:30:00Z"
+     }
+    ],
+    "p": 0.2024,
+    "p1miss": 0.6
+   },
+   "safe": {
+    "avg_p": 0.7883,
+    "exp": 2.36,
+    "fair_odds": 2.04,
+    "legs": [
+     {
+      "away": "Bahia",
+      "home": "Grêmio",
+      "id": 555084,
+      "market": "O15",
+      "p": 0.8162,
+      "utc": "2026-11-19T00:30:00Z"
+     },
+     {
+      "away": "Internacional",
+      "home": "Vasco da Gama",
+      "id": 555088,
+      "market": "O15",
+      "p": 0.782,
+      "utc": "2026-11-19T22:30:00Z"
+     },
+     {
+      "away": "Botafogo",
+      "home": "Corinthians",
+      "id": 555080,
+      "market": "1X",
+      "p": 0.7666,
+      "utc": "2026-11-19T00:30:00Z"
+     }
+    ],
+    "p": 0.4893,
+    "p1miss": 0.8849
+   },
+   "standard": {
+    "avg_p": 0.7231,
+    "exp": 2.89,
+    "fair_odds": 3.66,
+    "legs": [
+     {
+      "away": "Chapecoense",
+      "home": "Clube do Remo",
+      "id": 555086,
+      "market": "O15",
+      "p": 0.7429,
+      "utc": "2026-11-18T23:00:00Z"
+     },
+     {
+      "away": "Palmeiras",
+      "home": "Cruzeiro",
+      "id": 555082,
+      "market": "X2",
+      "p": 0.7325,
+      "utc": "2026-11-18T23:30:00Z"
+     },
+     {
+      "away": "Paranaense",
+      "home": "Flamengo",
+      "id": 555083,
+      "market": "1",
+      "p": 0.726,
+      "utc": "2026-11-18T23:30:00Z"
+     },
+     {
+      "away": "Bragantino",
+      "home": "Vitória",
+      "id": 555089,
+      "market": "X2",
+      "p": 0.6909,
+      "utc": "2026-11-19T22:30:00Z"
+     }
+    ],
+    "p": 0.273,
+    "p1miss": 0.6922
+   }
   }
  },
  "picks": {
@@ -22245,7 +22411,8 @@
    "ix": 3.5,
    "market": "1X",
    "p": 0.7787,
-   "result": null,
+   "result": "won",
+   "score": "1:0",
    "utc": "2026-11-16T19:30:00Z"
   },
   "1728243650140:r": {
@@ -22259,7 +22426,8 @@
    "market": "O25",
    "mid": 1728243650140,
    "p": 0.665,
-   "result": null,
+   "result": "lost",
+   "score": "1:0",
    "utc": "2026-11-16T19:30:00Z"
   },
   "1733942671401": {
@@ -27405,6 +27573,214 @@
    "result": "lost",
    "score": "0:3",
    "utc": "2026-11-06T23:00:00Z"
+  },
+  "555080": {
+   "adjusted": false,
+   "away": "Botafogo",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Corinthians",
+   "ix": 2.4,
+   "market": "1X",
+   "p": 0.7666,
+   "result": null,
+   "utc": "2026-11-19T00:30:00Z"
+  },
+  "555080:r": {
+   "adjusted": false,
+   "away": "Botafogo",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Corinthians",
+   "ix": 2.4,
+   "kind": "range",
+   "market": "O15",
+   "mid": 555080,
+   "p": 0.6477,
+   "result": null,
+   "utc": "2026-11-19T00:30:00Z"
+  },
+  "555081": {
+   "adjusted": false,
+   "away": "Santos",
+   "competition": "BSA",
+   "date": "2026-11-18",
+   "home": "Coritiba",
+   "ix": -1.9,
+   "market": "O15",
+   "p": 0.8085,
+   "result": null,
+   "utc": "2026-11-18T22:30:00Z"
+  },
+  "555081:r": {
+   "adjusted": false,
+   "away": "Santos",
+   "competition": "BSA",
+   "date": "2026-11-18",
+   "home": "Coritiba",
+   "ix": -1.9,
+   "kind": "range",
+   "market": "U35",
+   "mid": 555081,
+   "p": 0.6488,
+   "result": null,
+   "utc": "2026-11-18T22:30:00Z"
+  },
+  "555082": {
+   "adjusted": false,
+   "away": "Palmeiras",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Cruzeiro",
+   "ix": -1.5,
+   "market": "X2",
+   "p": 0.7325,
+   "result": null,
+   "utc": "2026-11-18T23:30:00Z"
+  },
+  "555082:r": {
+   "adjusted": false,
+   "away": "Palmeiras",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Cruzeiro",
+   "ix": -1.5,
+   "kind": "range",
+   "market": "U25",
+   "mid": 555082,
+   "p": 0.6678,
+   "result": null,
+   "utc": "2026-11-18T23:30:00Z"
+  },
+  "555083": {
+   "adjusted": false,
+   "away": "Paranaense",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Flamengo",
+   "ix": 6.2,
+   "market": "1",
+   "p": 0.726,
+   "result": null,
+   "utc": "2026-11-18T23:30:00Z"
+  },
+  "555083:r": {
+   "adjusted": false,
+   "away": "Paranaense",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Flamengo",
+   "ix": 6.2,
+   "kind": "range",
+   "market": "O25",
+   "mid": 555083,
+   "p": 0.6767,
+   "result": null,
+   "utc": "2026-11-18T23:30:00Z"
+  },
+  "555084": {
+   "adjusted": false,
+   "away": "Bahia",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Grêmio",
+   "ix": -0.0,
+   "market": "O15",
+   "p": 0.8162,
+   "result": null,
+   "utc": "2026-11-19T00:30:00Z"
+  },
+  "555084:r": {
+   "adjusted": false,
+   "away": "Bahia",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Grêmio",
+   "ix": -0.0,
+   "kind": "range",
+   "market": "U35",
+   "mid": 555084,
+   "p": 0.6373,
+   "result": null,
+   "utc": "2026-11-19T00:30:00Z"
+  },
+  "555086": {
+   "adjusted": false,
+   "away": "Chapecoense",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Clube do Remo",
+   "ix": 4.3,
+   "market": "O15",
+   "p": 0.7429,
+   "result": null,
+   "utc": "2026-11-18T23:00:00Z"
+  },
+  "555086:r": {
+   "adjusted": false,
+   "away": "Chapecoense",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Clube do Remo",
+   "ix": 4.3,
+   "kind": "range",
+   "market": "1",
+   "mid": 555086,
+   "p": 0.5936,
+   "result": null,
+   "utc": "2026-11-18T23:00:00Z"
+  },
+  "555088": {
+   "adjusted": false,
+   "away": "Internacional",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Vasco da Gama",
+   "ix": 2.9,
+   "market": "O15",
+   "p": 0.782,
+   "result": null,
+   "utc": "2026-11-19T22:30:00Z"
+  },
+  "555088:r": {
+   "adjusted": false,
+   "away": "Internacional",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Vasco da Gama",
+   "ix": 2.9,
+   "kind": "range",
+   "market": "U35",
+   "mid": 555088,
+   "p": 0.6864,
+   "result": null,
+   "utc": "2026-11-19T22:30:00Z"
+  },
+  "555089": {
+   "adjusted": false,
+   "away": "Bragantino",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Vitória",
+   "ix": -0.6,
+   "market": "X2",
+   "p": 0.6909,
+   "result": null,
+   "utc": "2026-11-19T22:30:00Z"
+  },
+  "555089:r": {
+   "adjusted": false,
+   "away": "Bragantino",
+   "competition": "BSA",
+   "date": "2026-11-19",
+   "home": "Vitória",
+   "ix": -0.6,
+   "kind": "range",
+   "market": "U25",
+   "mid": 555089,
+   "p": 0.6524,
+   "result": null,
+   "utc": "2026-11-19T22:30:00Z"
   },
   "558529": {
    "adjusted": false,
